@@ -147,6 +147,14 @@ git diff --check --cached
 git status
 ```
 
+### Run Lint and Type Check (required)
+
+Always run the project's lint and type check before reporting. A conflict resolution that compiles in your head can still break the build — this catches it.
+
+- Find the project's lint/typecheck commands (e.g. `package.json` scripts, `Makefile`, `pyproject.toml`, `tsconfig`) and run them.
+- If a check fails, fix it and re-run until both pass. Do not report success with a failing lint or type check.
+- If the project has no lint or type check setup, say so explicitly in the summary instead of skipping silently.
+
 Present a summary to the user:
 
 ```
