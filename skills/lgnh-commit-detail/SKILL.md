@@ -1,5 +1,5 @@
 ---
-name: commit-detail
+name: lgnh-commit-detail
 description: Stage all changes and create a detailed git commit. Use when the user asks to commit, says "commit-detail", or wants to stage and commit everything at once.
 ---
 

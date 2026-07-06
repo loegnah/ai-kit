@@ -1,5 +1,5 @@
 ---
-name: resolve-conflict
+name: lgnh-resolve-conflict
 description: Use when you want to resolve conflict by rebase or merge.
 ---
 

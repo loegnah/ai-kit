@@ -1,5 +1,5 @@
 ---
-name: report-daily-worklog
+name: lgnh-report-daily-worklog
 description: Generate a daily one-line summary report from git commit history. Use when the user asks for a daily breakdown, date-based summary, or says "report-daily-worklog". Accepts multiple author names and produces concise per-date summaries.
 ---
 

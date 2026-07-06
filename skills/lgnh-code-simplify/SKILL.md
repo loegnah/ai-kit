@@ -1,5 +1,5 @@
 ---
-name: code-simplify
+name: lgnh-code-simplify
 description: Simplify and refine recently modified code while preserving functionality. Use when the user says "code-simplify", "simplify code", "refine code", "clean up code", or wants to improve clarity and consistency of recent changes.
 ---
 

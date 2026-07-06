@@ -1,5 +1,5 @@
 ---
-name: report-weekly
+name: lgnh-report-weekly
 description: Generate a weekly work report from git commit history. Use when the user asks for a weekly report, work summary, or says "report-weekly". Analyzes commits to produce a structured markdown report.
 ---
 
