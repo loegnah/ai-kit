@@ -1,0 +1,16 @@
+{
+  "name": "loegnah-ai-kit",
+  "skills": [
+    "./skills/agent-md-updator",
+    "./skills/brain-query",
+    "./skills/code-simplify",
+    "./skills/commit-detail",
+    "./skills/lgnh-summarize-content",
+    "./skills/lgnh-summarize-session",
+    "./skills/rebase-worktrees",
+    "./skills/report-daily-worklog",
+    "./skills/report-weekly",
+    "./skills/resolve-conflict",
+    "./skills/review-conflict"
+  ]
+}
