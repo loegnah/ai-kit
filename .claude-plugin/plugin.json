@@ -3,6 +3,7 @@
   "skills": [
     "./skills/lgnh-agent-md-updator",
     "./skills/lgnh-brain-query",
+    "./skills/lgnh-branch-clear-gone",
     "./skills/lgnh-code-simplify",
     "./skills/lgnh-commit-detail",
     "./skills/lgnh-rebase-worktrees",
