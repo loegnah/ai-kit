@@ -26,10 +26,7 @@
       "name": "work",
       "source": "./plugins/work",
       "description": "Work reporting skills",
-      "skills": [
-        "./skills/lgnh-report-daily-worklog",
-        "./skills/lgnh-report-weekly"
-      ]
+      "skills": ["./skills/lgnh-report-daily-worklog", "./skills/lgnh-report-weekly"]
     }
   ]
 }

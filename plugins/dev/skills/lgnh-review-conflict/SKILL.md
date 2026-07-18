@@ -20,6 +20,7 @@ Respond in the same language the user is using. Match the user's language for al
 ## Steps
 
 1. First, check the current git status to understand the state:
+
    ```bash
    git status
    ```
@@ -31,6 +32,7 @@ Respond in the same language the user is using. Match the user's language for al
 3. **Understand the conflict context by analyzing both branches:**
 
    For rebase:
+
    ```bash
    # Get the target branch (upstream)
    cat .git/rebase-merge/onto 2>/dev/null || cat .git/rebase-apply/onto 2>/dev/null
@@ -46,6 +48,7 @@ Respond in the same language the user is using. Match the user's language for al
    ```
 
    For merge:
+
    ```bash
    # Compare commits between current branch and merge target
    git log --oneline HEAD...MERGE_HEAD
@@ -58,17 +61,20 @@ Respond in the same language the user is using. Match the user's language for al
    ```
 
 4. **Analyze the history of conflicting files:**
+
    ```bash
    # See recent changes to conflicting files in both branches
    git log --oneline -5 --follow -- <conflicting_file>
    ```
 
 5. Find the files that had conflicts and were resolved:
+
    ```bash
    git diff --cached --name-only
    ```
 
 6. For each resolved file, analyze the changes:
+
    ```bash
    # Show what was changed
    git diff --cached <file>
@@ -115,5 +121,6 @@ Provide a clear summary:
 6. **Recommendations**: Any suggestions for the user
 
 If everything looks good, confirm that the resolution appears correct and the user can proceed with:
+
 - `git rebase --continue` (for rebase)
 - `git commit` (for merge)

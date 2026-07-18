@@ -11,6 +11,7 @@ You need to execute the following bash commands to clean up stale local branches
 
 1. **First, list branches to identify any with [gone] status**
    Execute this command:
+
    ```bash
    git branch -v
    ```
@@ -19,6 +20,7 @@ You need to execute the following bash commands to clean up stale local branches
 
 2. **Next, identify worktrees that need to be removed for [gone] branches**
    Execute this command:
+
    ```bash
    git worktree list
    ```

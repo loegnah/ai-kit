@@ -2,7 +2,13 @@
 .DS_Store
 .trash/
 
-.claude/settings.local.json
+# node modules
+node_modules/
+
+# env
+.env
 
 # superset
 .superset
+
+
