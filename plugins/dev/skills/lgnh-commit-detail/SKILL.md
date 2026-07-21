@@ -13,6 +13,7 @@ description: Stage all changes and create a detailed git commit. Use when the us
 ## Rules
 
 - No asking. Stage everything and commit immediately.
+- Include all working-tree changes (staged, unstaged, and unintended edits) — never selectively exclude or revert.
 - Use a single-line commit message subject.
 - Follow the project's existing commit style.
 - If there is nothing to commit (clean working tree), just report that to the user and stop.
