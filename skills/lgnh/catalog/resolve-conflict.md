@@ -1,8 +1,3 @@
----
-name: lgnh-resolve-conflict
-description: "Use when you want to resolve conflict by rebase or merge."
----
-
 # Resolve Git Conflicts
 
 Resolve git conflicts during rebase or merge by deeply understanding what each branch intended, then producing a correct resolution that preserves both intents.
@@ -18,6 +13,8 @@ Respond in the same language the user is using. Match the user's language for al
 - **No commit by default**: After resolving conflicts, stage the files but do NOT commit or run `git rebase --continue` / `git merge --continue` unless the user explicitly asks. Tell the user what to run next.
 
 ## Step 1: Assess the Situation
+
+Execute this to check state:
 
 ```bash
 git status

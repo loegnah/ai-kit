@@ -5,24 +5,18 @@ description: Use when adding, removing, or renaming a skill in the ai-kit repo. 
 
 # Managing skills in ai-kit
 
-Follow the usual skill-authoring conventions. This skill only lists repo-specific points that must not be missed.
+Skills are managed under a single entrypoint runner (`lgnh`) explicitly triggered by `/lgnh <subcommand>`:
 
 ## Layout
 
-This repo is a **marketplace** with multiple plugins:
-
 ```
-plugins/
-  dev/skills/<skill-name>/SKILL.md
-  work/skills/<skill-name>/SKILL.md
-.claude-plugin/marketplace.json
+skills/lgnh/
+  SKILL.md
+  catalog/
+    <skill-name>.md
 ```
-
-- **work**: report-related skills (`lgnh-report-*`)
-- **dev**: everything else
 
 ## Must-do
 
-- **Place the skill under the right plugin**: `plugins/dev/skills/` or `plugins/work/skills/`.
-- **Update `.claude-plugin/marketplace.json`**: when a skill is added, removed, or renamed, update that plugin entry’s `skills` array (paths like `./skills/<skill-name>`).
-  - This array drives the grouping (`pluginName: dev` / `work`) in `npx skills list -g`; a missing entry drops the skill into the "General" group.
+- **Add/Modify Catalog File**: Create or edit `<skill-name>.md` under `skills/lgnh/catalog/`.
+- **Update Subcommand Matcher**: Add the `/lgnh <subcommand>` mapping to `skills/lgnh/SKILL.md`.

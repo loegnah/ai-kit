@@ -5,14 +5,7 @@
 
 ## When adding or removing skills
 
-Skills live under `plugins/<plugin>/skills/`.
+Skills live under `./skills/lgnh/`:
 
-- **work**: report-related skills (`lgnh-report-*`)
-- **dev**: everything else
-
-When adding, removing, or renaming a skill:
-
-1. Put it under the correct plugin’s `skills/` directory.
-2. Update that plugin’s `skills` array entry in `.claude-plugin/marketplace.json`.
-
-This array drives the grouping (`pluginName`) in `npx skills list -g`; if omitted, the skill falls into the "General" group.
+1. Add/modify skill instruction files under `skills/lgnh/catalog/<skill-name>.md`.
+2. Add the `/lgnh <subcommand>` mapping in `skills/lgnh/SKILL.md`.
