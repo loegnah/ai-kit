@@ -1,6 +1,6 @@
 ---
 name: lgnh-rebase-worktrees
-description: This skill should be used when the user asks to "rebase worktrees", "sync worktrees", "update all worktrees", "rebase all worktrees onto main", or wants to rebase multiple git worktrees onto a target branch with package install and .env synchronization.
+description: 'Rebase all non-main worktrees onto a target branch, install packages, and sync .env. Triggers: "rebase worktrees", "sync worktrees".'
 ---
 
 # Rebase Worktrees

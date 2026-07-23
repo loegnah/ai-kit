@@ -1,6 +1,6 @@
 ---
 name: lgnh-summarize-content
-description: Summarize content and save as a markdown file. Use when the user asks to summarize text, a file, a URL, meeting notes, articles, or any content. Also triggers on "summarize", "요약", "요약해줘", "정리해줘", or when the user passes content and asks for a condensed version.
+description: "Summarize text/file/URL and save markdown. Triggers: summarize, 요약, 정리해줘."
 ---
 
 ## Arguments

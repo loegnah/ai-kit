@@ -1,6 +1,6 @@
 ---
 name: lgnh-review-conflict
-description: Use when the user has resolved git conflicts during rebase or merge and wants a review of their resolution. Triggers on "review conflict", "check my merge", "rebase conflict review", or after conflict resolution.
+description: "Review user-resolved rebase/merge conflicts. Triggers: review conflict, check my merge."
 ---
 
 # Review Conflict Resolution

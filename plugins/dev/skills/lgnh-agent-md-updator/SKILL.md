@@ -1,6 +1,6 @@
 ---
 name: lgnh-agent-md-updator
-description: Use when modifying or appending rules, instructions, or configurations to multiple agent markdown files (~/.claude/CLAUDE.md, ~/.agents/AGENTS.md, ~/.gemini/GEMINI.md) directly and manually.
+description: "Manually update shared agent rule files (CLAUDE.md, AGENTS.md, GEMINI.md)."
 ---
 
 # Agent MD Updator

@@ -1,6 +1,6 @@
 ---
 name: lgnh-summarize-session
-description: Use when the user requests to summarize the work done during the current session into a markdown file at the project root.
+description: "Use when the user requests to summarize the work done during the current session into a markdown file at the project root."
 ---
 
 # LGNH Summarize Session

@@ -1,6 +1,6 @@
 ---
 name: lgnh-brain-query
-description: Second brain에서 정보를 검색한다. index.md를 기점으로 관련 페이지를 탐색하고, 사용자가 어떤 지식이나 경험에 대해 질문하거나 "찾아줘", "정리해줘", "brain에서 확인해줘" 같은 요청을 할 때 사용.
+description: "Second brain(wiki) 검색/정리. Triggers: 찾아줘, brain에서 확인해줘."
 ---
 
 # Query Workflow
