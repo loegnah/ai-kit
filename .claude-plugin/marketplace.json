@@ -10,16 +10,12 @@
       "source": "./plugins/dev",
       "description": "Development and workflow skills",
       "skills": [
-        "./skills/lgnh-agent-md-updator",
-        "./skills/lgnh-brain-query",
         "./skills/lgnh-branch-clear-gone",
         "./skills/lgnh-code-simplify",
         "./skills/lgnh-commit-detail",
         "./skills/lgnh-rebase-worktrees",
         "./skills/lgnh-resolve-conflict",
-        "./skills/lgnh-review-conflict",
-        "./skills/lgnh-summarize-content",
-        "./skills/lgnh-summarize-session"
+        "./skills/lgnh-review-conflict"
       ]
     },
     {
