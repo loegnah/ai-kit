@@ -5,7 +5,7 @@
 
 ## When adding or removing skills
 
-Skills live under `./skills/lgnh/`:
+Skills live under `./skills/qwe/`:
 
-1. Add/modify skill instruction files under `skills/lgnh/catalog/<skill-name>.md`.
-2. Add the `/lgnh <subcommand>` mapping in `skills/lgnh/SKILL.md`.
+1. Add/modify skill instruction files under `skills/qwe/catalog/<skill-name>.md`.
+2. Add the `/qwe <subcommand>` mapping in `skills/qwe/SKILL.md`.

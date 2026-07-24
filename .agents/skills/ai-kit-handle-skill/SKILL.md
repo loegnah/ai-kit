@@ -5,12 +5,12 @@ description: Use when adding, removing, or renaming a skill in the ai-kit repo. 
 
 # Managing skills in ai-kit
 
-Skills are managed under a single entrypoint runner (`lgnh`) explicitly triggered by `/lgnh <subcommand>`:
+Skills are managed under a single entrypoint runner (`qwe`) explicitly triggered by `/qwe <subcommand>`:
 
 ## Layout
 
 ```
-skills/lgnh/
+skills/qwe/
   SKILL.md
   catalog/
     <skill-name>.md
@@ -18,5 +18,5 @@ skills/lgnh/
 
 ## Must-do
 
-- **Add/Modify Catalog File**: Create or edit `<skill-name>.md` under `skills/lgnh/catalog/`.
-- **Update Subcommand Matcher**: Add the `/lgnh <subcommand>` mapping to `skills/lgnh/SKILL.md`.
+- **Add/Modify Catalog File**: Create or edit `<skill-name>.md` under `skills/qwe/catalog/`.
+- **Update Subcommand Matcher**: Add the `/qwe <subcommand>` mapping to `skills/qwe/SKILL.md`.
