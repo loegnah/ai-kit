@@ -6,6 +6,11 @@ Simplify recently changed code without behavior change.
 
 - `scope` (optional): Target directory or file pattern.
 
+## Constraints
+
+- **절대로 `git add`, `git commit` 등 git 상태를 변경하거나 커밋하는 작업을 수행하지 마세요.**
+- Git repository의 상태(stage, commit 등)를 절대로 수정하지 말고, 오직 대상 파일의 코드 단순화 작업만 수행하세요.
+
 ## Execution Steps
 
 1. **Detect Target Scope**
