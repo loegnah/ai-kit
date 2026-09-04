@@ -23,6 +23,7 @@ When the user inputs `/qwe <keyword>`, match `<keyword>` against the keywords be
 | `daily`, `worklog`, `report-daily`, `daily-log`              | Daily Worklog Report | `catalog/report-daily-worklog.md` |
 | `weekly`, `report-weekly`, `weekly-report`                   | Weekly Work Report   | `catalog/report-weekly.md`        |
 | `eli5`, `explain-5`, `explain`                               | ELI5 Explainer       | `catalog/eli5.md`                 |
+| `show-me`, `show`                                            | Show Me              | `catalog/show-me.md`              |
 
 ## Execution Procedure
 
