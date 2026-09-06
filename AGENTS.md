@@ -8,7 +8,7 @@
 Skills are organized into entrypoint runners:
 
 - `skills/qwe/`: General developer and reporting workflows (`/qwe <subcommand>`)
-- `skills/asd/`: AI-Native SDLC workflows (`/asd <subcommand>`)
+- `skills/sdlc-lgnh/`: AI-Native SDLC workflows (`/sdlc-lgnh <subcommand>`)
 
 To add/modify skills:
 

@@ -22,7 +22,7 @@ Respond in the same language the user is using (e.g., Korean if the user communi
    - If argument provided, resolve `<target_dir>`.
    - If omitted:
      - Search `docs/story/` for the most recently modified directory containing `plan.md`.
-   - Read `<target_dir>/plan.md`. If missing, instruct user to run `/asd plan` first.
+   - Read `<target_dir>/plan.md`. If missing, instruct user to run `/sdlc-lgnh plan` first.
    - Verify plan status is approved or ready for implementation.
 
 2. **Sequential Implementation**
@@ -39,4 +39,4 @@ Respond in the same language the user is using (e.g., Korean if the user communi
 
 4. **Report & Guide Next Step**
    - Provide a concise summary of modified files and completed work order.
-   - Guide next step: Inform the user that implementation is complete, and suggest running `/asd verify <target_dir>` (or `/asd verify`) to validate Proof criteria.
+   - Guide next step: Inform the user that implementation is complete, and suggest running `/sdlc-lgnh verify <target_dir>` (or `/sdlc-lgnh verify`) to validate Proof criteria.

@@ -5,7 +5,7 @@ description: Use when adding, removing, or renaming a skill in the ai-kit repo. 
 
 # Managing skills in ai-kit
 
-Skills are organized into entrypoint runners (`qwe`, `asd`) explicitly triggered by `/<runner> <subcommand>`:
+Skills are organized into entrypoint runners (`qwe`, `sdlc-lgnh`) explicitly triggered by `/<runner> <subcommand>`:
 
 ## Layout
 
@@ -19,7 +19,7 @@ skills/<runner>/
 Current runners:
 
 - `skills/qwe/`: General developer and reporting workflows (`/qwe <subcommand>`)
-- `skills/asd/`: AI-Native SDLC workflows (`intent` -> `spec` -> `plan`) (`/asd <subcommand>`)
+- `skills/sdlc-lgnh/`: AI-Native SDLC workflows (`intent` -> `spec` -> `plan`) (`/sdlc-lgnh <subcommand>`)
 
 ## Must-do
 
