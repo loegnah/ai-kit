@@ -5,7 +5,12 @@
 
 ## When adding or removing skills
 
-Skills live under `./skills/qwe/`:
+Skills are organized into entrypoint runners:
 
-1. Add/modify skill instruction files under `skills/qwe/catalog/<skill-name>.md`.
-2. Add the `/qwe <subcommand>` mapping in `skills/qwe/SKILL.md`.
+- `skills/qwe/`: General developer and reporting workflows (`/qwe <subcommand>`)
+- `skills/asd/`: AI-Native SDLC workflows (`/asd <subcommand>`)
+
+To add/modify skills:
+
+1. Add/modify skill instruction files under `skills/<runner>/catalog/<skill-name>.md`.
+2. Add the `/<runner> <subcommand>` mapping in `skills/<runner>/SKILL.md`.
