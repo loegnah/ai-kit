@@ -1,6 +1,6 @@
-# Stage 3 Execution: Run Plan
+# Stage 3 Execution: Run & Verify Plan
 
-Execute the approved `plan.md` sequentially and maintain `plan.md` as the single source of truth.
+Execute the approved `plan.md` sequentially, verify against acceptance criteria, and maintain `plan.md` as the single source of truth.
 
 ## Language
 
@@ -15,6 +15,7 @@ Respond in the same language the user is using (e.g., Korean if the user communi
 - Strictly adhere to **Order of Work** and **Files that change** in `plan.md`.
 - If implementation diverges or unexpected adjustments are needed, update `plan.md` simultaneously (Single Source of Truth).
 - Avoid unrequested abstractions or speculative complexity.
+- **Never claim success without runtime checks**: Always execute verification criteria from `plan.md`'s `Proof` section. Never relax or weaken tests arbitrarily; fix implementation code when checks fail.
 
 ## Execution Steps
 
@@ -33,10 +34,18 @@ Respond in the same language the user is using (e.g., Korean if the user communi
    - If unforeseen adjustments are required during implementation:
      - Update `plan.md` immediately to reflect modified file list or execution order.
 
-3. **Update Plan Status**
-   - Once all steps in `Order of Work` are complete, update `plan.md` status line:
-     - `상태: [구현완료(completed)]`
+3. **Verify & Self-Correction Loop**
+   - Read and execute criteria defined in `plan.md`'s `## 4. 검증 및 완료 증거 (Proof)`:
+     - Automated tests (e.g., `bun test`, `pytest`, `npm test`)
+     - Linter / typecheck / build commands (e.g., `bun run check`)
+   - If any test or lint check fails:
+     - Diagnose root cause in implementation files.
+     - Fix the bug in application code and re-run verification until all pass cleanly.
 
-4. **Report & Guide Next Step**
-   - Provide a concise summary of modified files and completed work order.
-   - Guide next step: Inform the user that implementation is complete, and suggest running `/sdlc-lgnh verify <target_dir>` (or `/sdlc-lgnh verify`) to validate Proof criteria.
+4. **Update Plan Status & Report Deliverable Evidence**
+   - Once implementation is verified with clean checks, update `plan.md` status line:
+     - `상태: [구현완료(completed)]`
+   - Output deliverable proof:
+     - Test run output showing pass count.
+     - Lint/typecheck output with 0 errors.
+   - Inform user that the feature is implemented, verified, and ready.
