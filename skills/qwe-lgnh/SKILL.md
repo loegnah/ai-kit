@@ -1,11 +1,11 @@
 ---
 name: qwe-lgnh
-description: "Run user-driven qwe-lgnh workflows explicitly invoked via `/qwe-lgnh <keyword>`."
+description: "General developer and code explanation workflow runner."
 ---
 
 # QWE-LGNH Skill Runner
 
-Execute custom developer and work reporting workflows ONLY when explicitly invoked with `/qwe-lgnh <keyword>`.
+Execute custom developer and code explanation workflows ONLY when explicitly invoked with `/qwe-lgnh <keyword>`.
 
 ## Keyword Subcommand Matcher
 
@@ -13,17 +13,10 @@ When the user inputs `/qwe-lgnh <keyword>`, match `<keyword>` against the keywor
 
 **키워드 없이 `/qwe-lgnh`만 입력된 경우**: 아래 표(사용 가능한 키워드와 워크플로 목록)를 그대로 출력하고, 실행할 워크플로를 선택해 달라고 안내한 뒤 종료한다. 카탈로그 파일을 읽거나 실행하지 않는다.
 
-| Keywords                                                     | Target Workflow      | Catalog File                      |
-| :----------------------------------------------------------- | :------------------- | :-------------------------------- |
-| `commit`, `commit-detail`, `ci`                              | Commit Detail        | `catalog/commit-detail.md`        |
-| `branch`, `clear-gone`, `gone`, `branch-clean`               | Branch Clear Gone    | `catalog/branch-clear-gone.md`    |
-| `simplify`, `code-simplify`, `clean-code`, `refactor-simple` | Code Simplify        | `catalog/code-simplify.md`        |
-| `rebase`, `rebase-worktrees`, `sync-worktrees`               | Rebase Worktrees     | `catalog/rebase-worktrees.md`     |
-| `conflict`, `resolve`, `resolve-conflict`, `fix-conflict`    | Resolve Conflict     | `catalog/resolve-conflict.md`     |
-| `daily`, `worklog`, `report-daily`, `daily-log`              | Daily Worklog Report | `catalog/report-daily-worklog.md` |
-| `weekly`, `report-weekly`, `weekly-report`                   | Weekly Work Report   | `catalog/report-weekly.md`        |
-| `eli5`, `explain-5`, `explain`                               | ELI5 Explainer       | `catalog/eli5.md`                 |
-| `show-me`, `show`                                            | Show Me              | `catalog/show-me.md`              |
+| Keywords                       | Target Workflow | Catalog File         |
+| :----------------------------- | :-------------- | :------------------- |
+| `eli5`, `explain-5`, `explain` | ELI5 Explainer  | `catalog/eli5.md`    |
+| `show-me`, `show`              | Show Me         | `catalog/show-me.md` |
 
 ## Execution Procedure
 

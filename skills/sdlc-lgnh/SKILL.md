@@ -13,12 +13,13 @@ When the user inputs `/sdlc-lgnh <keyword>`, match `<keyword>` against the keywo
 
 **키워드 없이 `/sdlc-lgnh`만 입력된 경우**: 아래 표(사용 가능한 키워드와 워크플로 목록)를 그대로 출력하고, 실행할 워크플로를 선택해 달라고 안내한 뒤 종료한다. 카탈로그 파일을 읽거나 실행하지 않는다.
 
-| Keywords                                                             | Target Workflow             | Catalog File        |
-| :------------------------------------------------------------------- | :-------------------------- | :------------------ |
-| `intent`, `draft-intent`, `init`                                     | Stage 1: Intent Capture     | `catalog/intent.md` |
-| `spec`, `draft-spec`, `design`                                       | Stage 2: Spec Specification | `catalog/spec.md`   |
-| `plan`, `draft-plan`, `build-plan`                                   | Stage 3: Plan Mode          | `catalog/plan.md`   |
-| `run`, `execute`, `exec`, `build`, `impl`, `verify`, `test`, `check` | Run & Verify Plan           | `catalog/run.md`    |
+| Keywords                                                             | Target Workflow             | Catalog File          |
+| :------------------------------------------------------------------- | :-------------------------- | :-------------------- |
+| `intent`, `draft-intent`, `init`                                     | Stage 1: Intent Capture     | `catalog/intent.md`   |
+| `spec`, `draft-spec`, `design`                                       | Stage 2: Spec Specification | `catalog/spec.md`     |
+| `plan`, `draft-plan`, `build-plan`                                   | Stage 3: Plan Mode          | `catalog/plan.md`     |
+| `run`, `execute`, `exec`, `build`, `impl`, `verify`, `test`, `check` | Run & Verify Plan           | `catalog/run.md`      |
+| `simplify`                                                           | Simplify Code               | `catalog/simplify.md` |
 
 ## Execution Procedure
 
