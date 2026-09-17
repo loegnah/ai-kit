@@ -15,7 +15,7 @@ Skills are organized into entrypoint runners:
 - `skills/git-lgnh/`: Git automation and repository maintenance (`/git-lgnh <subcommand>`)
 - `skills/work-lgnh/`: Work log and reporting workflows (`/work-lgnh <subcommand>`)
 - `skills/etc-lgnh/`: General developer and explanation workflows (`/etc-lgnh <subcommand>`)
-- `skills/sdlc-lgnh/`: AI-Native SDLC workflows (`/sdlc-lgnh <subcommand>`)
+- `skills/dev-lgnh/`: Development and SDLC workflows (`/dev-lgnh <subcommand>`)
 - `skills/brain-lgnh/`: Second brain capture and query workflows (`/brain-lgnh <subcommand>`)
 
 To add/modify skills:
