@@ -18,10 +18,10 @@ Match the user's keyword or intent against the workflows below:
 
 | Keywords / Intent                                                    | Target Workflow             | Catalog File                                     |
 | :------------------------------------------------------------------- | :-------------------------- | :----------------------------------------------- |
-| `intent`, `draft-intent`, `init`                                     | Stage 1: Intent Capture     | `catalog/intent.md`                              |
-| `spec`, `draft-spec`, `design`                                       | Stage 2: Spec Specification | `catalog/spec.md`                                |
-| `plan`, `draft-plan`, `build-plan`                                   | Stage 3: Plan Mode          | `catalog/plan.md`                                |
-| `run`, `execute`, `exec`, `build`, `impl`, `verify`, `test`, `check` | Run & Verify Plan           | `catalog/run.md`                                 |
+| `intent`, `draft-intent`, `init`                                     | Stage 1: Intent Capture     | `catalog/sdlc/intent.md`                         |
+| `spec`, `draft-spec`, `design`                                       | Stage 2: Spec Specification | `catalog/sdlc/spec.md`                           |
+| `plan`, `draft-plan`, `build-plan`                                   | Stage 3: Plan Mode          | `catalog/sdlc/plan.md`                           |
+| `run`, `execute`, `exec`, `build`, `impl`, `verify`, `test`, `check` | Run & Verify Plan           | `catalog/sdlc/run.md`                            |
 | `simplify`                                                           | Simplify Code               | `catalog/simplify.md`                            |
 | `superpowers`                                                        | Superpowers Workflow        | `catalog/superpowers/using-superpowers/SKILL.md` |
 | `grill`, `grill-me`, `grilling`                                      | Relentless Interview        | `catalog/matt/grill/SKILL.md`                    |
