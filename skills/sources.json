@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "External skills sources and upstream mapping for ai-kit",
+  "sources": {
+    "superpowers": {
+      "repo": "https://github.com/obra/superpowers",
+      "upstreamPath": "skills",
+      "localPath": "skills/dev-lgnh/catalog/superpowers",
+      "description": "AI-native software development methodology skills (TDD, debugging, planning, etc.)"
+    },
+    "matt": {
+      "repo": "https://github.com/mattpocock/skills",
+      "localPath": "skills/dev-lgnh/catalog/matt",
+      "description": "Matt Pocock's skills (code-review, grill, handoff)",
+      "mappings": [
+        {
+          "upstream": "skills/engineering/code-review",
+          "local": "code-review"
+        },
+        {
+          "upstream": "skills/productivity/grill-me",
+          "local": "grill"
+        },
+        {
+          "upstream": "skills/productivity/handoff",
+          "local": "handoff"
+        }
+      ]
+    },
+    "humanize-korean": {
+      "repo": "https://github.com/epoko77-ai/im-not-ai",
+      "description": "Korean AI text detection and humanization skill with taxonomy & verification scripts",
+      "mappings": [
+        {
+          "upstream": "skills/humanize-korean/SKILL.md",
+          "local": "skills/etc-lgnh/catalog/humanize-korean.md"
+        },
+        {
+          "upstream": "skills/humanize-korean/references",
+          "local": "skills/etc-lgnh/references"
+        },
+        {
+          "upstream": "scripts/prepare_monolith_input.py",
+          "local": "scripts/prepare-humanize-input.ts",
+          "note": "TypeScript ported version"
+        },
+        {
+          "upstream": "scripts/verify_change_rate.py",
+          "local": "scripts/verify-change-rate.ts",
+          "note": "TypeScript ported version"
+        }
+      ]
+    }
+  }
+}
