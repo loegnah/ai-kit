@@ -27,6 +27,7 @@ Match the user's keyword or intent against the workflows below:
 | `grill`, `grill-me`, `grilling`                                      | Relentless Interview        | `catalog/matt/grill/SKILL.md`                    |
 | `code-review`, `review-diff`, `review`                               | Two-Axis Code Review        | `catalog/matt/code-review/SKILL.md`              |
 | `handoff`                                                            | Session Handoff Document    | `catalog/matt/handoff/SKILL.md`                  |
+| `ts-refactor`, `refactor-ts`, `style-refactor`                       | TypeScript Style Refactor   | `catalog/ts-refactor.md`                         |
 
 ## Execution Procedure
 
