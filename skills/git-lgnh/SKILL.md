@@ -18,7 +18,8 @@ Match the user's keyword or intent against the workflows below:
 
 | Keywords / Intent                                         | Target Workflow   | Catalog File                   |
 | :-------------------------------------------------------- | :---------------- | :----------------------------- |
-| `commit`, `commit-detail`, `ci`                           | Commit Detail     | `catalog/commit-detail.md`     |
+| `commit`, `commit-detail`, `ci`                           | Commit            | `catalog/commit.md`            |
+| `commit-fast`, `fast-commit`, `cf`                        | Commit Fast       | `catalog/commit-fast.md`       |
 | `branch`, `clear-gone`, `gone`, `branch-clean`            | Branch Clear Gone | `catalog/branch-clear-gone.md` |
 | `conflict`, `resolve`, `resolve-conflict`, `fix-conflict` | Resolve Conflict  | `catalog/resolve-conflict.md`  |
 | `rebase`, `rebase-worktrees`, `sync-worktrees`            | Rebase Worktrees  | `catalog/rebase-worktrees.md`  |
