@@ -8,9 +8,9 @@ Simplify recently changed code without behavior change by delegating the refacto
 
 ## Constraints
 
-- **절대로 `git add`, `git commit` 등 git 상태를 변경하거나 커밋하는 작업을 수행하지 마세요.**
-- Git repository의 상태(stage, commit 등)를 절대로 수정하지 말고, 오직 대상 파일의 코드 단순화 작업만 수행하세요.
-- **서브에이전트(Subagent) 필수 사용**: 실제 코드 수정 및 단순화 작업은 `task` 도구를 통해 서브에이전트를 생성하여 위임합니다.
+- **NEVER perform git state modifications or commits (e.g., `git add`, `git commit`).**
+- Do NOT alter git repository status (staging, committing, etc.). Strictly limit actions to simplifying target code.
+- **Mandatory Subagent Delegation**: Delegate the actual code modification and simplification tasks to a subagent using the `task` tool.
 
 ## Execution Steps
 

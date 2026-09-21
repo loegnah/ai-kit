@@ -10,7 +10,7 @@ Daily one-line git commit summary by date.
 
 1. **Determine Date Range**
    - Default: Current week (Monday to today).
-   - If user mentions "last week" / "저번주" / "지난주", use that week (Mon-Sun).
+   - If user mentions "last week", use that week (Mon-Sun).
    - Today's date: `date +%Y-%m-%d`.
 
 2. **Collect Commits**
@@ -22,6 +22,6 @@ Daily one-line git commit summary by date.
 3. **Format Daily Summary**
    - Group commits by date (exclude merge commits).
    - Summarize daily tasks cleanly separated by `/` (never use commas).
-   - One line per date in Korean. Format: `**M/D (요일)**`
+   - One line per date. Format: `**M/D (Day)**` (e.g., `**10/24 (Mon)**`).
    - Omit weekend dates if no commits.
    - Output directly as text (do not write to file).

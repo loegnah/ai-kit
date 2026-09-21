@@ -37,36 +37,35 @@ Respond in the same language the user is using (e.g., Korean if the user communi
 3. **Write `intent.md`**
    - Save to `<target_dir>/intent.md` using the standard template:
      ```markdown
-     # 의도: [기능 또는 변경 명칭]
+     # Intent: [Feature or Change Name]
 
-     - 작성자: [작성자 이름 / 소속]
-     - 작성일: YYYY-MM-DD
-     - 상태: [초안(draft) | 검토요청(in-review) | 승인됨(approved)]
+     - Author: [Author Name / Team]
+     - Date: YYYY-MM-DD
+     - Status: [Draft | In Review | Approved]
 
-     ## 1. 문제 정의 (Problem)
+     ## 1. Problem Definition
 
-     - 현재 어떤 문제가 발생하고 있는가?
-     - 누가 불편을 겪고 있으며, 정량적/정성적 영향은 어느 정도인가?
+     - What problem is currently occurring?
+     - Who is affected, and what is the quantitative or qualitative impact?
 
-     ## 2. 제안 결과 (Proposed Outcome)
+     ## 2. Proposed Outcome
 
-     - 이 작업이 완료되면 사용자는 무엇을 할 수 있게 되는가?
-     - 성공 여부를 어떻게 측정할 것인가?
+     - What will users be able to do once completed?
+     - How will success be measured?
 
-     ## 3. 영향 받는 대상 (Affected Users & Systems)
+     ## 3. Affected Users & Systems
 
-     - 대상 사용자군
-     - 관련 시스템 및 컴포넌트
+     - Target user groups
+     - Relevant systems and components
 
-     ## 4. 제약조건 (Constraints)
+     ## 4. Constraints
 
-     - 반드시 지켜야 할 기술적/비즈니스적 한계
+     - Mandatory technical and business boundaries
 
-     ## 5. 미해결 질문 (Open Questions)
+     ## 5. Open Questions
 
-     - 기획 시점에 아직 결정되지 않아 설계 단계에서 확인해야 할 사항
+     - Unresolved questions to be clarified during the design/specification phase
      ```
-
 4. **Report & Guide Next Step**
    - Output created file path and a concise summary.
    - Guide next step: Inform the user to review/approve the intent artifact, then run `/dev-lgnh spec <target_dir>` (or `/dev-lgnh spec`) to proceed with Stage 2 Design.

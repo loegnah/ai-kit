@@ -35,35 +35,34 @@ Respond in the same language the user is using (e.g., Korean if the user communi
 3. **Write `plan.md`**
    - Save to `<target_dir>/plan.md` using the standard template:
      ```markdown
-     # 구현 계획: [기능 명칭] (기반: spec.md YYYY-MM-DD)
+     # Implementation Plan: [Feature Name] (Based on: spec.md YYYY-MM-DD)
 
-     - 담당 엔지니어: [이름]
-     - 상태: [계획중(planning) | 승인됨(approved) | 구현완료(completed)]
+     - Assigned Engineer: [Name]
+     - Status: [Planning | Approved | Completed]
 
-     ## 1. 변경 대상 파일 (Files that change)
+     ## 1. Files That Change
 
-     - [생성] `경로/파일명`: 생성 목적 및 역할
-     - [수정] `경로/파일명`: 변경 상세
-     - [테스트] `경로/파일명`: 단위/통합 테스트 범위
+     - [Create] `path/filename`: Purpose and role
+     - [Modify] `path/filename`: Details of changes
+     - [Test] `path/filename`: Scope of unit/integration tests
 
-     ## 2. 작업 순서 (Order of Work)
+     ## 2. Order of Work
 
-     1. 작업 1단계 세부 내용
-     2. 작업 2단계 세부 내용
-     3. 작업 3단계 세부 내용
+     1. Step 1 details
+     2. Step 2 details
+     3. Step 3 details
 
-     ## 3. 잠재 위험 및 대응 방안 (Risks & Mitigations)
+     ## 3. Risks & Mitigations
 
-     - 위험: 예상되는 위험 요소
-     - 대응: 사전 방지 및 폴백 방안
+     - Risk: Anticipated risk factor
+     - Mitigation: Prevention and fallback strategy
 
-     ## 4. 검증 및 완료 증거 (Proof)
+     ## 4. Verification & Proof of Completion
 
-     - 자동화 테스트: 실행할 테스트 명령어 (예: `pytest tests/...`, `bun test ...`)
-     - 린트/빌드: 실행할 린트/체크 명령어 (예: `bun run check`)
-     - 수동/시각적 확인: UI 목업 대조, 콘솔 확인 등
+     - Automated Tests: Test command to run (e.g., `pytest tests/...`, `bun test ...`)
+     - Lint / Build: Lint or check command to run (e.g., `bun run check`)
+     - Manual / Visual Verification: UI mockup comparison, console logs, etc.
      ```
-
 4. **Report & Guide Next Step**
    - Output `plan.md` summary, highlighting risk mitigations and proof criteria.
    - Guide next step: Inform the user to review/approve the plan, then run `/dev-lgnh run <target_dir>` (or `/dev-lgnh run`) to begin implementation.

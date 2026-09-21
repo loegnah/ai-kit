@@ -35,7 +35,7 @@ Respond in the same language the user is using (e.g., Korean if the user communi
      - Update `plan.md` immediately to reflect modified file list or execution order.
 
 3. **Verify & Self-Correction Loop**
-   - Read and execute criteria defined in `plan.md`'s `## 4. 검증 및 완료 증거 (Proof)`:
+   - Read and execute criteria defined in `plan.md`'s `## 4. Verification & Proof of Completion`:
      - Automated tests (e.g., `bun test`, `pytest`, `npm test`)
      - Linter / typecheck / build commands (e.g., `bun run check`)
    - If any test or lint check fails:
@@ -44,7 +44,7 @@ Respond in the same language the user is using (e.g., Korean if the user communi
 
 4. **Update Plan Status & Report Deliverable Evidence**
    - Once implementation is verified with clean checks, update `plan.md` status line:
-     - `상태: [구현완료(completed)]`
+     - `Status: [Completed]`
    - Output deliverable proof:
      - Test run output showing pass count.
      - Lint/typecheck output with 0 errors.

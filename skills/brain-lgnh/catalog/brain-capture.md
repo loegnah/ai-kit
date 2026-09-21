@@ -4,7 +4,7 @@ Record newly discovered information, meeting notes, ideas, or knowledge into the
 
 ## When to Use
 
-- When the user asks to save, record, remember, or capture notes/findings (e.g. "기록해줘", "메모해줘", "capture해줘", "알아둬").
+- When the user asks to save, record, remember, or capture notes/findings (e.g., "save this", "take note", "capture findings", "remember this").
 - When capturing raw information before subsequent wiki processing.
 
 ## Prohibitions
@@ -19,7 +19,7 @@ Record newly discovered information, meeting notes, ideas, or knowledge into the
    - Concise name reflecting the core content.
    - Connect words with hyphens (`-`). No spaces or special characters.
    - Extension must be `.md`.
-   - Example: `~/note/brain/raw/React-19-전환-계획-수립.md`
+   - Example: `~/note/brain/raw/react-19-migration-plan.md`
 
 3. **Frontmatter**:
    - Must include `created` date at the top:

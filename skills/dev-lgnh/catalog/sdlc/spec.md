@@ -32,37 +32,36 @@ Respond in the same language the user is using (e.g., Korean if the user communi
 3. **Write `spec.md`**
    - Save to `<target_dir>/spec.md` using the standard template:
      ```markdown
-     # 명세서: [기능 명칭] (기반: intent.md YYYY-MM-DD)
+     # Technical Specification: [Feature Name] (Based on: intent.md YYYY-MM-DD)
 
-     - 작성/검토자: [작성자 / 검토자]
-     - 상태: [초안(draft) | 승인됨(approved)]
+     - Author / Reviewer: [Author / Reviewer]
+     - Status: [Draft | Approved]
 
-     ## 1. 아키텍처 개요 (Architecture Overview)
+     ## 1. Architecture Overview
 
-     - 기존 시스템과 신규 기능의 연동 구조 (데이터 흐름, 컴포넌트 관계)
+     - Integration architecture connecting existing systems with new features (data flow, component relationships)
 
-     ## 2. 기능 요구사항 (Functional Requirements)
+     ## 2. Functional Requirements
 
-     - 세부 기능 1: 입력값, 유효성 검증 규칙, 기대 결과
-     - 세부 기능 2: 처리 조건 및 예외 케이스 정의
+     - Feature 1: Inputs, validation rules, expected outcomes
+     - Feature 2: Processing conditions and edge cases
 
-     ## 3. 인터페이스 & 데이터 계약 (API & Data Contracts)
+     ## 3. Interfaces & Data Contracts
 
-     - API 엔드포인트 명세 (HTTP 메서드, 경로, 요청/응답 JSON 스키마)
-     - DB 스키마 변경 사항 또는 이벤트 메시지/타입 정의
+     - API endpoint specifications (HTTP method, path, request/response JSON schema)
+     - DB schema changes or event message/type definitions
 
-     ## 4. 준수 정책 및 표준 (Policies Applied)
+     ## 4. Policies & Standards Applied
 
-     - 보안: 인증/인가, 권한 스코프, 민감정보 처리
-     - 성능: 캐싱 전략, 외부 API 타임아웃, 리소스 제한
-     - UX / 에러 처리: 오류 발생 시 사용자 피드백 가이드
+     - Security: Authentication/authorization, permission scopes, sensitive data handling
+     - Performance: Caching strategies, external API timeouts, resource limits
+     - UX / Error Handling: User feedback guidance on error conditions
 
-     ## 5. 우려 영역 및 정책 충돌 (Areas of Concern)
+     ## 5. Areas of Concern & Policy Conflicts
 
-     - 잠재적 정책 충돌, 시스템 한계, 또는 기술적 리스크
-     - intent.md 미결 질문에 대한 검토 결과 및 결정 사항
+     - Potential policy conflicts, system limitations, or technical risks
+     - Resolution and decisions regarding open questions from intent.md
      ```
-
 4. **Report & Guide Next Step**
    - Summarize generated `spec.md`, explicitly highlighting any entries under `Areas of Concern`.
    - Guide next step: Inform the user to review/approve the specification, then run `/dev-lgnh plan <target_dir>` (or `/dev-lgnh plan`) to formulate the Stage 3 implementation plan.

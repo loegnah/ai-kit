@@ -19,8 +19,8 @@ Weekly work report generated from git commits.
 
 3. **Group & Summarize Tasks**
    - Group related commits into topics.
-   - Use clear, non-technical Korean concise noun phrases (명사형 종결).
-   - Avoid conversational endings.
+   - Use clear, concise noun phrases or summary bullet points.
+   - Avoid conversational or verbose endings.
 
 4. **Output Markdown File**
    - File path: `report-weekly-YYMMDD-YYMMDD.md` in project root.

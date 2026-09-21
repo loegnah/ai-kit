@@ -4,7 +4,7 @@ Search and answer questions using information stored in the second brain (`~/not
 
 ## When to Use
 
-- When the user asks questions about notes, wiki, or records in their second brain (e.g. "브레인에서 찾아줘", "wiki 확인해줘", "검색해줘").
+- When the user asks questions about notes, wiki, or records in their second brain (e.g., "search my brain", "check the wiki", "find in notes").
 - When synthesizing information across multiple brain pages.
 
 ## Prohibitions
@@ -19,12 +19,12 @@ Search and answer questions using information stored in the second brain (`~/not
    - Follow `[[wikilink]]` references in candidate pages to gather context.
    - Grep in `~/note/brain/wiki/` or `~/note/brain/refs/` when needed to locate specific keywords.
 3. **Synthesize Answer**:
-   - Compose a clear response in Korean based on collected pages.
-   - Cite source pages using `[[wikilink]]` format (e.g. `[[React-19-전환-계획]]`).
+   - Compose a clear, structured response based on the collected pages.
+   - Cite source pages using `[[wikilink]]` format (e.g., `[[react-19-migration-plan]]`).
    - If information is conflicting, state it clearly.
    - If information is missing or insufficient, state that honestly—never speculate.
 4. **Suggest Saving (Optional)**:
-   - If the answer has lasting value (analysis, comparison, summary), ask user confirmation before saving to `~/note/brain/wiki/analyses/<제목>.md`.
+   - If the answer has lasting value (analysis, comparison, summary), ask user confirmation before saving to `~/note/brain/wiki/analyses/<title>.md`.
    - When saved, frontmatter includes:
      ```yaml
      ---
