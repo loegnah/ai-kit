@@ -1,0 +1,17 @@
+{
+  "name": "loegnah-ai-kit",
+  "description": "Just an AI toolkit made by loegnah for personal use",
+  "version": "1.0.0",
+  "author": {
+    "name": "loegnah"
+  },
+  "license": "MIT",
+  "keywords": ["skills", "git", "workflow", "second-brain", "development"],
+  "skills": [
+    "./skills/brain-lgnh",
+    "./skills/dev-lgnh",
+    "./skills/etc-lgnh",
+    "./skills/git-lgnh",
+    "./skills/work-lgnh"
+  ]
+}
