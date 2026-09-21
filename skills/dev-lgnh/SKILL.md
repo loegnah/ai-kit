@@ -22,7 +22,7 @@ Match the user's keyword or intent against the workflows below:
 | `spec`, `draft-spec`, `design`                                       | Stage 2: Spec Specification | `catalog/sdlc/spec.md`                           |
 | `plan`, `draft-plan`, `build-plan`                                   | Stage 3: Plan Mode          | `catalog/sdlc/plan.md`                           |
 | `run`, `execute`, `exec`, `build`, `impl`, `verify`, `test`, `check` | Run & Verify Plan           | `catalog/sdlc/run.md`                            |
-| `simplify`                                                           | Simplify Code               | `catalog/simplify.md`                            |
+| `simplify`                                                           | Simplify Code               | `catalog/simplify/SKILL.md`                      |
 | `superpowers`                                                        | Superpowers Workflow        | `catalog/superpowers/using-superpowers/SKILL.md` |
 | `grill`, `grill-me`, `grilling`                                      | Relentless Interview        | `catalog/matt/grill/SKILL.md`                    |
 | `code-review`, `review-diff`, `review`                               | Two-Axis Code Review        | `catalog/matt/code-review/SKILL.md`              |

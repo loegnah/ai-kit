@@ -38,6 +38,7 @@ Simplify recently changed code without behavior change by delegating the refacto
      - Retain exact behavior, API contracts, and return values.
      - Follow project coding standards (`CLAUDE.md`, etc.).
      - Prioritize readability over brevity. Avoid extreme single-line rewrites or nested ternaries.
+     - If targeting TypeScript files, adhere to `catalog/simplify/typescript.md`.
      - DO NOT perform `git add` or `git commit`.
 
 4. **Verify & Report Results**
