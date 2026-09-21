@@ -9,3 +9,19 @@ A skill kit for orchestrating and managing AI agent workflows.
 - **brain-lgnh**: Second brain knowledge capture and retrieval (`capture`, `query`)
 - **work-lgnh**: Daily and weekly work logging and progress reporting (`daily`, `weekly`)
 - **etc-lgnh**: Developer utilities and code explanation workflows (`eli5`, `show-me`, `humanize`)
+
+## External Sources & Credits
+
+This kit integrates and adapts skills from the following open-source projects:
+
+- **[Superpowers](https://github.com/obra/superpowers)** (`@obra`)
+  - AI-native software development methodology (TDD, systematic debugging, brainstorming, plan execution, subagent-driven development)
+  - Integrated into `skills/dev-lgnh/catalog/superpowers/`
+- **[Matt Pocock's Skills](https://github.com/mattpocock/skills)** (`@mattpocock`)
+  - Engineering & productivity workflows (`code-review`, `grill`, `handoff`)
+  - Integrated into `skills/dev-lgnh/catalog/matt/`
+- **[Im Not AI](https://github.com/epoko77-ai/im-not-ai)** (`@epoko77-ai`)
+  - Korean AI text detection, humanization rules, taxonomy, and verification scripts (`humanize-korean`)
+  - Integrated into `skills/etc-lgnh/catalog/humanize-korean.md`
+
+Upstream mappings and synchronization are maintained in [`skills/sources.json`](./skills/sources.json).
