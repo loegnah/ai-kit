@@ -1,11 +1,11 @@
-# Brain Capture
+# Capture All
 
-Record newly discovered information, meeting notes, ideas, or knowledge into the second brain's raw directory (`~/note/brain/raw/`).
+Record newly discovered information, meeting notes, ideas, decisions, or raw knowledge from the conversation or user input into the second brain's raw directory (`~/note/brain/raw/`).
 
 ## When to Use
 
-- When the user asks to save, record, remember, or capture notes/findings (e.g., "save this", "take note", "capture findings", "remember this").
-- When capturing raw information before subsequent wiki processing.
+- When the user asks to save, record, remember, or capture full notes/findings (e.g., "save this", "take note", "capture findings", "remember this").
+- When capturing unconstrained raw information including decisions and context before subsequent wiki processing.
 
 ## Prohibitions
 
@@ -35,7 +35,7 @@ Record newly discovered information, meeting notes, ideas, or knowledge into the
 
 ## Execution Steps
 
-1. **Extract Content**: Identify the core information, decisions, or notes from user input or context.
+1. **Extract Content**: Identify the core information, decisions, context, or notes from user input or conversation history.
 2. **Determine File Name**: Create a hyphen-separated filename under `~/note/brain/raw/`.
 3. **Write Markdown**: Format with `created` frontmatter and structured body.
 4. **Report**: Confirm creation with the file path and brief summary.

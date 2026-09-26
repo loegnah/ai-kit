@@ -17,10 +17,11 @@ Execute second brain knowledge capture and query workflows (`~/note/brain`) when
 
 Match the user's keyword or intent against the workflows below:
 
-| Keywords / Intent                                  | Target Workflow | Catalog File               |
-| :------------------------------------------------- | :-------------- | :------------------------- |
-| `capture`, `brain-capture`, `save`, `note`, `memo` | Brain Capture   | `catalog/brain-capture.md` |
-| `query`, `brain-query`, `search`, `find`           | Brain Query     | `catalog/brain-query.md`   |
+| Keywords / Intent                                      | Target Workflow | Catalog File               |
+| :----------------------------------------------------- | :-------------- | :------------------------- |
+| `capture-all`, `capture`, `save`, `note`, `memo`       | Capture All     | `catalog/capture-all.md`   |
+| `capture-guide`, `guide`, `howto`, `recipe`, `runbook` | Capture Guide   | `catalog/capture-guide.md` |
+| `query`, `search`, `find`                              | Query           | `catalog/query.md`         |
 
 ## Execution Procedure
 

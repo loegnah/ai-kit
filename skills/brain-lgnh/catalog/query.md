@@ -1,4 +1,4 @@
-# Brain Query
+# Query
 
 Search and answer questions using information stored in the second brain (`~/note/brain`).
 
