@@ -6,12 +6,13 @@
     "name": "loegnah"
   },
   "license": "MIT",
-  "keywords": ["skills", "git", "workflow", "second-brain", "development"],
+  "keywords": ["skills", "git", "workflow", "second-brain", "development", "translation"],
   "skills": [
     "./skills/brain-lgnh",
     "./skills/dev-lgnh",
     "./skills/etc-lgnh",
     "./skills/git-lgnh",
+    "./skills/lang-lgnh",
     "./skills/work-lgnh"
   ]
 }

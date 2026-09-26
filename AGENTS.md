@@ -17,6 +17,7 @@ Skills are organized into entrypoint runners:
 - `skills/etc-lgnh/`: General developer and explanation workflows (`/etc-lgnh <subcommand>`)
 - `skills/dev-lgnh/`: Development and SDLC workflows (`/dev-lgnh <subcommand>`)
 - `skills/brain-lgnh/`: Second brain capture and query workflows (`/brain-lgnh <subcommand>`)
+- `skills/lang-lgnh/`: Language translation and learning workflows (`/lang-lgnh <subcommand>`)
 
 To add/modify skills:
 

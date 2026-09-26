@@ -9,5 +9,6 @@ Read and execute the skill instructions matching the argument keyword:
 - `daily`, `weekly` -> `skill://work-lgnh`
 - `eli5`, `show-me`, `humanize` -> `skill://etc-lgnh`
 - `capture`, `query` -> `skill://brain-lgnh`
+- `to-eng`, `to-kor`, `to-eng-learn`, `to-kor-learn` -> `skill://lang-lgnh`
 
 $ARGUMENTS

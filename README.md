@@ -9,6 +9,7 @@ A skill kit for orchestrating and managing AI agent workflows.
 - **brain-lgnh**: Second brain knowledge capture and retrieval (`capture`, `query`)
 - **work-lgnh**: Daily and weekly work logging and progress reporting (`daily`, `weekly`)
 - **etc-lgnh**: Developer utilities and code explanation workflows (`eli5`, `show-me`, `humanize`)
+- **lang-lgnh**: Language translation and learning workflows (`to-eng`, `to-kor`, `to-eng-learn`, `to-kor-learn`)
 
 ## External Sources & Credits
 

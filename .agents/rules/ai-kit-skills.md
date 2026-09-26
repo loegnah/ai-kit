@@ -6,7 +6,7 @@
 
 - 스킬은 엔트리포인트 러너 단위로 구성된다. `/<runner> <subcommand>` 로 호출된다.
 - 레이아웃: `skills/<runner>/SKILL.md` + `skills/<runner>/catalog/<skill-name>.md`
-- 현행 러너: `git-lgnh`, `work-lgnh`, `etc-lgnh`, `dev-lgnh`, `brain-lgnh`
+- 현행 러너: `git-lgnh`, `work-lgnh`, `etc-lgnh`, `dev-lgnh`, `brain-lgnh`, `lang-lgnh`
 
 ## 필수 작업
 
