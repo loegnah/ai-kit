@@ -23,6 +23,7 @@ Match the user's keyword or intent against the workflows below:
 | `branch`, `clear-gone`, `gone`, `branch-clean`            | Branch Clear Gone | `catalog/branch-clear-gone.md` |
 | `conflict`, `resolve`, `resolve-conflict`, `fix-conflict` | Resolve Conflict  | `catalog/resolve-conflict.md`  |
 | `rebase`, `rebase-worktrees`, `sync-worktrees`            | Rebase Worktrees  | `catalog/rebase-worktrees.md`  |
+| `branch-name`, `branch-recommend`, `suggest-branch`, `bn` | Branch Recommend  | `catalog/branch-recommend.md`  |
 
 ## Execution Procedure
 
