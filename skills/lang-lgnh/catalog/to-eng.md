@@ -17,6 +17,7 @@ Translate sentences or file contents into natural, idiomatic English based on fu
 - **Context-Aware & Idiomatic**: Avoid mechanical word-for-word translation. Grasp intent, tone, and domain context to produce natural, fluent English.
 - **In-Place File Translation**: When a file path is provided, directly modify/rewrite the file with the translated content. Preserve original formatting, frontmatter, code blocks, and markdown structure.
 - **Notable Points Summary**: Conclude with a brief summary of key translation decisions (e.g. chosen terminology, nuanced phrasing, intentional paraphrasing).
+- **Clean Copying for Direct Text**: When translating direct text, isolate the translated text with exactly one blank line above and below. Strictly avoid any quotation marks, blockquotes, code blocks, or decoration on the translation.
 
 ## Execution Steps
 
@@ -29,6 +30,17 @@ Translate sentences or file contents into natural, idiomatic English based on fu
      - Directly overwrite the file with the translated content.
    - **If Direct Text**:
      - Translate the text into natural English.
-     - Print the translated text clearly.
+     - Print the translated text with exactly one blank line above and below.
+     - Keep the translated sentence completely undecorated (NO blockquotes `>`, NO quotation marks `""` or `''`, NO backticks, NO styling) for easy copying.
 3. **Summary & Notes**:
    - At the end, provide a concise summary of notable translation points or nuances in the requester's language.
+
+## Direct Text Output Example
+
+```text
+
+This is the translated sentence ready for copying.
+
+### 주요 번역 포인트
+- Terminology or nuance note...
+```

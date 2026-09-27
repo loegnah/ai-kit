@@ -36,5 +36,5 @@ Translate into English with educational insights focusing on practical English l
      - Explain _why_ changes are made from a learning perspective (key points only).
      - Ask the user if they want to proceed with applying the changes to the file.
    - **If Direct Text**:
-     - Show the natural English translation.
+     - Show the natural English translation with exactly one blank line above and below, completely undecorated (NO blockquotes `>`, NO quotation marks `""` or `''`, NO backticks) for easy copying.
      - Present the key learning points clearly below the translation.

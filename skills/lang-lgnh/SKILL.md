@@ -11,6 +11,7 @@ Execute language translation and language learning workflows when invoked with `
 
 - NEVER run `glob`, `grep`, or directory listings to explore or verify catalog files.
 - Read the exact relative file path (`catalog/<filename>.md`) directly.
+- **Direct Text Output Rule**: When translating direct text (not a file), output the translated sentence/paragraph with exactly one blank line above and below. NEVER add ornamentation or decoration (no blockquotes `>`, no quotes `""` or `''`, no backticks/code blocks, no prefixes) to the translated text itself for seamless copying.
 
 ## Workflow Dispatcher
 
