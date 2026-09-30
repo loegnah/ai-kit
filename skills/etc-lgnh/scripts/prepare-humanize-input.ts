@@ -199,7 +199,7 @@ function main(): number {
 
   if (!inputText) {
     console.error(
-      "사용법: bun run scripts/prepare-humanize-input.ts (--text <텍스트> | --file <파일>) [--run-dir <디렉토리>] [--genre essay|column|report|blog] [--diagnosis <진단파일>]",
+      "사용법: bun run skills/etc-lgnh/scripts/prepare-humanize-input.ts (--text <텍스트> | --file <파일>) [--run-dir <디렉토리>] [--genre essay|column|report|blog] [--diagnosis <진단파일>]",
     );
     return 1;
   }

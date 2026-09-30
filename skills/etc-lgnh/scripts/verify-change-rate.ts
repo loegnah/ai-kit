@@ -117,7 +117,7 @@ function main(): number {
 
   if (!before || !after) {
     console.error(
-      "사용법: bun run scripts/verify-change-rate.ts --before <원문파일> --after <윤문본파일> [--ignore-markup]",
+      "사용법: bun run skills/etc-lgnh/scripts/verify-change-rate.ts --before <원문파일> --after <윤문본파일> [--ignore-markup]",
     );
     return 3;
   }

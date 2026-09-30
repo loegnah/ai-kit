@@ -41,12 +41,12 @@
         },
         {
           "upstream": "scripts/prepare_monolith_input.py",
-          "local": "scripts/prepare-humanize-input.ts",
+          "local": "skills/etc-lgnh/scripts/prepare-humanize-input.ts",
           "note": "TypeScript ported version"
         },
         {
           "upstream": "scripts/verify_change_rate.py",
-          "local": "scripts/verify-change-rate.ts",
+          "local": "skills/etc-lgnh/scripts/verify-change-rate.ts",
           "note": "TypeScript ported version"
         }
       ]
