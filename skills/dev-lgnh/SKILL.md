@@ -1,11 +1,11 @@
 ---
 name: dev-lgnh
-description: "Developer and software development lifecycle workflow runner."
+description: "Developer workflow runner (code implementation, simplification, refactoring, code review)."
 ---
 
 # DEV-LGNH Skill Runner
 
-Execute developer and AI-Native SDLC artifact workflows (`intent.md` -> `spec.md` -> `plan.md` -> `run.md`) when invoked with `/dev-lgnh <keyword>` or matching workflow intent.
+Execute developer workflows (implementation, refactoring, code review, simplification) when invoked with `/dev-lgnh <keyword>` or matching workflow intent.
 
 ## Rules
 
@@ -16,18 +16,15 @@ Execute developer and AI-Native SDLC artifact workflows (`intent.md` -> `spec.md
 
 Match the user's keyword or intent against the workflows below:
 
-| Keywords / Intent                                                    | Target Workflow             | Catalog File                                     |
-| :------------------------------------------------------------------- | :-------------------------- | :----------------------------------------------- |
-| `intent`, `draft-intent`, `init`                                     | Stage 1: Intent Capture     | `catalog/sdlc/intent.md`                         |
-| `spec`, `draft-spec`, `design`                                       | Stage 2: Spec Specification | `catalog/sdlc/spec.md`                           |
-| `plan`, `draft-plan`, `build-plan`                                   | Stage 3: Plan Mode          | `catalog/sdlc/plan.md`                           |
-| `run`, `execute`, `exec`, `build`, `impl`, `verify`, `test`, `check` | Run & Verify Plan           | `catalog/sdlc/run.md`                            |
-| `simplify`                                                           | Simplify Code               | `catalog/simplify/SKILL.md`                      |
-| `superpowers`                                                        | Superpowers Workflow        | `catalog/superpowers/using-superpowers/SKILL.md` |
-| `grill`, `grill-me`, `grilling`                                      | Relentless Interview        | `catalog/matt/grill/SKILL.md`                    |
-| `code-review`, `review-diff`, `review`                               | Two-Axis Code Review        | `catalog/matt/code-review/SKILL.md`              |
-| `handoff`                                                            | Session Handoff Document    | `catalog/matt/handoff/SKILL.md`                  |
-| `ts-refactor`, `refactor-ts`, `style-refactor`                       | TypeScript Style Refactor   | `catalog/ts-refactor.md`                         |
+| Keywords / Intent                              | Target Workflow           | Catalog File                                     |
+| :--------------------------------------------- | :------------------------ | :----------------------------------------------- |
+| `implement`, `subagent-impl`, `parallel-impl`  | Subagent Implementation   | `catalog/implement.md`                           |
+| `simplify`                                     | Simplify Code             | `catalog/simplify/SKILL.md`                      |
+| `superpowers`                                  | Superpowers Workflow      | `catalog/superpowers/using-superpowers/SKILL.md` |
+| `grill`, `grill-me`, `grilling`                | Relentless Interview      | `catalog/matt/grill/SKILL.md`                    |
+| `code-review`, `review-diff`, `review`         | Two-Axis Code Review      | `catalog/matt/code-review/SKILL.md`              |
+| `handoff`                                      | Session Handoff Document  | `catalog/matt/handoff/SKILL.md`                  |
+| `ts-refactor`, `refactor-ts`, `style-refactor` | TypeScript Style Refactor | `catalog/ts-refactor.md`                         |
 
 ## Execution Procedure
 

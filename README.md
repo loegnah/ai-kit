@@ -4,7 +4,8 @@ A skill kit for orchestrating and managing AI agent workflows.
 
 ## Skills
 
-- **dev-lgnh**: Development and SDLC workflows (`intent` → `spec` → `plan` → `run`, code reviews, plan execution)
+- **dev-lgnh**: Developer workflows (`implement`, `simplify`, `ts-refactor`, code reviews, plan execution)
+- **sdlc-lgnh**: AI-native SDLC artifact workflows (`intent` → `spec` → `plan` → `run`)
 - **git-lgnh**: Git automation and repository maintenance (commit details, branch cleanup, conflict resolution, worktree sync)
 - **brain-lgnh**: Second brain knowledge capture and retrieval (`capture`, `query`)
 - **work-lgnh**: Daily and weekly work logging and progress reporting (`daily`, `weekly`)
