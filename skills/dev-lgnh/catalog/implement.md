@@ -1,6 +1,6 @@
 # Implement (Subagent-Driven Implementation)
 
-Execute code implementation and unit testing by dispatching tasks to omp's `implementer1`, `implementer2`, and `implementer3` subagents, followed by integration verification.
+Execute code implementation and unit testing by dispatching tasks to available implementer subagents, followed by integration verification.
 
 ## Language
 
@@ -13,13 +13,12 @@ Respond in the user's language (e.g., Korean if the user communicates in Korean)
 ## Core Principles
 
 1. **Strict Slice Independence (Disjoint File Sets)**:
-   - Partition work into 1 to 3 independent slices.
+   - Partition work into independent slices based on task structure.
    - **Never assign the same file to multiple subagents simultaneously.** Shared files (e.g., barrel exports, common entrypoints) must be handled by the main orchestrator after subagents complete.
-2. **Subagent Specialization**:
-   - `implementer1`: First slice (e.g., core logic, backend service, data layer).
-   - `implementer2`: Second slice (e.g., UI components, API layer, consumer module).
-   - `implementer3`: Third slice (e.g., CLI commands, test suites, utility modules).
-   - Use only as many implementers as needed (1, 2, or 3). Do not invent artificial slices.
+2. **Flexible Implementer Subagent Selection**:
+   - Use available implementer subagents based on the current environment and task scope.
+   - Dispatch to a single implementer for focused work, or distribute across multiple implementers concurrently for independent slices.
+   - Create only as many slices as genuine boundaries require, matching available implementer capacity.
 3. **Subagent Scope & Verification**:
    - Subagents implement code and run isolated slice-level unit tests.
    - Subagents skip repository-wide formatters, linters, or global builds mid-flight.
@@ -35,29 +34,29 @@ Respond in the user's language (e.g., Korean if the user communicates in Korean)
 1. Locate task requirements:
    - If `target` is provided, read the target plan or brief.
    - If omitted, read the most recent `docs/story/*/plan.md` or parse the user's implementation prompt.
-2. Partition into 1–3 non-overlapping slices:
+2. Partition into non-overlapping slices:
    - Identify files to create, modify, and test for each slice.
    - Verify zero file overlap across slices.
    - Isolate any shared wiring files (e.g., `index.ts`, shared router) for post-merge integration.
 
-### 2. Dispatch Subagents via omp `task` Tool
+### 2. Dispatch Subagents via Task Tool
 
-Dispatch subagents concurrently in a single `task` call:
+Dispatch the selected implementer subagents concurrently in a single `task` call:
 
 ```typescript
 task({
   context: `# Goal\n[High-level objective]\n\n# Contract\n[Shared interfaces, types, signatures, and conventions]`,
   tasks: [
     {
-      agent: "implementer1",
-      name: "Slice1Name",
+      agent: "<implementer-agent>",
+      name: "SliceAName",
       solutionSpace:
         "[Solution space description: e.g. single fix, isolated service, or defined interface]",
       task: `# Target Files\n- path/to/file1.ts\n- path/to/file1.test.ts\n\n# Change\n[Exact requirements and logic]\n\n# Acceptance\n[Unit tests pass, behavior verified]`,
     },
     {
-      agent: "implementer2",
-      name: "Slice2Name",
+      agent: "<implementer-agent>",
+      name: "SliceBName",
       solutionSpace: "[Solution space description]",
       task: `# Target Files\n- path/to/file2.ts\n- path/to/file2.test.ts\n\n# Change\n[Exact requirements and logic]\n\n# Acceptance\n[Unit tests pass, behavior verified]`,
     },
