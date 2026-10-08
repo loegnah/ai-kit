@@ -1,17 +1,19 @@
 ---
 name: import-external-skills
-description: "외부 저장소나 패키지의 스킬을 npx skills add로 설치한 뒤, 지정된 카탈로그 디렉토리(예: skills/<runner>/catalog/<name>)로 이동하고 skills-lock.json의 skillPath를 갱신합니다. '외부 스킬 설치', '외부 스킬 추가', '스킬 카탈로그로 이동', 'import external skills' 등의 요청 시 사용합니다."
+description: "외부 저장소나 패키지의 스킬을 설치하거나 최신 버전으로 업데이트하여 카탈로그 디렉토리(예: skills/<runner>/catalog/<name>)로 동기화합니다. '외부 스킬 설치', '외부 스킬 추가', '외부 스킬 업데이트', '스킬 최신화', '스킬 카탈로그로 이동', 'update external skills' 등의 요청 시 사용합니다."
 ---
 
 # Import External Skills
 
-외부 저장소(GitHub, 패키지 등)의 스킬을 `npx skills add`로 설치한 후, 원하는 러너의 카탈로그 디렉토리(예: `skills/<runner>/catalog/<name>`)로 이동하고 `skills-lock.json`의 `skillPath`를 자동으로 갱신합니다.
+외부 저장소(GitHub, 패키지 등)의 스킬을 `npx skills add`로 설치하거나 기존 설치된 외부 스킬을 최신 버전으로 업데이트한 후, 원하는 러너의 카탈로그 디렉토리(예: `skills/<runner>/catalog/<name>`)로 이동하고 `skills-lock.json`의 `skillPath`를 자동으로 동기화합니다.
 
 ## 사용 예시
 
 - "https://github.com/obra/superpowers 스킬을 모두 설치해서 etc-lgnh에 카탈로그로 superpowers 라는 이름으로 넣어줘"
 - "obra/superpowers에서 brainstorming 스킬만 가져와서 dev-lgnh 카탈로그에 넣어줘"
 - "이미 .agents/skills에 설치된 스킬들을 etc-lgnh의 superpowers 카탈로그로 옮겨줘"
+- "외부 스킬 모두 업데이트해줘"
+- "superpowers 스킬 최신 버전으로 업데이트해줘"
 
 ## 핵심 원칙
 
@@ -22,6 +24,9 @@ description: "외부 저장소나 패키지의 스킬을 npx skills add로 설�
    - `skills-lock.json`의 `skillPath`를 새로 이동된 상대 경로(예: `skills/etc-lgnh/catalog/superpowers/brainstorming/SKILL.md`)로 수정합니다.
 3. **자체 스킬 보존**:
    - `.agents/skills/import-external-skills`는 이 프로젝트 전용 도구이므로 이동하거나 삭제하지 않습니다.
+
+4. **npx skills update 직접 실행 금지**:
+   - `npx skills update`를 직접 실행하면 카탈로그 디렉토리 매핑이 무시되고 루트 `skills/`에 잘못된 심볼릭 링크가 생성됩니다. 업데이트 시에는 반드시 아래의 `relocate.ts` 업데이트 명령을 사용합니다.
 
 ## 실행 절차
 
@@ -48,6 +53,8 @@ bun run .agents/skills/import-external-skills/scripts/relocate.ts <source> --run
 - 특정 스킬만 설치/이동: `-s <skill1>,<skill2>`
 - 이미 `.agents/skills`에 다운로드된 파일만 이동: `--move-only`
 - 사전 미리보기: `--dry-run`
+- 등록된 스킬 전체 업데이트: `--update-all`
+- 특정 스킬/소스 업데이트: `-u <name|source>`
 
 ### 3. 검증 및 무결성 확인
 
@@ -56,6 +63,18 @@ bun run .agents/skills/import-external-skills/scripts/relocate.ts <source> --run
    ```bash
    bun run check
    ```
+
+### 3-1. 기존 외부 스킬 업데이트 절차
+
+사용자가 기존 외부 스킬 업데이트(예: "외부 스킬 다 업데이트해줘", "superpowers 업데이트해줘")를 요청한 경우:
+
+```bash
+# 전체 등록 스킬 업데이트
+bun run .agents/skills/import-external-skills/scripts/relocate.ts --update-all
+
+# 특정 소스/스킬만 업데이트
+bun run .agents/skills/import-external-skills/scripts/relocate.ts -u superpowers
+```
 
 ### 4. 결과 보고
 

@@ -22,6 +22,8 @@ interface CliOptions {
   skills: string[];
   moveOnly: boolean;
   dryRun: boolean;
+  updateAll?: boolean;
+  update?: string;
 }
 
 const SELF_DIR_NAMES: Record<string, true> = {
@@ -32,11 +34,14 @@ const SELF_DIR_NAMES: Record<string, true> = {
 function printUsage(): void {
   console.log(`
 Usage: bun run .agents/skills/import-external-skills/scripts/relocate.ts <source> [options]
+       bun run .agents/skills/import-external-skills/scripts/relocate.ts --update-all [options]
 
 Arguments:
   <source>               Skill package / Git repository URL (e.g. https://github.com/obra/superpowers or obra/superpowers)
 
 Options:
+  -u, --update [filter]  Update registered skills from skills-lock.json matching optional filter
+  --update-all           Update all registered skills from skills-lock.json
   -t, --target <path>    Explicit target directory path (e.g. skills/etc-lgnh/catalog/superpowers)
   -r, --runner <runner>  Target runner name (e.g. etc-lgnh, dev-lgnh)
   -n, --name <name>      Catalog name under runner (e.g. superpowers)
@@ -47,8 +52,9 @@ Options:
 
 Examples:
   bun run .agents/skills/import-external-skills/scripts/relocate.ts https://github.com/obra/superpowers --runner etc-lgnh --name superpowers
+  bun run .agents/skills/import-external-skills/scripts/relocate.ts --update-all
+  bun run .agents/skills/import-external-skills/scripts/relocate.ts -u superpowers
   bun run .agents/skills/import-external-skills/scripts/relocate.ts obra/superpowers -t skills/etc-lgnh/catalog/superpowers
-  bun run .agents/skills/import-external-skills/scripts/relocate.ts obra/superpowers -s brainstorming -r etc-lgnh -n superpowers
 `);
 }
 
@@ -72,6 +78,17 @@ export function parseArgs(args: string[]): CliOptions {
       options.moveOnly = true;
     } else if (arg === "--dry-run") {
       options.dryRun = true;
+    } else if (arg === "--update-all") {
+      options.updateAll = true;
+    } else if (arg === "-u" || arg === "--update") {
+      const next = args[i + 1];
+      if (next && !next.startsWith("-")) {
+        options.update = args[++i];
+      } else {
+        options.updateAll = true;
+      }
+    } else if (arg.startsWith("--update=")) {
+      options.update = arg.slice(9);
     } else if (arg === "-t" || arg === "--target") {
       options.target = args[++i];
     } else if (arg === "-r" || arg === "--runner") {
@@ -156,6 +173,20 @@ export function resolveTargetPath(repoRoot: string, options: CliOptions): string
   return resolved;
 }
 
+export function cleanupRogueSymlinks(repoRoot: string): void {
+  const skillsDir = path.join(repoRoot, "skills");
+  if (!fs.existsSync(skillsDir)) return;
+  for (const entry of fs.readdirSync(skillsDir, { withFileTypes: true })) {
+    if (entry.isSymbolicLink()) {
+      const p = path.join(skillsDir, entry.name);
+      try {
+        fs.unlinkSync(p);
+        console.log(`[import-external-skills] Cleaned up rogue symlink: skills/${entry.name}`);
+      } catch {}
+    }
+  }
+}
+
 function findSkillMd(dir: string): string | null {
   const directPath = path.join(dir, "SKILL.md");
   if (fs.existsSync(directPath)) {
@@ -196,6 +227,7 @@ export function importAndRelocate(options: CliOptions, repoRoot: string = proces
       if (result.status !== 0) {
         throw new Error(`'npx skills add' failed with exit code ${result.status}`);
       }
+      cleanupRogueSymlinks(repoRoot);
     } else {
       console.log(`[dry-run] Would execute: npx --yes skills add ${options.source} -y --copy`);
     }
@@ -332,16 +364,149 @@ export function importAndRelocate(options: CliOptions, repoRoot: string = proces
   console.log("========================================================\n");
 }
 
+export function updateLockedSkills(options: CliOptions, repoRoot: string = process.cwd()): void {
+  const lockPath = path.join(repoRoot, "skills-lock.json");
+  if (!fs.existsSync(lockPath)) {
+    throw new Error(`skills-lock.json not found at ${lockPath}`);
+  }
+
+  let lockData: SkillsLock;
+  try {
+    lockData = JSON.parse(fs.readFileSync(lockPath, "utf-8")) as SkillsLock;
+  } catch (e) {
+    throw new Error(`Failed to parse ${lockPath}: ${(e as Error).message}`);
+  }
+
+  const entries = Object.entries(lockData.skills);
+  if (entries.length === 0) {
+    console.log("[import-external-skills] No skills registered in skills-lock.json to update.");
+    return;
+  }
+
+  const filter = options.update?.toLowerCase();
+  const targetEntries = filter
+    ? entries.filter(
+        ([name, entry]) =>
+          name.toLowerCase().includes(filter) ||
+          entry.source.toLowerCase().includes(filter) ||
+          entry.skillPath.toLowerCase().includes(filter),
+      )
+    : entries;
+
+  if (targetEntries.length === 0) {
+    console.log(`[import-external-skills] No skills matched filter: '${options.update}'`);
+    return;
+  }
+
+  console.log(
+    `[import-external-skills] Found ${targetEntries.length} skill(s) to update${filter ? ` matching '${filter}'` : ""}:`,
+  );
+  for (const [name, entry] of targetEntries) {
+    console.log(`  - ${name} (${entry.source} -> ${entry.skillPath})`);
+  }
+
+  const bySource = new Map<string, Array<{ name: string; entry: SkillsLockEntry }>>();
+  for (const [name, entry] of targetEntries) {
+    const list = bySource.get(entry.source) ?? [];
+    list.push({ name, entry });
+    bySource.set(entry.source, list);
+  }
+
+  const originalPaths: Record<string, string> = {};
+  for (const [name, entry] of targetEntries) {
+    originalPaths[name] = entry.skillPath;
+  }
+
+  for (const [source, items] of bySource) {
+    const skillNames = items.map((i) => i.name);
+    console.log(`\n[import-external-skills] Fetching updates from '${source}'...`);
+
+    if (!options.dryRun) {
+      const cmdArgs = [
+        "--yes",
+        "skills",
+        "add",
+        source,
+        "-y",
+        "--copy",
+        "-s",
+        skillNames.join(","),
+      ];
+      console.log(`> npx ${cmdArgs.join(" ")}`);
+      const result = spawnSync("npx", cmdArgs, {
+        cwd: repoRoot,
+        stdio: "inherit",
+        env: process.env,
+      });
+      if (result.status !== 0) {
+        console.error(
+          `[import-external-skills] Warning: 'npx skills add' failed for '${source}' (exit code ${result.status})`,
+        );
+        continue;
+      }
+
+      cleanupRogueSymlinks(repoRoot);
+
+      for (const { name, entry } of items) {
+        const srcDir = path.join(repoRoot, ".agents", "skills", name);
+        if (!fs.existsSync(srcDir)) continue;
+
+        const targetSkillMd = path.resolve(repoRoot, entry.skillPath);
+        const destDir = path.dirname(targetSkillMd);
+
+        console.log(
+          `[import-external-skills] Relocating updated: .agents/skills/${name} -> ${path.relative(repoRoot, destDir)}`,
+        );
+        if (fs.existsSync(destDir)) {
+          fs.rmSync(destDir, { recursive: true, force: true });
+        }
+        fs.mkdirSync(destDir, { recursive: true });
+        fs.cpSync(srcDir, destDir, { recursive: true });
+        fs.rmSync(srcDir, { recursive: true, force: true });
+      }
+    } else {
+      console.log(`[dry-run] Would update ${items.length} skills from ${source}`);
+    }
+  }
+
+  if (!options.dryRun) {
+    if (fs.existsSync(lockPath)) {
+      try {
+        const freshLock = JSON.parse(fs.readFileSync(lockPath, "utf-8")) as SkillsLock;
+        for (const [name, originalPath] of Object.entries(originalPaths)) {
+          if (freshLock.skills[name]) {
+            freshLock.skills[name].skillPath = originalPath;
+          }
+        }
+        lockData = freshLock;
+      } catch {}
+    }
+    fs.writeFileSync(lockPath, JSON.stringify(lockData, null, 2) + "\n", "utf-8");
+    console.log(`[import-external-skills] Updated ${path.relative(repoRoot, lockPath)}`);
+  }
+
+  console.log("\n==================== UPDATE COMPLETE ====================\n");
+}
+
 if (import.meta.main) {
   const options = parseArgs(process.argv.slice(2));
-  if (!options.source && !options.moveOnly) {
-    printUsage();
-    process.exit(1);
-  }
-  try {
-    importAndRelocate(options);
-  } catch (err: unknown) {
-    console.error(`[error] ${(err as Error).message}`);
-    process.exit(1);
+  if (options.updateAll || options.update) {
+    try {
+      updateLockedSkills(options);
+    } catch (err: unknown) {
+      console.error(`[error] ${(err as Error).message}`);
+      process.exit(1);
+    }
+  } else {
+    if (!options.source && !options.moveOnly) {
+      printUsage();
+      process.exit(1);
+    }
+    try {
+      importAndRelocate(options);
+    } catch (err: unknown) {
+      console.error(`[error] ${(err as Error).message}`);
+      process.exit(1);
+    }
   }
 }
