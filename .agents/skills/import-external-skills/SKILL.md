@@ -28,6 +28,11 @@ description: "외부 저장소나 패키지의 스킬을 설치하거나 최신 
 4. **npx skills update 직접 실행 금지**:
    - `npx skills update`를 직접 실행하면 카탈로그 디렉토리 매핑이 무시되고 루트 `skills/`에 잘못된 심볼릭 링크가 생성됩니다. 업데이트 시에는 반드시 아래의 `relocate.ts` 업데이트 명령을 사용합니다.
 
+5. **카탈로그 그룹 인덱스(INDEX.md) 자동 생성 및 래퍼 연동**:
+   - 스킬 설치 또는 업데이트 후, 대상 카탈로그 디렉토리 바로 아래에 `INDEX.md`를 자동 생성합니다.
+   - `INDEX.md`에는 그룹 내 모든 스킬의 1줄 간결한 설명, 상대 경로, 대표 워크플로(Primary Entrypoint, 예: `using-superpowers`, `ask-matt`)가 포함됩니다.
+   - 외부 러너(`skills/<runner>/SKILL.md`)는 개별 서브스킬의 직접 경로 대신 `catalog/<name>/INDEX.md`를 매핑하여, 워크플로 실행 시 에이전트가 카탈로그 내 사용 가능한 전체 스킬셋을 사전에 인지하고 능동적으로 연계할 수 있게 합니다.
+
 ## 실행 절차
 
 ### 1. 매개변수 파악
@@ -55,6 +60,8 @@ bun run .agents/skills/import-external-skills/scripts/relocate.ts <source> --run
 - 사전 미리보기: `--dry-run`
 - 등록된 스킬 전체 업데이트: `--update-all`
 - 특정 스킬/소스 업데이트: `-u <name|source>`
+- 대표 진입 워크플로 수동 지정: `-e, --entrypoint <name>`
+- 카탈로그 인덱스 전체 재구성: `--reindex`
 
 ### 3. 검증 및 무결성 확인
 
@@ -80,4 +87,8 @@ bun run .agents/skills/import-external-skills/scripts/relocate.ts -u superpowers
 
 - 설치 및 이동된 스킬 목록과 최종 경로
 - `skills-lock.json`의 `skillPath` 변경 내역
-- 해당 러너의 `SKILL.md`에 추가할 수 있는 서브커맨드 매핑 권장 형식 안내
+- 해당 러너의 `SKILL.md`에 추가할 수 있는 서브커맨드 매핑 권장 형식 안내:
+  개별 스킬 직접 경로 대신 카탈로그 인덱스(`catalog/<name>/INDEX.md`)를 매핑합니다:
+  ```markdown
+  | `<keyword>` | <Workflow Name> | `catalog/<name>/INDEX.md` |
+  ```

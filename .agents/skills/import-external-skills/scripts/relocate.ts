@@ -24,6 +24,8 @@ interface CliOptions {
   dryRun: boolean;
   updateAll?: boolean;
   update?: string;
+  entrypoint?: string;
+  reindex?: boolean;
 }
 
 const SELF_DIR_NAMES: Record<string, true> = {
@@ -48,8 +50,9 @@ Options:
   -s, --skill <names>    Specific skill name(s) to install/move (comma-separated)
   --move-only            Skip 'npx skills add' and only relocate existing skills from .agents/skills
   --dry-run              Preview actions without executing filesystem changes
+  -e, --entrypoint <name> Primary entrypoint skill name for catalog index
+  --reindex              Regenerate INDEX.md for all or specified catalogs
   -h, --help             Show this help message
-
 Examples:
   bun run .agents/skills/import-external-skills/scripts/relocate.ts https://github.com/obra/superpowers --runner etc-lgnh --name superpowers
   bun run .agents/skills/import-external-skills/scripts/relocate.ts --update-all
@@ -78,6 +81,12 @@ export function parseArgs(args: string[]): CliOptions {
       options.moveOnly = true;
     } else if (arg === "--dry-run") {
       options.dryRun = true;
+    } else if (arg === "--reindex") {
+      options.reindex = true;
+    } else if (arg === "-e" || arg === "--entrypoint") {
+      options.entrypoint = args[++i];
+    } else if (arg.startsWith("--entrypoint=")) {
+      options.entrypoint = arg.slice(13);
     } else if (arg === "--update-all") {
       options.updateAll = true;
     } else if (arg === "-u" || arg === "--update") {
@@ -201,6 +210,221 @@ function findSkillMd(dir: string): string | null {
     }
   }
   return null;
+}
+export interface CatalogSkillSummary {
+  name: string;
+  description: string;
+  runnerRelPath: string;
+  repoRelPath: string;
+}
+
+export function simplifyDescription(raw: string): string {
+  if (!raw) return "No description available.";
+  let clean = raw
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/[*_~]/g, "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const firstSentenceMatch = clean.match(/^([^.!?]+[.!?])/);
+  const firstSentence = firstSentenceMatch?.[1];
+  if (firstSentence && firstSentence.length <= 140) {
+    clean = firstSentence;
+  } else if (clean.length > 120) {
+    clean = `${clean.slice(0, 117).trim()}...`;
+  }
+
+  return clean;
+}
+
+export function extractSkillMetadata(skillMdPath: string): { name: string; description: string } {
+  const content = fs.readFileSync(skillMdPath, "utf-8");
+  const dirName = path.basename(path.dirname(skillMdPath));
+  let name = dirName;
+  let description = "";
+
+  const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (frontmatterMatch && frontmatterMatch[1]) {
+    const yaml = frontmatterMatch[1];
+    const nameMatch = yaml.match(/^name:\s*(.+)$/m);
+    const matchedName = nameMatch?.[1];
+    if (matchedName) {
+      name = matchedName.trim().replace(/^['"]|['"]$/g, "");
+    }
+
+    const descMatch = yaml.match(
+      /^description:\s*(?:[>|][-+]?\r?\n)?([\s\S]*?)(?=\r?\n[a-zA-Z0-9_-]+:|$)/m,
+    );
+    const matchedDesc = descMatch?.[1];
+    if (matchedDesc) {
+      description = matchedDesc
+        .replace(/\r?\n\s*/g, " ")
+        .trim()
+        .replace(/^['"]|['"]$/g, "")
+        .replace(/\\"/g, '"')
+        .replace(/''/g, "'");
+    }
+  }
+
+  if (!description) {
+    const body = content.replace(/^---\r?\n[\s\S]*?\r?\n---/, "");
+    const lines = body
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter((l) => l && !l.startsWith("#") && !l.startsWith("<"));
+    if (lines.length > 0) {
+      description = lines[0] ?? "";
+    }
+  }
+
+  description = simplifyDescription(description);
+
+  return { name, description };
+}
+
+export function detectPrimaryEntrypoint(
+  catalogName: string,
+  skills: CatalogSkillSummary[],
+  override?: string,
+): CatalogSkillSummary | null {
+  if (skills.length === 0) return null;
+  if (override) {
+    const found = skills.find((s) => s.name.toLowerCase() === override.toLowerCase());
+    if (found) return found;
+  }
+
+  const lowerCat = catalogName.toLowerCase();
+
+  const usingExact = skills.find((s) => s.name.toLowerCase() === `using-${lowerCat}`);
+  if (usingExact) return usingExact;
+
+  const usingPrefix = skills.find((s) => s.name.toLowerCase().startsWith("using-"));
+  if (usingPrefix) return usingPrefix;
+
+  const askSkill = skills.find(
+    (s) => s.name.toLowerCase().startsWith("ask-") || s.name.toLowerCase().includes("router"),
+  );
+  if (askSkill) return askSkill;
+
+  const exact = skills.find((s) => s.name.toLowerCase() === lowerCat);
+  if (exact) return exact;
+
+  const guide = skills.find((s) =>
+    ["overview", "main", "guide", "workflow"].includes(s.name.toLowerCase()),
+  );
+  if (guide) return guide;
+
+  return skills[0] ?? null;
+}
+
+export function generateCatalogIndex(
+  catalogDir: string,
+  repoRoot: string = process.cwd(),
+  catalogName?: string,
+  primaryOverride?: string,
+): string | null {
+  if (!fs.existsSync(catalogDir)) return null;
+
+  const actualCatalogName = catalogName || path.basename(catalogDir);
+  const runnerDir = path.resolve(catalogDir, "../..");
+
+  const entries = fs
+    .readdirSync(catalogDir, { withFileTypes: true })
+    .filter((e) => e.isDirectory())
+    .map((e) => e.name);
+
+  const skills: CatalogSkillSummary[] = [];
+
+  for (const entryName of entries) {
+    const subDir = path.join(catalogDir, entryName);
+    const skillMd = findSkillMd(subDir);
+    if (!skillMd) continue;
+
+    const { name, description } = extractSkillMetadata(skillMd);
+    const runnerRelPath = path.relative(runnerDir, skillMd);
+    const repoRelPath = path.relative(repoRoot, skillMd);
+
+    skills.push({
+      name: name || entryName,
+      description,
+      runnerRelPath,
+      repoRelPath,
+    });
+  }
+
+  if (skills.length === 0) return null;
+
+  skills.sort((a, b) => a.name.localeCompare(b.name));
+
+  const primary = detectPrimaryEntrypoint(actualCatalogName, skills, primaryOverride);
+
+  const title = actualCatalogName.charAt(0).toUpperCase() + actualCatalogName.slice(1);
+
+  const rows = skills
+    .map(
+      (s) => `| \`${s.name}\` | ${s.description.replace(/\|/g, "\\|")} | \`${s.runnerRelPath}\` |`,
+    )
+    .join("\n");
+
+  const primaryBlock = primary
+    ? `## Primary Entrypoint\n\n- **Default Workflow**: \`${primary.name}\`\n- **Path**: \`${primary.runnerRelPath}\`\n- **Instruction**: When invoking this catalog without a specific sub-task keyword, start by reading and executing this primary workflow.`
+    : "";
+
+  const content = `# ${title} Skill Catalog
+
+Curated external skills catalog for \`${actualCatalogName}\`.
+
+${primaryBlock}
+
+## Available Skills (${skills.length})
+
+| Skill | Description | Path |
+| :--- | :--- | :--- |
+${rows}
+
+## Execution & Composition Guidelines
+
+1. **Orientation**: Read this index first to become aware of all available skills in this catalog.
+2. **Primary Flow**: Follow the primary workflow (\`${primary?.runnerRelPath ?? "N/A"}\`) as the default approach.
+3. **Proactive Composition**: While executing the primary workflow or when specific tasks arise (e.g. testing, debugging, reviewing, planning), proactively read and utilize the relevant sub-skills from the table above.
+`;
+
+  const indexPath = path.join(catalogDir, "INDEX.md");
+  fs.writeFileSync(indexPath, content, "utf-8");
+  console.log(
+    `[import-external-skills] Generated catalog index: ${path.relative(repoRoot, indexPath)} (${skills.length} skills, primary: ${primary?.name ?? "none"})`,
+  );
+
+  return indexPath;
+}
+
+export function reindexAllCatalogs(repoRoot: string = process.cwd(), runnerFilter?: string): void {
+  const skillsDir = path.join(repoRoot, "skills");
+  if (!fs.existsSync(skillsDir)) return;
+
+  const runnerDirs = fs
+    .readdirSync(skillsDir, { withFileTypes: true })
+    .filter(
+      (d) =>
+        d.isDirectory() &&
+        (!runnerFilter || d.name === runnerFilter || d.name === `${runnerFilter}-lgnh`),
+    );
+
+  for (const rDir of runnerDirs) {
+    const catalogDir = path.join(skillsDir, rDir.name, "catalog");
+    if (!fs.existsSync(catalogDir)) continue;
+
+    const subCatalogs = fs
+      .readdirSync(catalogDir, { withFileTypes: true })
+      .filter((d) => d.isDirectory());
+
+    for (const cat of subCatalogs) {
+      const fullCatDir = path.join(catalogDir, cat.name);
+      generateCatalogIndex(fullCatDir, repoRoot, cat.name);
+    }
+  }
 }
 
 export function importAndRelocate(options: CliOptions, repoRoot: string = process.cwd()): void {
@@ -353,6 +577,7 @@ export function importAndRelocate(options: CliOptions, repoRoot: string = proces
   if (!options.dryRun) {
     fs.writeFileSync(lockPath, JSON.stringify(lockData, null, 2) + "\n", "utf-8");
     console.log(`[import-external-skills] Updated ${path.relative(repoRoot, lockPath)}`);
+    generateCatalogIndex(targetDir, repoRoot, options.name, options.entrypoint);
   }
 
   console.log("\n==================== IMPORT SUMMARY ====================");
@@ -483,6 +708,17 @@ export function updateLockedSkills(options: CliOptions, repoRoot: string = proce
     }
     fs.writeFileSync(lockPath, JSON.stringify(lockData, null, 2) + "\n", "utf-8");
     console.log(`[import-external-skills] Updated ${path.relative(repoRoot, lockPath)}`);
+    const affectedCatalogDirs = new Set<string>();
+    for (const [, entry] of targetEntries) {
+      const skillPath = path.resolve(repoRoot, entry.skillPath);
+      const catDir = path.dirname(path.dirname(skillPath));
+      if (fs.existsSync(catDir)) {
+        affectedCatalogDirs.add(catDir);
+      }
+    }
+    for (const catDir of affectedCatalogDirs) {
+      generateCatalogIndex(catDir, repoRoot);
+    }
   }
 
   console.log("\n==================== UPDATE COMPLETE ====================\n");
@@ -490,7 +726,14 @@ export function updateLockedSkills(options: CliOptions, repoRoot: string = proce
 
 if (import.meta.main) {
   const options = parseArgs(process.argv.slice(2));
-  if (options.updateAll || options.update) {
+  if (options.reindex) {
+    try {
+      reindexAllCatalogs(process.cwd(), options.runner);
+    } catch (err: unknown) {
+      console.error(`[error] ${(err as Error).message}`);
+      process.exit(1);
+    }
+  } else if (options.updateAll || options.update) {
     try {
       updateLockedSkills(options);
     } catch (err: unknown) {
