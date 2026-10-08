@@ -53,32 +53,13 @@ These thoughts mean STOP—you're rationalizing:
 
 If your harness appears here, read its reference file for special instructions:
 
+- Claude Code: `references/claude-code-tools.md`
 - Codex: `references/codex-tools.md`
 - Pi: `references/pi-tools.md`
 - Antigravity: `references/antigravity-tools.md`
 - Hermes Agent: `references/hermes-tools.md`
+- Muse: `references/muse-tools.md`
 
 ## User Instructions
 
 User instructions (CLAUDE.md, AGENTS.md, GEMINI.md, etc, direct requests) take precedence over skills, which in turn override default behavior. Only skip skill workflows or instructions when your human partner has explicitly told you to.
-
-## Superpowers Skills Location in ai-kit
-
-In this repository, all Superpowers skills are located at:
-`skills/dev-lgnh/catalog/superpowers/<skill-name>/SKILL.md`
-
-When invoking or loading a Superpowers skill, read its exact relative path directly:
-
-- `brainstorming` -> `skills/dev-lgnh/catalog/superpowers/brainstorming/SKILL.md`
-- `writing-plans` -> `skills/dev-lgnh/catalog/superpowers/writing-plans/SKILL.md`
-- `subagent-driven-development` -> `skills/dev-lgnh/catalog/superpowers/subagent-driven-development/SKILL.md`
-- `executing-plans` -> `skills/dev-lgnh/catalog/superpowers/executing-plans/SKILL.md`
-- `test-driven-development` -> `skills/dev-lgnh/catalog/superpowers/test-driven-development/SKILL.md`
-- `systematic-debugging` -> `skills/dev-lgnh/catalog/superpowers/systematic-debugging/SKILL.md`
-- `verification-before-completion` -> `skills/dev-lgnh/catalog/superpowers/verification-before-completion/SKILL.md`
-- `finishing-a-development-branch` -> `skills/dev-lgnh/catalog/superpowers/finishing-a-development-branch/SKILL.md`
-- `using-git-worktrees` -> `skills/dev-lgnh/catalog/superpowers/using-git-worktrees/SKILL.md`
-- `requesting-code-review` -> `skills/dev-lgnh/catalog/superpowers/requesting-code-review/SKILL.md`
-- `receiving-code-review` -> `skills/dev-lgnh/catalog/superpowers/receiving-code-review/SKILL.md`
-- `dispatching-parallel-agents` -> `skills/dev-lgnh/catalog/superpowers/dispatching-parallel-agents/SKILL.md`
-- `writing-skills` -> `skills/dev-lgnh/catalog/superpowers/writing-skills/SKILL.md`
