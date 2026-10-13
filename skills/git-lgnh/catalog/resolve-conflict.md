@@ -152,28 +152,59 @@ Always run the project's lint and type check before reporting. A conflict resolu
 - If a check fails, fix it and re-run until both pass. Do not report success with a failing lint or type check.
 - If the project has no lint or type check setup, say so explicitly in the summary instead of skipping silently.
 
-Present a summary to the user:
+Present a summary to the user using concrete branch names (replace `<BRANCH_1>` and `<BRANCH_2>` with actual branch names):
 
 ```
 ## Conflict Resolution Summary
 
-### Context
+### Situation
 - Operation: rebase / merge
-- Base branch: <branch>
-- Source: <branch or commit>
+- Base / Target branch: <branch>
+- Source / Incoming branch: <branch or commit>
+- Overview: <brief explanation of the conflict situation>
 
 ### Resolved Files
 For each file:
-- **<filename>**
-  - Ours: <what our side changed and why>
-  - Theirs: <what their side changed and why>
-  - Resolution: <what you did and why>
+
+#### <filename>
+- **<BRANCH_NAME_1>**:
+  - <what this branch changed in the conflicting section and why>
+- **<BRANCH_NAME_2>**:
+  - <what this branch changed in the conflicting section and why>
+- **Solution**:
+  - Used <BRANCH_NAME_1>: <specific parts kept from branch 1>
+  - Used <BRANCH_NAME_2>: <specific parts kept from branch 2>
+  - Merged / Combined: <how both changes were integrated and any adjustments made>
 
 ### Next Steps
 - Review the changes: `git diff --cached`
 - Continue rebase: `git rebase --continue`
 - Continue merge: `git commit`
 - Abort if needed: `git rebase --abort` / `git merge --abort`
+```
+
+#### Example Output:
+
+```
+## Conflict Resolution Summary
+
+### Situation
+- Operation: merge
+- Base / Target branch: main
+- Source / Incoming branch: feature/auth-v2
+- Overview: Both branches modified authentication middleware and session handling.
+
+### Resolved Files
+
+#### src/auth/middleware.ts
+- **main**:
+  - Updated error handling schema and upgraded logger format.
+- **feature/auth-v2**:
+  - Added multi-factor authentication (MFA) validation step before token issuance.
+- **Solution**:
+  - Used main: Preserved new logger format and structured error classes.
+  - Used feature/auth-v2: Integrated MFA validation step into the request lifecycle.
+  - Merged / Combined: Updated MFA error handling to use main's structured error classes.
 ```
 
 Do NOT run the "next steps" commands. Just tell the user what to do.
