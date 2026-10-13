@@ -8,9 +8,8 @@ Simplify recently changed code without behavior change by delegating the refacto
 
 ## Constraints
 
-- **NEVER perform git state modifications or commits (e.g., `git add`, `git commit`).**
-- Do NOT alter git repository status (staging, committing, etc.). Strictly limit actions to simplifying target code.
 - **Mandatory Subagent Delegation**: Delegate the actual code modification and simplification tasks to a subagent using the `task` tool.
+- Adhere strictly to the shared rules in `catalog/simplify/rules.md`.
 
 ## Execution Steps
 
@@ -32,15 +31,11 @@ Simplify recently changed code without behavior change by delegating the refacto
 
 3. **Delegate Simplification to Subagent**
    - Spawn a subagent via the `task` tool:
-     - `context`: Pass the session summary, target file paths, diff overview, and strict non-git modification constraints.
-     - `tasks`: Instruct subagent to refactor target files for readability and simplicity while preserving exact behavior.
+     - `context`: Pass the session summary, target file paths, diff overview, and references to `catalog/simplify/rules.md`.
+     - `tasks`: Instruct subagent to refactor target files following `catalog/simplify/rules.md` (and `catalog/simplify/typescript.md` for TypeScript files) for readability and simplicity while preserving exact behavior.
    - Subagent Guidelines:
-     - Retain exact behavior, API contracts, and return values.
-     - Follow project coding standards (`CLAUDE.md`, etc.).
-     - Prioritize readability over brevity. Avoid extreme single-line rewrites or nested ternaries.
-     - If targeting TypeScript files, adhere to `catalog/simplify/typescript.md`.
+     - Strictly follow `catalog/simplify/rules.md`.
      - DO NOT perform `git add` or `git commit`.
-
 4. **Verify & Report Results**
    - Review subagent's changes (`git diff`).
    - Summarize modified files and applied refinements in 1-2 lines.
