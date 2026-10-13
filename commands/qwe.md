@@ -5,7 +5,7 @@ description: "Developer workflow runner"
 Read and execute the skill instructions matching the argument keyword:
 
 - `commit`, `commit-fast`, `branch`, `conflict`, `rebase` -> `skill://git-lgnh`
-- `implement`, `simplify`, `superpowers`, `grill`, `code-review`, `handoff`, `ts-refactor` -> `skill://dev-lgnh`
+- `implement`, `simplify`, `superpowers`, `grill`, `code-review`, `handoff`, `ts-refactor`, `no-edit`, `edit-no` -> `skill://dev-lgnh`
 - `intent`, `spec`, `plan`, `run` -> `skill://sdlc-lgnh`
 - `daily`, `weekly` -> `skill://work-lgnh`
 - `eli5`, `show-me`, `humanize`, `meta-prompt` -> `skill://etc-lgnh`

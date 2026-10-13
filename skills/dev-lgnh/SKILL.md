@@ -26,6 +26,7 @@ Match the user's keyword or intent against the workflows below:
 | `code-review`, `review-diff`, `review`         | Two-Axis Code Review         | `catalog/mattpocock/INDEX.md`  |
 | `handoff`                                      | Session Handoff Document     | `catalog/mattpocock/INDEX.md`  |
 | `ts-refactor`, `refactor-ts`, `style-refactor` | TypeScript Style Refactor    | `catalog/ts-refactor.md`       |
+| `no-edit`, `edit-no`                           | No-Edit Mode                 | `catalog/no-edit.md`           |
 
 ## Execution Procedure
 
