@@ -20,6 +20,7 @@ Match the user's keyword or intent against the workflows below:
 | Keywords / Intent                                      | Target Workflow | Catalog File               |
 | :----------------------------------------------------- | :-------------- | :------------------------- |
 | `capture-all`, `capture`, `save`, `note`, `memo`       | Capture All     | `catalog/capture-all.md`   |
+| `capture-daily`, `save to daily`, `daily memo`         | Capture Daily   | `catalog/capture-daily.md` |
 | `capture-guide`, `guide`, `howto`, `recipe`, `runbook` | Capture Guide   | `catalog/capture-guide.md` |
 | `query`, `search`, `find`                              | Query           | `catalog/query.md`         |
 | `upsert`, `update`, `append`, `add`                    | Upsert          | `catalog/upsert.md`        |
