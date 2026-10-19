@@ -438,7 +438,7 @@ export function importAndRelocate(options: CliOptions, repoRoot: string = proces
     if (!options.dryRun) {
       const cmdArgs = ["--yes", "skills", "add", options.source, "-y", "--copy"];
       if (options.skills.length > 0) {
-        cmdArgs.push("-s", options.skills.join(","));
+        cmdArgs.push(...options.skills.flatMap((s) => ["-s", s]));
       } else {
         cmdArgs.push("--skill", "*");
       }
@@ -654,8 +654,7 @@ export function updateLockedSkills(options: CliOptions, repoRoot: string = proce
         source,
         "-y",
         "--copy",
-        "-s",
-        skillNames.join(","),
+        ...skillNames.flatMap((s) => ["-s", s]),
       ];
       console.log(`> npx ${cmdArgs.join(" ")}`);
       const result = spawnSync("npx", cmdArgs, {
