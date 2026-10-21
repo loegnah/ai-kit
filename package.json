@@ -5,7 +5,8 @@
     "lint": "oxlint && oxfmt --check",
     "lint:write": "oxlint --fix && oxfmt",
     "typecheck": "tsc --noEmit",
-    "check": "oxlint --fix && oxfmt && tsc --noEmit"
+    "check": "oxlint --fix && oxfmt && tsc --noEmit",
+    "command:deploy": "mkdir -p ~/.agents/commands && cp commands/qwe.md ~/.agents/commands/"
   },
   "devDependencies": {
     "@types/bun": "latest",

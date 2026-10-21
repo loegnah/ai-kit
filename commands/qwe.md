@@ -4,12 +4,12 @@ description: "Developer workflow runner"
 
 Read and execute the skill instructions matching the argument keyword:
 
-- `commit`, `commit-fast`, `branch`, `conflict`, `rebase` -> `skill://git-lgnh`
-- `implement`, `simplify`, `superpowers`, `grill`, `code-review`, `handoff`, `ts-refactor`, `no-edit`, `edit-no` -> `skill://dev-lgnh`
+- `commit`, `commit-fast`, `branch`, `branch-name`, `conflict`, `rebase` -> `skill://git-lgnh`
+- `implement`, `simplify`, `simplify-fast`, `refactor`, `ts-refactor`, `no-edit`, `edit-no`, `superpowers`, `mattpocock`, `pstack` -> `skill://dev-lgnh`
 - `intent`, `spec`, `plan`, `run` -> `skill://sdlc-lgnh`
 - `daily`, `weekly` -> `skill://work-lgnh`
 - `eli5`, `show-me`, `humanize`, `meta-prompt` -> `skill://etc-lgnh`
-- `capture`, `capture-daily`, `query` -> `skill://brain-lgnh`
+- `capture`, `capture-daily`, `capture-guide`, `query`, `upsert` -> `skill://brain-lgnh`
 - `to-eng`, `to-kor`, `to-eng-learn`, `to-kor-learn` -> `skill://lang-lgnh`
 
 $ARGUMENTS
