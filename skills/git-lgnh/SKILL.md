@@ -1,6 +1,7 @@
 ---
 name: git-lgnh
 description: "Git automation and repository maintenance workflow runner."
+disable-model-invocation: true
 ---
 
 # GIT-LGNH Skill Runner

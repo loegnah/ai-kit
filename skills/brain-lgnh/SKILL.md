@@ -1,6 +1,7 @@
 ---
 name: brain-lgnh
 description: "Second brain knowledge capture and query workflow runner."
+disable-model-invocation: false
 ---
 
 # BRAIN-LGNH Skill Runner

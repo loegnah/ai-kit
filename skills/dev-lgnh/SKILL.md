@@ -1,6 +1,7 @@
 ---
 name: dev-lgnh
 description: "Developer workflow runner (code implementation, simplification, refactoring, code review)."
+disable-model-invocation: true
 ---
 
 # DEV-LGNH Skill Runner

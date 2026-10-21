@@ -1,6 +1,7 @@
 ---
 name: sdlc-lgnh
 description: "AI-native software development lifecycle artifact workflow runner (intent -> spec -> plan -> run)."
+disable-model-invocation: true
 ---
 
 # SDLC-LGNH Skill Runner

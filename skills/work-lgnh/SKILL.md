@@ -1,6 +1,7 @@
 ---
 name: work-lgnh
 description: "Work log and progress reporting workflow runner."
+disable-model-invocation: true
 ---
 
 # WORK-LGNH Skill Runner

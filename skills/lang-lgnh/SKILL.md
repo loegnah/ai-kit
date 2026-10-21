@@ -1,6 +1,7 @@
 ---
 name: lang-lgnh
 description: "Language translation and learning workflow runner (to-eng, to-kor, to-eng-learn, to-kor-learn)."
+disable-model-invocation: true
 ---
 
 # LANG-LGNH Skill Runner

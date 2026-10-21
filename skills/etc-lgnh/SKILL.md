@@ -1,6 +1,7 @@
 ---
 name: etc-lgnh
 description: "General developer and code explanation workflow runner."
+disable-model-invocation: false
 ---
 
 # ETC-LGNH Skill Runner
