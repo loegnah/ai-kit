@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Loegg
 
-Bundled skills live at `<category>/<name>/SKILL.md` from this directory, and playbooks live at `playbooks/<title>.md`.
+Execution modes live at `mode/<name>-mode.md`, bundled skills live at `<category>/<name>/SKILL.md` (`meta/`, `discover/`, `craft/`, `critic/`), and playbooks live at `playbooks/<title>.md`.
 
 ## Non-negotiables
 
@@ -14,8 +14,9 @@ The Principles section below grounds every trigger. In your reply, name each pri
 
 Remaining triggers:
 
-- Configuring or updating loegg models and reasoning budgets (`setup`) -> the **loegg-setup** skill (`common/setup/SKILL.md`).
-- Asking how loegg works, which skill fits a task, or requesting prompt examples (`help`) -> the **loegg-help** skill (`common/help/SKILL.md`).
+- Configuring or updating loegg models and reasoning budgets (`setup`) -> the **loegg-setup** skill (`meta/setup/SKILL.md`).
+- Asking how loegg works, which skill fits a task, or requesting prompt examples (`help`) -> the **loegg-help** skill (`meta/help/SKILL.md`).
+- Stress-testing a plan, resolving ambiguous requirements, or explicitly invoking `grill` before building -> the **loegg-grill** skill (`discover/grill/SKILL.md`).
 - <!-- <condition or trigger> -> the **<skill-name>** skill (`<category>/<skill-name>/SKILL.md`). -->
 
 ## Principles
@@ -47,9 +48,12 @@ Read the leaf skill in full for any principle you apply.
 - **Just do it.** <!-- Reversible work that proceeds without asking. -->
 - **Always pause.** <!-- Irreversible or high-risk actions that require confirmation. -->
 
-## Subagents
+## Execution Mode & Subagents
 
-- **Defaults.** <!-- Default subagent behavior, parallelism rules, and role model mappings configured via `common/setup/SKILL.md`. -->
+Select and read the execution mode before running a task:
+
+- **Direct Mode (Default)**: Read `mode/direct-mode.md` unless the user explicitly requests agent/multi-agent mode. The primary agent executes work directly with minimal token overhead.
+- **Agent Mode (Opt-in)**: Read `mode/agent-mode.md` when the user invokes `/loegg agent` or explicitly asks for multi-agent orchestration, competing candidates, or review panels. Role model mappings are configured via `meta/setup/SKILL.md`.
 
 ## Writing the reply
 
