@@ -9,8 +9,7 @@ A skill kit for orchestrating and managing AI agent workflows.
 - **git-lgnh**: Git automation and repository maintenance (commit details, branch cleanup, conflict resolution, worktree sync)
 - **brain-lgnh**: Second brain knowledge capture and retrieval (`capture`, `capture-daily`, `query`)
 - **work-lgnh**: Daily and weekly work logging and progress reporting (`daily`, `weekly`)
-- **etc-lgnh**: Developer utilities and code explanation workflows (`eli5`, `show-me`, `humanize`, `meta-prompt`)
-- **lang-lgnh**: Language translation and learning workflows (`to-eng`, `to-kor`, `to-eng-learn`, `to-kor-learn`)
+- **etc-lgnh**: Developer utilities, code explanation, translation, and language learning workflows (`eli5`, `show-me`, `humanize`, `meta-prompt`, `to-eng`, `to-kor`, `to-eng-learn`, `to-kor-learn`). Translation modes share `skills/etc-lgnh/catalog/translate.md`: ordinary modes output only the translation; learning modes add 1–3 key points. Files are modified only when saving or applying the translation is explicitly requested.
 
 ## External Sources & Credits
 

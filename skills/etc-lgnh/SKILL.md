@@ -1,12 +1,12 @@
 ---
 name: etc-lgnh
-description: "General developer and code explanation workflow runner."
+description: "General developer, code explanation, translation, and language learning workflow runner."
 disable-model-invocation: false
 ---
 
 # ETC-LGNH Skill Runner
 
-Execute custom developer and code explanation workflows when invoked with `/etc-lgnh <keyword>` or matching workflow intent.
+Execute custom developer, code explanation, translation, and language learning workflows when invoked with `/etc-lgnh <keyword>` or matching workflow intent.
 
 ## Rules
 
@@ -17,12 +17,16 @@ Execute custom developer and code explanation workflows when invoked with `/etc-
 
 Match the user's keyword or intent against the workflows below:
 
-| Keywords / Intent                                   | Target Workflow | Catalog File                 |
-| :-------------------------------------------------- | :-------------- | :--------------------------- |
-| `eli5`, `explain-5`, `explain`                      | ELI5 Explainer  | `catalog/eli5.md`            |
-| `show-me`, `show`                                   | Show Me         | `catalog/show-me.md`         |
-| `humanize`, `humanize-korean`, `de-ai`, `im-not-ai` | Humanize Korean | `catalog/humanize-korean.md` |
-| `meta-prompt`, `prompt`, `prompt-gen`               | Meta-Prompt     | `catalog/meta-prompt.md`     |
+| Keywords / Intent                                    | Target Workflow     | Catalog File                 |
+| :--------------------------------------------------- | :------------------ | :--------------------------- |
+| `eli5`, `explain-5`, `explain`                       | ELI5 Explainer      | `catalog/eli5.md`            |
+| `show-me`, `show`                                    | Show Me             | `catalog/show-me.md`         |
+| `humanize`, `humanize-korean`, `de-ai`, `im-not-ai`  | Humanize Korean     | `catalog/humanize-korean.md` |
+| `meta-prompt`, `prompt`, `prompt-gen`                | Meta-Prompt         | `catalog/meta-prompt.md`     |
+| `to-eng`, `eng`, `en`, `translate-eng`               | English Translation | `catalog/translate.md`       |
+| `to-kor`, `kor`, `ko`, `translate-kor`               | Korean Translation  | `catalog/translate.md`       |
+| `to-eng-learn`, `eng-learn`, `en-learn`, `learn-eng` | English Learning    | `catalog/translate.md`       |
+| `to-kor-learn`, `kor-learn`, `ko-learn`, `learn-kor` | Korean Learning     | `catalog/translate.md`       |
 
 ## Execution Procedure
 
