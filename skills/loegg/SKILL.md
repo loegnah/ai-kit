@@ -17,6 +17,7 @@ Remaining triggers:
 - Configuring or updating loegg models and reasoning budgets (`setup`) -> the **loegg-setup** skill (`meta/setup/SKILL.md`).
 - Asking how loegg works, which skill fits a task, or requesting prompt examples (`help`) -> the **loegg-help** skill (`meta/help/SKILL.md`).
 - Stress-testing a plan, resolving ambiguous requirements, or explicitly invoking `grill` before building -> the **loegg-grill** skill (`discover/grill/SKILL.md`).
+- Deep/multi-angle review or competing candidates (`arena`), triggered either by an explicit heavy/depth request ("다양한 관점/시각", "다각도로", "심층", "심화", "빡세게", "깊게") or by the agent's own judgment that a high-stakes step needs multi-model verification -> the **loegg-arena** skill (`craft/arena/SKILL.md`).
 - <!-- <condition or trigger> -> the **<skill-name>** skill (`<category>/<skill-name>/SKILL.md`). -->
 
 ## Principles
@@ -52,8 +53,15 @@ Read the leaf skill in full for any principle you apply.
 
 Select and read the execution mode before running a task:
 
-- **Direct Mode (Default)**: Read `mode/direct-mode.md` unless the user explicitly requests agent/multi-agent mode. The primary agent executes work directly with minimal token overhead.
-- **Agent Mode (Opt-in)**: Read `mode/agent-mode.md` when the user invokes `/loegg agent` or explicitly asks for multi-agent orchestration, competing candidates, or review panels. Role model mappings are configured via `meta/setup/SKILL.md`.
+- **Direct Mode (Default)**: Read `mode/direct-mode.md` when working interactively with the user in conversation. Clarify open decisions with the user and pause at requested review checkpoints.
+- **Agent Mode (Autonomous)**: Read `mode/agent-mode.md` when the user invokes `/loegg agent` or asks the agent to run autonomously to completion without interactive checkpoints.
+
+### Heavy Multi-Agent Escalation (`arena`, etc.)
+
+Routine steps (including plain `"검토해봐"`) run directly in the main agent to avoid unnecessary token spend. Escalate a step to heavy multi-agent execution (`craft/arena/SKILL.md`) in two cases:
+
+1. **Explicit depth/intensity signal from the user**: The user asks for multi-angle or deep work ("다양한 관점/시각", "다각도로", "심층", "심화", "빡세게", "깊게", or `arena`).
+2. **Agent's own judgment**: Even without those keywords, the agent judges that the current step faces a high-stakes architectural fork, subtle failure mode, or costly lock-in risk where a single perspective is not enough.
 
 ## Writing the reply
 

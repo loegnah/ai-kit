@@ -21,9 +21,10 @@ Ask the user for their preferred reasoning budget using the structured-question 
 
 Present the role table and ask whether to accept defaults or customize specific roles:
 
-| Role                   | Default Model              | Notes                                    |
-| :--------------------- | :------------------------- | :--------------------------------------- |
-| <!-- `<role-name>` --> | <!-- `<default-model>` --> | <!-- `<single or multi-model panel>` --> |
+| Role                   | Default Model                   | Notes                                                          |
+| :--------------------- | :------------------------------ | :------------------------------------------------------------- |
+| `arena runners`        | <!-- `<model-a>, <model-b>` --> | Multi-model panel (2+ models run identical prompt in parallel) |
+| <!-- `<role-name>` --> | <!-- `<default-model>` -->      | <!-- `<single or multi-model panel>` -->                       |
 
 ## Step 3. Write configuration
 
@@ -32,5 +33,6 @@ Write the chosen configuration to the target rule/config file so **loegg** skill
 ```markdown
 # loegg subagent models
 
+- arena runners: <!-- <model-a>, <model-b> -->
 - <!-- <role-name>: <model-slug> -->
 ```

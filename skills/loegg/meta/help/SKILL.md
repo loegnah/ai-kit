@@ -15,9 +15,9 @@ Answer questions about **loegg** and draft prompts the user can copy and send.
 
 - **Entrypoint**: `../../SKILL.md` (`loegg`) orchestrates execution modes, playbooks, workflow skills, and principles.
 - **Execution Modes**:
-  - **Direct Mode (Default)**: `../../mode/direct-mode.md` — primary agent executes directly without subagent token overhead.
-  - **Agent Mode (Opt-in)**: `../../mode/agent-mode.md` — multi-agent delegation and multi-model panels (invoked via `/loegg agent`).
-- **Setup**: `../setup/SKILL.md` (`meta/setup/SKILL.md`) configures per-role subagent models and reasoning budgets for Agent Mode (invoked via `/loegg setup`).
+  - **Direct Mode (Default)**: `../../mode/direct-mode.md` — interactive mode where the user collaborates turn-by-turn with the agent.
+  - **Agent Mode (Autonomous)**: `../../mode/agent-mode.md` — autonomous mode where the agent resolves forks and drives the task to completion on its own (invoked via `/loegg agent`).
+- **Setup**: `../setup/SKILL.md` (`meta/setup/SKILL.md`) configures per-role subagent models and reasoning budgets (invoked via `/loegg setup`).
 
 ## Skill Catalog
 
@@ -32,7 +32,7 @@ Answer questions about **loegg** and draft prompts the user can copy and send.
 
 ### Craft (`craft/`)
 
-- <!-- Skills for building, running, and competing implementations (`tdd`, `arena`, `swarm`, etc.). -->
+- **`arena`** (`../../craft/arena/SKILL.md`): Run the same prompt across multiple models (for pre-work review, design, or implementation), pick the strongest base, and graft the best parts from the rest.
 
 ### Critic (`critic/`)
 
