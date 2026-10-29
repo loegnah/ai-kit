@@ -11,6 +11,7 @@ Record information, notes, or findings into today's daily note (`~/note/brain/da
 
 - **NEVER** run `ingest` or `init` workflows.
 - Only write or append to today's daily note in `~/note/brain/daily/`.
+- **NEVER** write to `brain-hindsight` MCP (e.g., `retain`, `sync_retain`). Save as a file only.
 
 ## Storage & Format Conventions
 

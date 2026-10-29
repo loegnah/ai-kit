@@ -11,15 +11,14 @@ Update an existing note in the second brain's raw directory (`~/note/brain/raw/`
 
 - **NEVER** run `ingest` or `init` workflows.
 - Only record or update documents in `~/note/brain/raw/`. NEVER directly edit `~/note/brain/wiki/` or `~/note/brain/refs/`.
+- **NEVER** write to `brain-hindsight` MCP (e.g., `retain`, `sync_retain`). Save as a file only.
 
 ## Storage & Naming Conventions
 
 1. **Target Directory**: `~/note/brain/raw/`
 2. **File Name**:
-   - Concise name reflecting the core content.
-   - Connect words with hyphens (`-`). No spaces or special characters.
+   - Follow shared naming rules in `catalog/naming.md`.
    - Extension must be `.md`.
-   - Example: `~/note/brain/raw/react-19-migration-plan.md`
 
 3. **Frontmatter** (for new files):
    - Must include `created` date at the top:
@@ -46,7 +45,7 @@ Update an existing note in the second brain's raw directory (`~/note/brain/raw/`
        ```
      - Preserve existing frontmatter and preceding content without loss.
    - **Insert (No Matching File)**:
-     - Determine a concise hyphen-separated filename under `~/note/brain/raw/`.
+     - Determine a natural file name under `~/note/brain/raw/` following `catalog/naming.md`.
      - Create a new Markdown file formatted with `created: YYYY-MM-DD` frontmatter and structured body.
 
 3. **Report**:

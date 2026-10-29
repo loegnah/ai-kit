@@ -11,15 +11,17 @@ Record newly discovered information, meeting notes, ideas, decisions, or raw kno
 
 - **NEVER** run `ingest` or `init` workflows.
 - Only record the source document in `~/note/brain/raw/`.
+- **NEVER** write to `brain-hindsight` MCP (e.g., `retain`, `sync_retain`). Save as a file only.
 
 ## Storage & Naming Conventions
 
 1. **Target Directory**: `~/note/brain/raw/`
 2. **File Name**:
-   - Concise name reflecting the core content.
-   - Connect words with hyphens (`-`). No spaces or special characters.
+   - Follow shared naming rules in `catalog/naming.md`.
+   - Do NOT force hyphenation or no-spaces. Use natural language (Korean, English, spaces, parentheses allowed) reflecting the core content.
+   - Only exclude Obsidian prohibited characters (`* " \ / < > : | ? # ^`).
    - Extension must be `.md`.
-   - Example: `~/note/brain/raw/react-19-migration-plan.md`
+   - Example: `~/note/brain/raw/React 19 마이그레이션 계획.md`
 
 3. **Frontmatter**:
    - Must include `created` date at the top:
@@ -36,6 +38,6 @@ Record newly discovered information, meeting notes, ideas, decisions, or raw kno
 ## Execution Steps
 
 1. **Extract Content**: Identify the core information, decisions, context, or notes from user input or conversation history.
-2. **Determine File Name**: Create a hyphen-separated filename under `~/note/brain/raw/`.
+2. **Determine File Name**: Formulate a natural file name reflecting the core content according to `catalog/naming.md`.
 3. **Write Markdown**: Format with `created` frontmatter and structured body.
 4. **Report**: Confirm creation with the file path and brief summary.

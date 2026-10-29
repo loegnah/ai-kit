@@ -13,6 +13,8 @@ Execute second brain knowledge capture and query workflows (`~/note/brain`) when
 - NEVER run `glob`, `grep`, or directory listings to explore or verify catalog files.
 - Read the exact relative file path (`catalog/<filename>.md`) directly.
 - Strictly adhere to second brain constraints: NEVER run `ingest` or `init` workflows.
+- Note naming across all workflows MUST follow shared Obsidian rules in `catalog/naming.md`.
+- NEVER write to `brain-hindsight` MCP (`retain`, `sync_retain`, `update_*`, `create_*`, `delete_*`, `clear_*`) in any workflow. Persist notes only as files under `~/note/brain/`. Only `recall`/`reflect` reads in `catalog/query.md` are allowed.
 
 ## Workflow Dispatcher
 

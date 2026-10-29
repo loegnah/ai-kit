@@ -11,6 +11,7 @@ Extract reusable setup instructions, how-to guides, and operational workflows fr
 
 - **NEVER** run `ingest` or `init` workflows.
 - Only record the source document in `~/note/brain/raw/`.
+- **NEVER** write to `brain-hindsight` MCP (e.g., `retain`, `sync_retain`). Save as a file only.
 
 ## Extraction & Generalization Rules
 
@@ -33,10 +34,11 @@ Extract reusable setup instructions, how-to guides, and operational workflows fr
 
 1. **Target Directory**: `~/note/brain/raw/`
 2. **File Name**:
-   - Connect words with hyphens (`-`).
-   - Prefix with `guide-` to indicate procedural documentation.
+   - Follow shared naming rules in `catalog/naming.md`.
+   - Do NOT force `guide-` prefix, hyphenation, or English casing. Use natural titles (Korean, English, spaces, parentheses allowed).
+   - Only exclude Obsidian prohibited characters (`* " \ / < > : | ? # ^`).
    - Extension must be `.md`.
-   - Example: `~/note/brain/raw/guide-agent-tool-setup.md`
+   - Example: `~/note/brain/raw/OMP 컨텍스트 격리 가이드.md`
 
 3. **Frontmatter**:
    - Must include `created` date and `type`:
@@ -54,6 +56,6 @@ Extract reusable setup instructions, how-to guides, and operational workflows fr
 ## Execution Steps
 
 1. **Filter & Generalize**: Strip out decisions, opinions, and local environment quirks. Retain only generalizable, reproducible instructions.
-2. **Determine File Name**: Create a hyphen-separated filename under `~/note/brain/raw/` starting with `guide-`.
+2. **Determine File Name**: Formulate a natural note title reflecting the procedure according to `catalog/naming.md` without forced prefixes or hyphens.
 3. **Write Markdown**: Format with `created` and `type: guide` frontmatter and structured sections.
 4. **Report**: Confirm creation with the file path and brief summary of the documented procedure.
