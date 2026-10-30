@@ -31,6 +31,7 @@ Match the user's keyword or intent against the workflows below:
 | `refactor`, `ts-refactor`, `refactor-ts`, `style-refactor`              | Style Refactor               | `catalog/refactor/SKILL.md`      |
 | `no-edit`, `edit-no`                                                    | No-Edit Mode                 | `catalog/no-edit.md`             |
 | `doc`, `docs`, `design-doc`, `rule`, `guide`, `note`, `tip`, `glossary` | Project Doc Capture          | `catalog/doc.md`                 |
+| `skill-sync`, `update-skills`, `sync-skills`, `skill-audit`             | Project Skill Sync           | `catalog/skill-sync.md`          |
 
 ## Execution Procedure
 
