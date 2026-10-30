@@ -1,12 +1,6 @@
----
-name: loegg-setup
-description: Configure subagent models and reasoning budgets for loegg skills.
-disable-model-invocation: true
----
-
 # Setup Loegg
 
-Configure which models and reasoning budgets **loegg** skills use when spawning subagents.
+Configure which models and reasoning budgets **loegg** uses when spawning subagents.
 
 ## Step 1. Choose reasoning budget
 

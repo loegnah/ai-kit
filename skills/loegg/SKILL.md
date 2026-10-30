@@ -6,19 +6,29 @@ disable-model-invocation: true
 
 # Loegg
 
-Execution modes live at `mode/<name>-mode.md`, bundled skills live at `<category>/<name>/SKILL.md` (`meta/`, `discover/`, `craft/`, `critic/`), and playbooks live at `playbooks/<title>.md`.
+Execution modes live at `mode/<name>-mode.md`, directly callable actions live at `action/<name>.md` (`setup`, `help`, `grill`, `analyze`, etc.), shared execution utilities live at `util/<name>.md` (`arena`, etc.), and playbooks live at `playbooks/<title>.md`.
+
+## Dispatch: One-Shot Actions vs. Full Mode
+
+Only `action/` files can be invoked directly as standalone commands (`mode/` and `util/` are internal helpers applied during a task, never called on their own):
+
+- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `analyze`)**: When invoked with an action name, read only `action/<action>.md` and execute it directly without loading `mode/*.md` or playbooks.
+  - `setup` -> `action/setup.md` (configure subagent models and reasoning budgets).
+  - `help` -> `action/help.md` (explain loegg usage, recommend workflows, or draft prompts).
+  - `grill` -> `action/grill.md` (stress-test a plan or resolve ambiguous requirements in frontier rounds).
+  - `analyze` -> `action/analyze.md` (send the same bug-hunt or analysis question to multiple read-only subagents in parallel and have the main agent fact-check and synthesize the answer).
+- **Full workflow (`/loegg <task>` or `/loegg agent <task>`)**: For general tasks, select an execution mode (`mode/`), apply any triggered utilities (`util/`), and follow the matched playbook below.
 
 ## Non-negotiables
 
 The Principles section below grounds every trigger. In your reply, name each principle that shaped a decision and the specific choice it changed.
 
-Remaining triggers:
+Remaining triggers during a task:
 
-- Configuring or updating loegg models and reasoning budgets (`setup`) -> the **loegg-setup** skill (`meta/setup/SKILL.md`).
-- Asking how loegg works, which skill fits a task, or requesting prompt examples (`help`) -> the **loegg-help** skill (`meta/help/SKILL.md`).
-- Stress-testing a plan, resolving ambiguous requirements, or explicitly invoking `grill` before building -> the **loegg-grill** skill (`discover/grill/SKILL.md`).
-- Deep/multi-angle review or competing candidates (`arena`), triggered either by an explicit heavy/depth request ("다양한 관점/시각", "다각도로", "심층", "심화", "빡세게", "깊게") or by the agent's own judgment that a high-stakes step needs multi-model verification -> the **loegg-arena** skill (`craft/arena/SKILL.md`).
-- <!-- <condition or trigger> -> the **<skill-name>** skill (`<category>/<skill-name>/SKILL.md`). -->
+- Underspecified requirements or high-leverage open design decisions before building -> read `action/grill.md`.
+- Root-cause bug investigation or complex codebase/architecture Q&A requiring multi-subagent parallel analysis (`analyze`) -> read `action/analyze.md`.
+- Deep/multi-angle review or competing candidates (`arena`), triggered either by an explicit heavy/depth request ("다양한 관점/시각", "다각도로", "심층", "심화", "빡세게", "깊게", `arena`) or by the agent's own judgment that a high-stakes step needs multi-model verification -> read `util/arena.md`.
+- <!-- <condition or trigger> -> `action/<name>.md` or `util/<name>.md`. -->
 
 ## Principles
 
@@ -58,7 +68,7 @@ Select and read the execution mode before running a task:
 
 ### Heavy Multi-Agent Escalation (`arena`, etc.)
 
-Routine steps (including plain `"검토해봐"`) run directly in the main agent to avoid unnecessary token spend. Escalate a step to heavy multi-agent execution (`craft/arena/SKILL.md`) in two cases:
+Routine steps (including plain `"검토해봐"`) run directly in the main agent to avoid unnecessary token spend. Escalate a step to heavy multi-agent execution (`util/arena.md`) in two cases:
 
 1. **Explicit depth/intensity signal from the user**: The user asks for multi-angle or deep work ("다양한 관점/시각", "다각도로", "심층", "심화", "빡세게", "깊게", or `arena`).
 2. **Agent's own judgment**: Even without those keywords, the agent judges that the current step faces a high-stakes architectural fork, subtle failure mode, or costly lock-in risk where a single perspective is not enough.

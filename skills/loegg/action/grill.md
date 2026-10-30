@@ -1,9 +1,3 @@
----
-name: loegg-grill
-description: Stress-test a plan, decision, or underspecified request in frontier rounds until reaching a shared understanding.
-disable-model-invocation: true
----
-
 # Grill
 
 Interview the user relentlessly until you reach a shared understanding. Map the problem as a **design tree**: every decision branches into the decisions that hang off it.

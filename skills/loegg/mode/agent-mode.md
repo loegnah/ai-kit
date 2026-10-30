@@ -6,7 +6,7 @@ Autonomous execution mode where the agent drives work to completion on its own w
 
 - **Never block on the human for reversible calls.** Do not pause to ask questions or wait for intermediate checkpoints. Make the strongest architectural/product call from codebase evidence, record the rationale, and keep moving.
 - **Only pause for irreversible high-risk actions.** Stop only before destructive data operations, force-pushing shared branches, or production deploys not explicitly authorized.
-- **Self-resolve ambiguity via `arena` or prototypes.** When facing a non-trivial design fork that would normally go to the user in Direct Mode, test it empirically or run `craft/arena/SKILL.md` to pick and graft the strongest approach autonomously.
+- **Self-resolve ambiguity via `arena` or prototypes.** When facing a non-trivial design fork that would normally go to the user in Direct Mode, test it empirically or run `util/arena.md` to pick and graft the strongest approach autonomously.
 - **End-to-end verification and decision trail.** Drive the task all the way through verification (`bun run check`, tests, runtime proof) and report the final result along with key decisions made and alternatives rejected.
 
 ## Workflow Cadence
