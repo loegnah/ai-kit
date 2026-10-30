@@ -17,20 +17,20 @@ Execute developer workflows (implementation, refactoring, code review, simplific
 
 Match the user's keyword or intent against the workflows below:
 
-| Keywords / Intent                                              | Target Workflow              | Catalog File                     |
-| :------------------------------------------------------------- | :--------------------------- | :------------------------------- |
-| `implement`, `subagent-impl`, `parallel-impl`                  | Subagent Implementation      | `catalog/implement.md`           |
-| `simplify`                                                     | Simplify Code                | `catalog/simplify/SKILL.md`      |
-| `simplify-fast`, `fast-simplify`                               | Fast Code Simplify           | `catalog/simplify/SKILL-fast.md` |
-| `superpowers`                                                  | Superpowers Catalog Workflow | `catalog/superpowers/INDEX.md`   |
-| `mattpocock`, `matt`                                           | Matt Pocock Catalog Workflow | `catalog/mattpocock/INDEX.md`    |
-| `pstack`                                                       | Pstack Catalog Workflow      | `catalog/pstack/INDEX.md`        |
-| `grill`, `grill-me`, `grilling`                                | Relentless Interview         | `catalog/mattpocock/INDEX.md`    |
-| `code-review`, `review-diff`, `review`                         | Two-Axis Code Review         | `catalog/mattpocock/INDEX.md`    |
-| `handoff`                                                      | Session Handoff Document     | `catalog/mattpocock/INDEX.md`    |
-| `refactor`, `ts-refactor`, `refactor-ts`, `style-refactor`     | Style Refactor               | `catalog/refactor/SKILL.md`      |
-| `no-edit`, `edit-no`                                           | No-Edit Mode                 | `catalog/no-edit.md`             |
-| `doc`, `docs`, `design-doc`, `rule`, `note`, `tip`, `glossary` | Project Doc Capture          | `catalog/doc.md`                 |
+| Keywords / Intent                                                       | Target Workflow              | Catalog File                     |
+| :---------------------------------------------------------------------- | :--------------------------- | :------------------------------- |
+| `implement`, `subagent-impl`, `parallel-impl`                           | Subagent Implementation      | `catalog/implement.md`           |
+| `simplify`                                                              | Simplify Code                | `catalog/simplify/SKILL.md`      |
+| `simplify-fast`, `fast-simplify`                                        | Fast Code Simplify           | `catalog/simplify/SKILL-fast.md` |
+| `superpowers`                                                           | Superpowers Catalog Workflow | `catalog/superpowers/INDEX.md`   |
+| `mattpocock`, `matt`                                                    | Matt Pocock Catalog Workflow | `catalog/mattpocock/INDEX.md`    |
+| `pstack`                                                                | Pstack Catalog Workflow      | `catalog/pstack/INDEX.md`        |
+| `grill`, `grill-me`, `grilling`                                         | Relentless Interview         | `catalog/mattpocock/INDEX.md`    |
+| `code-review`, `review-diff`, `review`                                  | Two-Axis Code Review         | `catalog/mattpocock/INDEX.md`    |
+| `handoff`                                                               | Session Handoff Document     | `catalog/mattpocock/INDEX.md`    |
+| `refactor`, `ts-refactor`, `refactor-ts`, `style-refactor`              | Style Refactor               | `catalog/refactor/SKILL.md`      |
+| `no-edit`, `edit-no`                                                    | No-Edit Mode                 | `catalog/no-edit.md`             |
+| `doc`, `docs`, `design-doc`, `rule`, `guide`, `note`, `tip`, `glossary` | Project Doc Capture          | `catalog/doc.md`                 |
 
 ## Execution Procedure
 
