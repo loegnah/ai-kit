@@ -12,7 +12,7 @@ Read-only action: do **not** modify files.
 
 ## Step 2. Fan Out Identical Question
 
-Spawn 2+ read-only subagents concurrently in a single tool call (using `analyze runners` / `arena runners` from `action/setup.md`, or at least 2 parallel read-only scouts/analysts):
+Spawn 2+ read-only subagents concurrently in a single tool call (using `analyze runners` from `~/.agents/loegg/models.md` configured via `action/setup.md`, or `scout1` / `scout2` when the harness manages models per agent role):
 
 - Give every subagent the **exact same question and seed context**.
 - Require each subagent to investigate independently and return:

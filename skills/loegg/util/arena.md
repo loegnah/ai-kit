@@ -18,7 +18,7 @@ Every candidate receives the **exact same prompt**, so the prompt is the contrac
    - **Build / Design mode**: Competing code implementations or type/architecture sketches.
 2. **Package shared grounding**: Gather the relevant files, context, and intent so every runner starts from the same facts.
 3. **Derive the rubric**: Define 3–5 concrete, gradeable criteria for what a great result looks like on _this_ task (e.g., codebase accuracy, root-cause depth, feasibility, minimal surface area). Only the main agent (and optional cross-judge) sees the rubric; candidates see only the task prompt.
-4. **Pick the runners**: Use the `arena runners` entry from the loegg model configuration (`action/setup.md`). If unconfigured, spawn at least 2 runners across distinct model families available in the harness.
+4. **Pick the runners**: Read `arena runners` from `~/.agents/loegg/models.md` (configured via `action/setup.md`). One subagent runs per comma-separated entry. If unconfigured or if the harness forbids explicit `model` parameters (e.g., OMP), omit `model` and spawn at least 2 runners across distinct available models or harness agent roles (`scout1`, `scout2`, etc.).
 5. **Isolate workspaces (Build mode only)**: When candidates write files, give each candidate an isolated git worktree or `/tmp/arena-<slug>/candidate-<n>/`. In Investigation / Review mode, spawn candidates as read-only subagents.
 
 ## Phase 2: Fan out
@@ -34,7 +34,7 @@ If a candidate fails or produces empty output, proceed with the remaining candid
 
 Read every candidate's output end to end before choosing.
 
-1. Score each candidate against the Phase 1 rubric criterion by criterion (optionally alongside a read-only `arena cross-judge` subagent for large artifacts).
+1. Score each candidate against the Phase 1 rubric criterion by criterion (optionally alongside a read-only cross-judge subagent chosen from `arena cross-judge pool` in `~/.agents/loegg/models.md`, preferring a model family different from the parent).
 2. **Pick one winning candidate as the Base.** Never average diverging candidates together.
    - In **Investigation / Review mode**, pick the analysis with the most accurate mental model of the codebase, the deepest root-cause evidence, and the highest-signal critique.
    - In **Build mode**, pick the candidate with the cleanest boundary and smallest maintainable surface.
