@@ -1,6 +1,6 @@
 # Setup Loegg
 
-Configure which models and reasoning budgets **loegg** uses when spawning subagents.
+Configure which providers, models, and reasoning budgets **loegg** uses when spawning subagents.
 
 ## Settings File Path
 
@@ -12,9 +12,9 @@ Configure which models and reasoning budgets **loegg** uses when spawning subage
 
 ## Step 1. Detect available models & load current state
 
-1. **Detect models**: Enumerate the model slugs your subagent tool accepts in this session (or run the harness model-listing command if available). If detection is unavailable, ask the user which model slugs they use. Never write an unverified model slug.
-   - Special aliases `inherit-parent` and `auto` are always valid (they mean: omit the `model` parameter so the subagent inherits the parent chat model or the harness's built-in role tier, such as OMP's `scout1~2` and `implementer1~4`).
-2. **Load existing config**: If `~/.agents/loegg/models.md` already exists, read its `# budget:` line and role entries as the starting state. Drop any retired role keys not listed in Step 3.
+1. **Detect providers and models**: Enumerate the provider-qualified model identifiers your subagent tool accepts in this session (or run the harness model-listing command if available). Keep each provider/model pair distinct. If detection is unavailable, ask the user for their providers and full model identifiers. Never infer a provider from a model family or write an unverified identifier.
+   - Special aliases `inherit-parent` and `auto` are always valid (they mean: omit the `model` parameter so the subagent inherits the parent chat model or the harness's built-in role tier, such as OMP's `scout1~2` and `implementer1~4`). Never add a provider or effort suffix to aliases.
+2. **Load existing config**: If `~/.agents/loegg/models.md` already exists, read its `# budget:` line and role entries as the starting state. Preserve existing provider prefixes. Resolve any old provider-less entries through detected pairs or user confirmation before saving; never silently assign a provider. Drop any retired role keys not listed in Step 3.
 
 ## Step 2. Choose reasoning budget
 
@@ -27,9 +27,11 @@ Ask the user for their preferred reasoning budget using the structured-question 
 
 ### Applying the budget
 
-Map the chosen budget to the effort suffix of every real model slug (`:max` / `:xhigh` / `:high` / `:medium` or `-max` / `-xhigh` / `-high` / `-medium`). If a model does not support the target effort level, fall back to the highest supported effort at or below the target. Leave `inherit-parent` and `auto` unchanged.
+Map the chosen budget to the effort suffix of every real model identifier (`:max` / `:xhigh` / `:high` / `:medium` or `-max` / `-xhigh` / `-high` / `-medium`, as accepted by the harness). Change only the effort suffix; preserve the provider and model name. Check supported effort levels for the selected provider/model pair, not just the model family. If that pair does not support the target effort level, fall back to the highest supported effort at or below the target. If it accepts no effort suffix, keep its verified identifier unchanged. Leave `inherit-parent` and `auto` unchanged.
 
 ## Model Guide (Available Models & Characteristics)
+
+Recommendations below list model names only, without provider prefixes or effort suffixes. They are not identifiers to save or pass to subagent tools.
 
 | Model                        | Summary                                                                           | Best Fit                                                                       |
 | :--------------------------- | :-------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
@@ -48,36 +50,47 @@ Map the chosen budget to the effort suffix of every real model slug (`:max` / `:
 
 ## Step 3. Configure per-role subagent models
 
-Build the working role table using the detected models (adjusted for the Step 2 budget). Present the table and ask via the structured-question tool whether to accept defaults or customize specific roles:
+Use the table below to recommend model names, then resolve each selected model to a provider-qualified identifier before presenting the working role table. Ask via the structured-question tool whether to accept the resolved table or customize specific entries:
 
-| Role                     | Recommended Models                                                    | Why this combination works                                                                                                                                                            |
-| :----------------------- | :-------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `arena runners`          | `opus-5.5:xhigh, gpt-6.1-sol:xhigh, gemini-4-argon:high`              | **3-family panel**: `opus-5.5` (architecture/design Base) + `gpt-6.1-sol` (strict logic/edge-case verification) + `gemini-4-argon` (broad structural/refactoring view).               |
-| `arena cross-judge pool` | `gpt-6.1-sol:high, gemini-4-argon:high, opus-5.5:high`                | **Cross-family judge pool**: Picks one model from a family different from the parent chat model to score the rubric without self-bias.                                                |
-| `analyze runners`        | `gpt-6.1-sol:xhigh, gemini-4-argon:high, sonnet-5.5:high`             | **Root-cause & Q&A investigators**: `gpt-6.1-sol` (debugger/auditor strength) + `gemini-4-argon` (wide repo context) + `sonnet-5.5` (code flow synthesis).                            |
-| `review runners`         | `gpt-6.1-sol:xhigh, opus-5.5:xhigh, gemini-4-argon:high`              | **Independent change reviewers**: strict correctness/security checks + contract/design regressions + cross-file impact. Used by deep review; ordinary review stays in the main agent. |
-| `parallel workers`       | `gpt-6.1-terra:high, gemini-3.8-flash:high, deepseek-v4.1-flash:high` | **Fast implementation workers**: `gpt-6.1-terra` (builder) + `gemini-3.8-flash` / `deepseek-v4.1-flash` for high-speed non-overlapping slice edits.                                   |
+| Role                     | Recommended Models                                     | Why this combination works                                                                                                                                                            |
+| :----------------------- | :----------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `arena runners`          | `opus-5.5, gpt-6.1-sol, gemini-4-argon`                | **3-family panel**: `opus-5.5` (architecture/design Base) + `gpt-6.1-sol` (strict logic/edge-case verification) + `gemini-4-argon` (broad structural/refactoring view).               |
+| `arena cross-judge pool` | `gpt-6.1-sol, gemini-4-argon, opus-5.5`                | **Cross-family judge pool**: Picks one model from a family different from the parent chat model to score the rubric without self-bias.                                                |
+| `analyze runners`        | `gpt-6.1-sol, gemini-4-argon, sonnet-5.5`              | **Root-cause & Q&A investigators**: `gpt-6.1-sol` (debugger/auditor strength) + `gemini-4-argon` (wide repo context) + `sonnet-5.5` (code flow synthesis).                            |
+| `review runners`         | `gpt-6.1-sol, opus-5.5, gemini-4-argon`                | **Independent change reviewers**: strict correctness/security checks + contract/design regressions + cross-file impact. Used by deep review; ordinary review stays in the main agent. |
+| `parallel workers`       | `gpt-6.1-terra, gemini-3.8-flash, deepseek-v4.1-flash` | **Fast implementation workers**: `gpt-6.1-terra` (builder) + `gemini-3.8-flash` / `deepseek-v4.1-flash` for high-speed non-overlapping slice edits.                                   |
+
+### Resolve providers per entry
+
+1. For every selected model in every role, let the user choose its provider from detected pairs or enter a full identifier. If only one verified pair exists, offer it as the default; do not hard-code providers in recommendations.
+2. When multiple providers offer the same model, ask which provider to use. Provider choice belongs to each entry, not to the entire setup or model family; different agents may use different providers for the same model.
+3. Apply Step 2's budget to the selected pair and show the full identifier, such as `google-antigravity/gemini-4-argon:medium`. Preserve a user-supplied provider prefix exactly. If the supplied effort differs from the chosen budget, show the adjusted identifier before confirmation.
+4. The final table must contain verified `provider/model:effort` identifiers (or the harness's verified provider-qualified syntax), or unchanged aliases. A different provider for the same underlying model does not count as a different model family.
 
 **Harness fallback rule (e.g., OMP)**: If the harness forbids passing `model` to `task`, set roles to `inherit-parent` (or omit `model` at spawn time) and fan out using the harness's configured role agents (`debugger` / `reviewer` / `architect` / `scout1~2` for analysis, review, and arena; `implementer1`~`implementer4` / `builder` for implementation).
 
 ## Step 4. Validate & write `~/.agents/loegg/models.md`
 
-1. Verify every non-alias slug in the final table is available in the user's harness (or confirmed by the user).
-2. Create `~/.agents/loegg/` if needed and write `~/.agents/loegg/models.md` (overwriting the whole file so re-runs stay idempotent):
+1. Verify every non-alias entry includes its selected provider and is accepted by the user's harness with its final effort suffix (or confirmed by the user). If any provider remains unresolved, ask before writing; do not save bare model recommendations.
+2. Create `~/.agents/loegg/` if needed and write `~/.agents/loegg/models.md` (overwriting the whole file so re-runs stay idempotent). Use the confirmed role table, not the recommendation table. The following example illustrates the format only; its providers and effort support must not be assumed available:
 
 ```markdown
 # loegg model configuration. One line per role. Delete a line to fall back to skill defaults.
 
 # `inherit-parent` or `auto`: omit the subagent `model` parameter (use parent model or harness role defaults).
 
+# Real entries retain the full provider/model identifier and supported effort suffix.
+
+# Provider names below are examples, not defaults. Replace with confirmed identifiers.
+
 # budget: large (xhigh)
 
-arena runners: opus-5.5:xhigh, gpt-6.1-sol:xhigh, gemini-4-argon:high
-arena cross-judge pool: gpt-6.1-sol:high, gemini-4-argon:high, opus-5.5:high
-analyze runners: gpt-6.1-sol:xhigh, gemini-4-argon:high, sonnet-5.5:high
-review runners: gpt-6.1-sol:xhigh, opus-5.5:xhigh, gemini-4-argon:high
-parallel workers: gpt-6.1-terra:high, gemini-3.8-flash:high, deepseek-v4.1-flash:high
+arena runners: anthropic/opus-5.5:xhigh, openai-codex/gpt-6.1-sol:xhigh, google-antigravity/gemini-4-argon:high
+arena cross-judge pool: openai-codex/gpt-6.1-sol:high, google-antigravity/gemini-4-argon:high, anthropic/opus-5.5:high
+analyze runners: openai-codex/gpt-6.1-sol:xhigh, google-antigravity/gemini-4-argon:high, anthropic/sonnet-5.5:high
+review runners: openai-codex/gpt-6.1-sol:xhigh, anthropic/opus-5.5:xhigh, google-antigravity/gemini-4-argon:high
+parallel workers: openai-codex/gpt-6.1-terra:high, google-antigravity/gemini-3.8-flash:high, deepseek/deepseek-v4.1-flash:high
 ```
 
 3. If `~/.claude/rules` exists on the machine, create or update the symlink `ln -sfn ~/.agents/loegg ~/.claude/rules/loegg`.
-4. Confirm the written path (`~/.agents/loegg/models.md`) and active role mappings to the user.
+4. Confirm the written path (`~/.agents/loegg/models.md`) and active role mappings, including each provider, to the user.

@@ -13,7 +13,7 @@ Execution modes live at `mode/<name>-mode.md`, directly callable actions live at
 Only `action/` files can be invoked directly as standalone commands (`mode/` and `util/` are internal helpers applied during a task, never called on their own):
 
 - **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `analyze`, `review`)**: When invoked with an action name, read `action/<action>.md` and execute it directly, loading only dependencies that action explicitly requests, not `mode/*.md` or playbooks.
-  - `setup` -> `action/setup.md` (configure subagent models and reasoning budgets in `~/.agents/loegg/models.md`).
+  - `setup` -> `action/setup.md` (configure per-entry providers, models, and reasoning budgets in `~/.agents/loegg/models.md`; recommendations list model names only).
   - `help` -> `action/help.md` (explain loegg usage, recommend workflows, or draft prompts).
   - `grill` -> `action/grill.md` (stress-test a plan or resolve ambiguous requirements in frontier rounds).
   - `analyze` -> `action/analyze.md` (send the same bug-hunt or analysis question to multiple read-only subagents in parallel and have the main agent fact-check and synthesize the answer).

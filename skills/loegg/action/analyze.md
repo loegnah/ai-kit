@@ -15,6 +15,7 @@ Read-only action: do **not** modify files.
 Spawn 2+ read-only subagents concurrently in a single tool call (using `analyze runners` from `~/.agents/loegg/models.md` configured via `action/setup.md`, or `scout1` / `scout2` when the harness manages models per agent role):
 
 - Give every subagent the **exact same question and seed context**.
+- For explicit models, pass each complete configured identifier (`provider/model:effort`, or the harness's verified syntax) unchanged, including its provider prefix. Keep `inherit-parent` / `auto` as omitted `model` parameters; also omit `model` when the harness forbids explicit selection. Different providers for the same model do not provide model-family diversity.
 - Require each subagent to investigate independently and return:
   1. **Direct answer / root-cause hypothesis** with exact `file:line` citations and runtime/code mechanism.
   2. **Ruled-out alternatives** (what else it checked and why that was not the cause).

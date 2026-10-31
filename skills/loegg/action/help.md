@@ -17,7 +17,7 @@ Answer questions about **loegg** and draft prompts the user can copy and send.
 
 Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 
-- **`setup`** (`setup.md`): Configure subagent models and reasoning budgets in `~/.agents/loegg/models.md` (`/loegg setup`).
+- **`setup`** (`setup.md`): Configure each subagent model's provider and reasoning budget in `~/.agents/loegg/models.md` (`/loegg setup`). Recommendations show model names only; saved entries use full identifiers such as `google-antigravity/gemini-4-argon:medium`. Providers can differ per entry.
 - **`help`** (`help.md`): Explain loegg usage and suggest prompts (`/loegg help`).
 - **`grill`** (`grill.md`): Stress-test plans and resolve open design decisions in frontier rounds before building (`/loegg grill`).
 - **`analyze`** (`analyze.md`): Ask multiple read-only subagents the exact same bug-cause or codebase analysis question in parallel, then have the main agent fact-check and synthesize a single answer (`/loegg analyze <question>`).
