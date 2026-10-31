@@ -11,6 +11,7 @@ Answer questions about **loegg** and draft prompts the user can copy and send.
 - **Execution Modes (`mode/`)** — internal loop posture (not called directly as standalone skills):
   - **Direct Mode (Default)**: `../mode/direct-mode.md` — interactive mode where the user collaborates turn-by-turn with the agent.
   - **Agent Mode (Autonomous)**: `../mode/agent-mode.md` — autonomous mode where the agent resolves forks and drives the task to completion on its own (invoked via `/loegg agent <task>`).
+- **Completion order**: File-changing workflows finish with implementation -> verification -> read-only review -> final report.
 
 ## Directly Callable Actions (`action/`)
 
@@ -20,6 +21,8 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 - **`help`** (`help.md`): Explain loegg usage and suggest prompts (`/loegg help`).
 - **`grill`** (`grill.md`): Stress-test plans and resolve open design decisions in frontier rounds before building (`/loegg grill`).
 - **`analyze`** (`analyze.md`): Ask multiple read-only subagents the exact same bug-cause or codebase analysis question in parallel, then have the main agent fact-check and synthesize a single answer (`/loegg analyze <question>`).
+- **`review`** (`review.md`): Review current staged, unstaged, and non-ignored new files without editing (`/loegg review`). For independent parallel reviews, use `/loegg review 깊게`; arena selects `review runners`, not `arena runners`. An explicit file or comparison range overrides the default scope.
+- **Review models**: Configure `review runners` with `/loegg setup` independently of other roles. Ordinary review stays in the main agent; deep review uses configured models or harness role defaults when unavailable or restricted.
 
 ## Execution Utilities (`util/`)
 

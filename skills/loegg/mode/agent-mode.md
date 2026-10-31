@@ -11,4 +11,4 @@ Autonomous execution mode where the agent drives work to completion on its own w
 
 ## Workflow Cadence
 
-- <!-- Ground context -> resolve forks autonomously (via prototype or `arena`) -> implement -> verify on the real surface -> deliver final report with decision trail. -->
+- Ground context -> resolve forks autonomously (via prototype or `arena`) -> implement -> verify on the real surface -> review final changes (`action/review.md`) -> deliver final report with findings and decision trail.

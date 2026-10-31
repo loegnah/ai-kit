@@ -6,7 +6,7 @@ Configure which models and reasoning budgets **loegg** uses when spawning subage
 
 - **Canonical path (Single Source of Truth)**: `~/.agents/loegg/models.md`
 - **Claude Code auto-load (optional symlink)**: If `~/.claude/rules` exists, link `~/.agents/loegg` into it (`ln -sfn ~/.agents/loegg ~/.claude/rules/loegg`) so Claude Code loads `models.md` automatically while keeping a single file to maintain.
-- **Other harnesses (OMP, OpenCode, Codex, Pi, etc.)**: **loegg** skills (`util/arena.md`, `action/analyze.md`) read `~/.agents/loegg/models.md` directly when selecting subagent models.
+- **Other harnesses (OMP, OpenCode, Codex, Pi, etc.)**: **loegg** skills (`util/arena.md`, `action/analyze.md`, `action/review.md`) read `~/.agents/loegg/models.md` directly when selecting subagent models.
 
 > **Repository boundary rule**: When editing inside a repository whose `AGENTS.md` forbids touching files outside the repo root, do not write to `~/.agents/` unless the user explicitly runs `/loegg setup` outside that restriction.
 
@@ -31,33 +31,34 @@ Map the chosen budget to the effort suffix of every real model slug (`:max` / `:
 
 ## Model Guide (Available Models & Characteristics)
 
-| Model                        | Summary                                                                           | Best Fit                                                     |
-| :--------------------------- | :-------------------------------------------------------------------------------- | :----------------------------------------------------------- |
-| `opus-5.5`                   | Deepest architecture judgment, tradeoff synthesis, and prose quality.             | `arena runners` (Base), `arena cross-judge pool`             |
-| `sonnet-5.5`                 | Balanced design reasoning, code reading, and implementation speed.                | `arena runners`, `analyze runners`, `parallel workers`       |
-| `haiku-5.5`                  | Fast, lightweight Claude worker for bounded coding slices.                        | `parallel workers`                                           |
-| `gpt-6.1-sol`                | Strongest root-cause debugging, security auditing, and strict logic verification. | `analyze runners`, `arena runners`, `arena cross-judge pool` |
-| `gpt-6.1-terra`              | End-to-end feature/API building and structured code generation.                   | `arena runners` (Build), `parallel workers`                  |
-| `gpt-6-luna`                 | Fast general-purpose OpenAI coding and reasoning.                                 | `parallel workers`, `analyze runners`                        |
-| `gemini-4-argon`             | Large-context architecture, multi-file refactoring, and code review.              | `arena runners`, `arena cross-judge pool`, `analyze runners` |
-| `gemini-3.8-flash`           | High-speed repo scanning, log/doc synthesis, and fast daily execution.            | `analyze runners`, `parallel workers`                        |
-| `deepseek-v4.1-flash`        | Ultra-fast code search, scout exploration, and low-cost parallel worker.          | `parallel workers`, fast `analyze runners`                   |
-| `muse-spark-1.3-contributor` | Fast alternative scout/worker with diverse reasoning path.                        | `parallel workers`, secondary `analyze runners`              |
+| Model                        | Summary                                                                           | Best Fit                                                                       |
+| :--------------------------- | :-------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
+| `opus-5.5`                   | Deepest architecture judgment, tradeoff synthesis, and prose quality.             | `arena runners` (Base), `arena cross-judge pool`, `review runners`             |
+| `sonnet-5.5`                 | Balanced design reasoning, code reading, and implementation speed.                | `arena runners`, `analyze runners`, `parallel workers`                         |
+| `haiku-5.5`                  | Fast, lightweight Claude worker for bounded coding slices.                        | `parallel workers`                                                             |
+| `gpt-6.1-sol`                | Strongest root-cause debugging, security auditing, and strict logic verification. | `analyze runners`, `arena runners`, `arena cross-judge pool`, `review runners` |
+| `gpt-6.1-terra`              | End-to-end feature/API building and structured code generation.                   | `arena runners` (Build), `parallel workers`                                    |
+| `gpt-6-luna`                 | Fast general-purpose OpenAI coding and reasoning.                                 | `parallel workers`, `analyze runners`                                          |
+| `gemini-4-argon`             | Large-context architecture, multi-file refactoring, and code review.              | `arena runners`, `arena cross-judge pool`, `analyze runners`, `review runners` |
+| `gemini-3.8-flash`           | High-speed repo scanning, log/doc synthesis, and fast daily execution.            | `analyze runners`, `parallel workers`                                          |
+| `deepseek-v4.1-flash`        | Ultra-fast code search, scout exploration, and low-cost parallel worker.          | `parallel workers`, fast `analyze runners`                                     |
+| `muse-spark-1.3-contributor` | Fast alternative scout/worker with diverse reasoning path.                        | `parallel workers`, secondary `analyze runners`                                |
 
-> **Panel diversity rule (`arena` / `analyze`)**: Always pair at least **two distinct model families** (e.g., `opus-5.5` + `gpt-6.1-sol` + `gemini-4-argon`) so candidates do not share blind spots.
+> **Panel diversity rule (`arena` / `analyze` / deep `review`)**: Always pair at least **two distinct model families** (e.g., `opus-5.5` + `gpt-6.1-sol` + `gemini-4-argon`) so candidates do not share blind spots. If the harness cannot provide distinct families, use its available agent roles and disclose the diversity limit.
 
 ## Step 3. Configure per-role subagent models
 
 Build the working role table using the detected models (adjusted for the Step 2 budget). Present the table and ask via the structured-question tool whether to accept defaults or customize specific roles:
 
-| Role                     | Recommended Models                                                    | Why this combination works                                                                                                                                              |
-| :----------------------- | :-------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `arena runners`          | `opus-5.5:xhigh, gpt-6.1-sol:xhigh, gemini-4-argon:high`              | **3-family panel**: `opus-5.5` (architecture/design Base) + `gpt-6.1-sol` (strict logic/edge-case verification) + `gemini-4-argon` (broad structural/refactoring view). |
-| `arena cross-judge pool` | `gpt-6.1-sol:high, gemini-4-argon:high, opus-5.5:high`                | **Cross-family judge pool**: Picks one model from a family different from the parent chat model to score the rubric without self-bias.                                  |
-| `analyze runners`        | `gpt-6.1-sol:xhigh, gemini-4-argon:high, sonnet-5.5:high`             | **Root-cause & Q&A investigators**: `gpt-6.1-sol` (debugger/auditor strength) + `gemini-4-argon` (wide repo context) + `sonnet-5.5` (code flow synthesis).              |
-| `parallel workers`       | `gpt-6.1-terra:high, gemini-3.8-flash:high, deepseek-v4.1-flash:high` | **Fast implementation workers**: `gpt-6.1-terra` (builder) + `gemini-3.8-flash` / `deepseek-v4.1-flash` for high-speed non-overlapping slice edits.                     |
+| Role                     | Recommended Models                                                    | Why this combination works                                                                                                                                                            |
+| :----------------------- | :-------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `arena runners`          | `opus-5.5:xhigh, gpt-6.1-sol:xhigh, gemini-4-argon:high`              | **3-family panel**: `opus-5.5` (architecture/design Base) + `gpt-6.1-sol` (strict logic/edge-case verification) + `gemini-4-argon` (broad structural/refactoring view).               |
+| `arena cross-judge pool` | `gpt-6.1-sol:high, gemini-4-argon:high, opus-5.5:high`                | **Cross-family judge pool**: Picks one model from a family different from the parent chat model to score the rubric without self-bias.                                                |
+| `analyze runners`        | `gpt-6.1-sol:xhigh, gemini-4-argon:high, sonnet-5.5:high`             | **Root-cause & Q&A investigators**: `gpt-6.1-sol` (debugger/auditor strength) + `gemini-4-argon` (wide repo context) + `sonnet-5.5` (code flow synthesis).                            |
+| `review runners`         | `gpt-6.1-sol:xhigh, opus-5.5:xhigh, gemini-4-argon:high`              | **Independent change reviewers**: strict correctness/security checks + contract/design regressions + cross-file impact. Used by deep review; ordinary review stays in the main agent. |
+| `parallel workers`       | `gpt-6.1-terra:high, gemini-3.8-flash:high, deepseek-v4.1-flash:high` | **Fast implementation workers**: `gpt-6.1-terra` (builder) + `gemini-3.8-flash` / `deepseek-v4.1-flash` for high-speed non-overlapping slice edits.                                   |
 
-**Harness fallback rule (e.g., OMP)**: If the harness forbids passing `model` to `task`, set roles to `inherit-parent` (or omit `model` at spawn time) and fan out using the harness's configured role agents (`debugger` / `reviewer` / `architect` / `scout1~2` for analysis and arena; `implementer1`~`implementer4` / `builder` for implementation).
+**Harness fallback rule (e.g., OMP)**: If the harness forbids passing `model` to `task`, set roles to `inherit-parent` (or omit `model` at spawn time) and fan out using the harness's configured role agents (`debugger` / `reviewer` / `architect` / `scout1~2` for analysis, review, and arena; `implementer1`~`implementer4` / `builder` for implementation).
 
 ## Step 4. Validate & write `~/.agents/loegg/models.md`
 
@@ -74,6 +75,7 @@ Build the working role table using the detected models (adjusted for the Step 2 
 arena runners: opus-5.5:xhigh, gpt-6.1-sol:xhigh, gemini-4-argon:high
 arena cross-judge pool: gpt-6.1-sol:high, gemini-4-argon:high, opus-5.5:high
 analyze runners: gpt-6.1-sol:xhigh, gemini-4-argon:high, sonnet-5.5:high
+review runners: gpt-6.1-sol:xhigh, opus-5.5:xhigh, gemini-4-argon:high
 parallel workers: gpt-6.1-terra:high, gemini-3.8-flash:high, deepseek-v4.1-flash:high
 ```
 

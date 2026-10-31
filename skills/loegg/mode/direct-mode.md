@@ -10,4 +10,4 @@ Interactive mode where the user collaborates directly with the agent in the loop
 
 ## Workflow Cadence
 
-- <!-- Ground facts -> clarify open decisions with the user (`grill`) or report multi-model review (`arena`) -> implement -> verify on the real surface (`bun run check`, tests, or runtime). -->
+- Ground facts -> clarify open decisions with the user (`grill`) or report multi-model review (`arena`) -> implement -> verify on the real surface (`bun run check`, tests, or runtime) -> review final changes (`action/review.md`) -> deliver final report with findings.
