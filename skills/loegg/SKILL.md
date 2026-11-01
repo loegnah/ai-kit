@@ -6,18 +6,19 @@ disable-model-invocation: true
 
 # Loegg
 
-Execution modes live at `mode/<name>-mode.md`, directly callable actions live at `action/<name>.md` (`setup`, `help`, `grill`, `analyze`, `review`, etc.), shared execution utilities live at `util/<name>.md` (`arena`, etc.), and playbooks live at `playbooks/<title>.md`.
+Execution modes live at `mode/<name>-mode.md`, directly callable actions live at `action/<name>.md` (`setup`, `help`, `grill`, `analyze`, `review`, `doc`, etc.), shared execution utilities live at `util/<name>.md` (`arena`, etc.), and playbooks live at `playbooks/<title>.md`.
 
 ## Dispatch: One-Shot Actions vs. Full Mode
 
 Only `action/` files can be invoked directly as standalone commands (`mode/` and `util/` are internal helpers applied during a task, never called on their own):
 
-- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `analyze`, `review`)**: When invoked with an action name, read `action/<action>.md` and execute it directly, loading only dependencies that action explicitly requests, not `mode/*.md` or playbooks.
+- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `analyze`, `review`, `doc`)**: When invoked with an action name, read `action/<action>.md` and execute it directly, loading only dependencies that action explicitly requests, not `mode/*.md` or playbooks.
   - `setup` -> `action/setup.md` (configure per-entry providers, models, and reasoning budgets in `~/.agents/loegg/models.md`; recommendations list model names only).
   - `help` -> `action/help.md` (explain loegg usage, recommend workflows, or draft prompts).
   - `grill` -> `action/grill.md` (stress-test a plan or resolve ambiguous requirements in frontier rounds).
   - `analyze` -> `action/analyze.md` (send the same bug-hunt or analysis question to multiple read-only subagents in parallel and have the main agent fact-check and synthesize the answer).
   - `review` -> `action/review.md` (read-only review of current changes; use `review runners` through arena for deep review).
+  - `doc` (`docs`, `design-doc`, `rule`, `guide`, `note`, `tip`, `glossary`) -> `action/doc.md` (distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, or `docs/GLOSSARY.md`).
 - **Full workflow (`/loegg <task>` or `/loegg agent <task>`)**: For general tasks, select an execution mode (`mode/`), apply any triggered utilities (`util/`), and follow the matched playbook below.
 
 ## Non-negotiables
@@ -29,6 +30,7 @@ Remaining triggers during a task:
 - Underspecified requirements or high-leverage open design decisions before building -> read `action/grill.md`.
 - Root-cause bug investigation or complex codebase/architecture Q&A requiring multi-subagent parallel analysis (`analyze`) -> read `action/analyze.md`.
 - Review current changes, including deep/multi-angle change review -> read `action/review.md`, which selects `review runners` when arena is needed.
+- Capture or update project documentation from session learnings (`doc`, `design-doc`, `rule`, `guide`, `note`, `tip`, `glossary`) -> read `action/doc.md`.
 - Other deep/multi-angle work or competing candidates (`arena`), triggered either by an explicit heavy/depth request ("다양한 관점/시각", "다각도로", "심층", "심화", "빡세게", "깊게", `arena`) or by the agent's own judgment that a high-stakes step needs multi-model verification -> read `util/arena.md`.
 - <!-- <condition or trigger> -> `action/<name>.md` or `util/<name>.md`. -->
 
