@@ -19,7 +19,6 @@ Match the user's keyword or intent against the workflows below:
 
 | Keywords / Intent                                           | Target Workflow              | Catalog File                     |
 | :---------------------------------------------------------- | :--------------------------- | :------------------------------- |
-| `implement`, `subagent-impl`, `parallel-impl`               | Subagent Implementation      | `catalog/implement.md`           |
 | `simplify`                                                  | Simplify Code                | `catalog/simplify/SKILL.md`      |
 | `simplify-fast`, `fast-simplify`                            | Fast Code Simplify           | `catalog/simplify/SKILL-fast.md` |
 | `superpowers`                                               | Superpowers Catalog Workflow | `catalog/superpowers/INDEX.md`   |
@@ -29,7 +28,6 @@ Match the user's keyword or intent against the workflows below:
 | `code-review`, `review-diff`, `review`                      | Two-Axis Code Review         | `catalog/mattpocock/INDEX.md`    |
 | `handoff`                                                   | Session Handoff Document     | `catalog/mattpocock/INDEX.md`    |
 | `refactor`, `ts-refactor`, `refactor-ts`, `style-refactor`  | Style Refactor               | `catalog/refactor/SKILL.md`      |
-| `no-edit`, `edit-no`                                        | No-Edit Mode                 | `catalog/no-edit.md`             |
 | `skill-sync`, `update-skills`, `sync-skills`, `skill-audit` | Project Skill Sync           | `catalog/skill-sync.md`          |
 
 ## Execution Procedure
