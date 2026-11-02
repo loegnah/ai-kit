@@ -36,27 +36,46 @@ Remaining triggers during a task:
 
 ## Principles
 
-Read the leaf skill in full for any principle you apply.
+Apply the matching principles below as you work; each entry states when it triggers and what it requires.
 
 **Core**
 
-- <!-- **<Principle Title>.** <When it applies and what it requires.> -->
+- **Laziness Protocol.** Refactoring, sizing a diff, or tempted to add abstractions, layers, or signal threading. Consolidate decisions in one place and bias to deletion and the smallest change that solves the problem.
+- **Foundational Thinking.** Before writing logic: choosing core types and data structures, sequencing scaffold-vs-feature work, or checking what concurrent actors share. Define the data shape first, subtract dead code before laying scaffolds, and isolate shared concurrent state.
+- **Redesign from First Principles.** Integrating a new requirement into an existing design. Do not bolt it on; redesign as if the requirement had been foundational from day one and propagate it through types, callers, and docs.
+- **Attack the Premise.** Two or more fixes that share one premise have failed the same gate. Write the shared premise down in one sentence and test it directly before writing a third fix that assumes it.
+- **Subtract Before You Add.** Sequencing an addition, refactor, or rewrite. Remove dead code, redundant validators, and orphan references first, then build on the simpler base.
+- **Minimize Reader Load.** Reviewing or shaping code that is hard to trace. Minimize both indirection layers (collapse one-caller wrappers and pass-through layers that do not change the abstraction) and held state (prefer pure returns and narrow local state over mutable module/global state so a reader can trace origin and mutation in under 30 seconds).
+- **Outcome-Oriented Execution.** Planned rewrites and migrations with explicit phase boundaries. Converge directly on the target architecture instead of preserving smooth intermediate states with throwaway compatibility shims; require full static and runtime verification at completion.
+- **Experience First.** Product, UX, API, or feature-scope tradeoffs. Choose delight and clarity for the consumer (end user, caller, or next maintainer) over implementation convenience; ship fewer polished capabilities over more rough ones.
+- **Exhaust the Design Space.** Novel UI interaction or high-stakes architectural decision with no codebase precedent where static reasoning cannot pick a winner. Compare 2–3 lightweight prototypes or run `util/arena.md` before committing.
+- **Build the Lever.** Repetitive multi-file edits, migrations, code generation, or checks that cannot be reliably verified by hand. Learn the recipe on one unit, then build a deterministic script or tool to run and verify the rest. Delete one-off levers before commit; keep reusable levers under `scripts/lever/<purpose>/` (`verify`, `codemod`, `codegen`, `analyze`) unless the project defines another convention.
 
 **Architecture**
 
-- <!-- **<Principle Title>.** <When it applies and what it requires.> -->
+- **Model the Domain.** Writing stateful logic, growing `if/else` chains, or repeating a shape assumption across files. Encode the domain in a structure (state machine, discriminated union, lookup table/registry, or reducer) so illegal states become unrepresentable.
+- **Boundary Discipline.** Wiring validation, error handling, or framework adapters. Parse and validate at system boundaries (CLI, config, network, external APIs); trust internal types and keep core business logic in pure functions.
+- **Type System Discipline.** Designing types or signatures in a statically typed language. Make illegal states unrepresentable, brand distinct semantic primitives (`UserId` vs. `OrderId`), parse external data at boundaries, and derive types from authoritative schemas.
+- **Make Operations Idempotent.** Designing commands, lifecycle steps, or loops that run amid crashes, restarts, and retries. Derive actions from current state vs. target state so running twice converges to the same end state, and make partial artifacts recognizable as stale.
+- **Migrate Callers Then Delete Legacy APIs.** Introducing a new internal API while old callers exist and no external backward-compatibility contract applies. Migrate all callers and delete the legacy API in the same wave without leaving shims or deprecated aliases.
+- **Separate Before Serializing Shared State.** Concurrent actors (workers, processes, subagents) might write to the same file, branch, key, or state object. Eliminate shared write targets first by giving each actor its own output target and merging at the read boundary; serialize structurally only when a single writer is a true invariant.
 
 **Verification**
 
-- <!-- **<Principle Title>.** <When it applies and what it requires.> -->
+- **Prove It Works.** After completing a task, before declaring done. Verify against the real surface and actual output—never infer correctness from "it compiles", cached state, or proxy checks.
+- **Fix Root Causes.** Debugging a defect. Reproduce first, trace the symptom back to the first place the system created or mishandled the wrong state, and fix it there rather than masking the symptom with guards or swallowed errors.
+- **Sequence Work into Verifiable Units.** Multi-step work (sweeps, migrations, stacked changes). Break work into small units that each end in a verifiable green check before advancing (e.g., failing test -> fix, subtraction -> reshape).
+- **Test Behavior, Not Implementation.** Writing, updating, or keeping a test. Assert observable caller/user contracts so the test fails when behavior breaks and still passes when internal structure changes.
+- **Explain the Number.** Before measuring, and before trusting, reporting, or acting on a measured number (speedup, regression, throughput, latency, or eval score). State the decision threshold and noise floor before running, identify the actual bottleneck/limiter from profiling or counters, and rule out cached/skipped work with evidence.
 
 **Delegation**
 
-- <!-- **<Principle Title>.** <When it applies and what it requires.> -->
+- **Guard the Context Window.** Large outputs, long files, repeated reads, or broad codebase exploration. Route bulk exploration to read-only subagents and keep concise syntheses in the main thread.
+- **Never Block on the Human.** Tempted to ask "should I do X?" on reversible implementation steps. In `Direct Mode`, clarify open product/scope/architecture forks upfront via `action/grill.md`; once the direction is set (or throughout `Agent Mode`), execute reversible steps without pausing and pause only for irreversible high-risk actions.
 
 **Meta**
 
-- <!-- **<Principle Title>.** <When it applies and what it requires.> -->
+- **Encode Lessons in Structure.** Writing the same instruction twice or noticing a recurring mistake. Encode the rule as a lint check, type constraint, metadata flag, runtime check, or script rather than adding more prose.
 
 ## Autonomy
 
