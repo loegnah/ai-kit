@@ -23,21 +23,21 @@ Write the document in the user's language (default Korean if the conversation is
 
 When no equivalent path exists, route by content nature into these targets under `docs/`:
 
-| Target Path        | Type        | Criterion ("One-Line Rule")            | What Belongs Here                                                                                                            |
-| :----------------- | :---------- | :------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
-| `docs/design/`     | Directory   | **"How it is structured & why"**       | System/module architecture, data & state flow, schemas, component boundaries, design rationale / ADRs.                       |
-| `docs/rule/`       | Directory   | **"What MUST or NEVER be done"**       | Coding conventions, strict invariants, Do / Don't constraints, naming/pattern enforcement rules.                             |
-| `docs/guide/`      | Directory   | **"How to set up, run, or do it"**     | Step-by-step how-to guides, local/dev setup, deployment/migration procedures, operational workflows.                         |
-| `docs/note/`       | Directory   | **"What we learned & watch outs"**     | Timeless tips, troubleshooting conclusions, gotchas/caveats/pitfalls, investigation findings. Conclusion only; kept current. |
-| `docs/story/`      | Directory   | **"What we tried & how it went"**      | Dated record of an attempt/experiment: goal, what was done, result (including failures), takeaway. Append-only.              |
-| `docs/GLOSSARY.md` | Single File | **"What domain terms & symbols mean"** | Ubiquitous language, domain terms, abbreviations, business-term <-> code-symbol mappings, disambiguations.                   |
+| Target Path        | Type        | Criterion ("One-Line Rule")            | What Belongs Here                                                                                                                                             |
+| :----------------- | :---------- | :------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `docs/design/`     | Directory   | **"How it is structured & why"**       | System/module architecture, data & state flow, schemas, component boundaries, design rationale / ADRs.                                                        |
+| `docs/rule/`       | Directory   | **"What MUST or NEVER be done"**       | Coding conventions, strict invariants, Do / Don't constraints, naming/pattern enforcement rules.                                                              |
+| `docs/guide/`      | Directory   | **"How to set up, run, or do it"**     | Step-by-step how-to guides, local/dev setup, deployment/migration procedures, operational workflows.                                                          |
+| `docs/note/`       | Directory   | **"What we learned & watch outs"**     | Timeless tips, troubleshooting conclusions, gotchas/caveats/pitfalls, investigation findings. Conclusion only; kept current.                                  |
+| `docs/story/`      | Directory   | **"What we tried & how it went"**      | Dated record of an attempt/experiment (`YYMMDD-<title>/STORY.md`): goal, what was done, result (including failures), takeaway, and related docs. Append-only. |
+| `docs/GLOSSARY.md` | Single File | **"What domain terms & symbols mean"** | Ubiquitous language, domain terms, abbreviations, business-term <-> code-symbol mappings, disambiguations.                                                    |
 
 ### 3. Update vs. Create
 
 - **Directory Targets (`design`, `rule`, `guide`, `note`)**: If an existing file in the target folder already covers the same topic, update/append to that file rather than creating a duplicate; otherwise create `<target-dir>/<kebab-case-slug>.md` (or match the directory's existing filename style).
-- **Story Target (`docs/story/`)**: Always create a new file `docs/story/YYMMDD-<title>.md`; `YYMMDD` is today's date from the environment (e.g. `date +%y%m%d`), never guessed, and `<title>` is a short kebab-case title (Korean allowed). A follow-up attempt on the same topic is a new file that links the earlier story; never rewrite an existing story except to fix typos or add a link to a promoted note/rule.
+- **Story Target (`docs/story/`)**: Always create a new story directory and file `docs/story/YYMMDD-<title>/STORY.md`; `YYMMDD` is today's date from the environment (e.g. `date +%y%m%d`), never guessed, and `<title>` is a short kebab-case title (Korean allowed). A follow-up attempt on the same topic is a new `YYMMDD-<title>/STORY.md` that links the earlier story; never rewrite an existing `STORY.md` except to fix typos or add links under `Related Docs`.
 - **Single-File Target (`docs/GLOSSARY.md`)**: Always upsert into the single glossary file—create `docs/GLOSSARY.md` if absent, or add/update entries in place (sorted logically by domain group or alphabetically) without duplicating existing terms.
-- **`note` vs `story`**: A `note` states a conclusion that stays true and is edited in place; a `story` records what happened at a point in time and is never edited. If a story yields a reusable lesson, also write it as a `note` or `rule` and link it from the story.
+- **`note` vs `story`**: A `note` states a conclusion that stays true and is edited in place; a `story` records what happened at a point in time and is never edited. If a story yields a reusable lesson, also write or update it in `design`, `rule`, `guide`, `note`, or `GLOSSARY.md` and link it under `Related Docs` in `STORY.md`.
 
 ## Category-Specific Document Templates
 
@@ -75,13 +75,29 @@ Keep all documents terse, concrete, and free of session trial-and-error chatter.
 - **Gotchas / Caveats** (if applicable): Pitfalls, edge cases, or side effects to watch out for.
 - **References** (optional): Relevant repo paths or commands.
 
-### E. `docs/story/` Template
+### E. `docs/story/` Template (`docs/story/YYMMDD-<title>/STORY.md`)
 
-- `# <Title>`
-- **Goal**: Why this was tried and what was expected (1–2 lines).
-- **Attempt**: What was actually done, in order, with exact commands, paths, or settings.
-- **Result**: Success / failure / partial, with the evidence (output, error, measurement). Keep failures.
-- **Takeaway**: 1–3 lines of what to do differently next time; link the promoted `note`/`rule` if one was written.
+Use a **hybrid layout**: a fixed summary/index block at the top for instant scanning, followed by a freeform section below `---` adapted to the work.
+
+```markdown
+# <Title>
+
+- **Date**: YYYY-MM-DD
+- **Status**: Done | Partial | Failed | Superseded
+- **Goal**: Why this work was started and what was expected (1–2 lines).
+- **Result**: Final outcome and verification summary (1–2 lines).
+- **Takeaway**: Key conclusion or watch-out for next time (1–3 lines).
+
+## Related Docs
+
+- [`docs/note/...`](../../note/...) — 1-line description (include all created, updated, or referenced `design`, `rule`, `guide`, `note`, `GLOSSARY.md`, prior `story`, or sibling files in this `YYMMDD-<title>/` folder)
+
+---
+
+## <Freeform Section(s)>
+
+(Write freely using headings that fit the work—e.g., `## Changes`, `## Attempt & Trial-and-Error`, `## Root Cause`, `## Verification & Benchmarks`, `## Follow-up`. Include exact file paths, commands, code snippets, and failed attempts worth remembering.)
+```
 
 ### F. `docs/GLOSSARY.md` Template (Single-File Upsert)
 
