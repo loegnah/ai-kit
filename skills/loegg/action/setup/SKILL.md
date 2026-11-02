@@ -6,7 +6,7 @@ Configure which providers, models, and reasoning budgets **loegg** uses when spa
 
 - **Canonical path (Single Source of Truth)**: `~/.agents/loegg/models.md`
 - **Claude Code auto-load (optional symlink)**: If `~/.claude/rules` exists, link `~/.agents/loegg` into it (`ln -sfn ~/.agents/loegg ~/.claude/rules/loegg`) so Claude Code loads `models.md` automatically while keeping a single file to maintain.
-- **Other harnesses (OMP, OpenCode, Codex, Pi, etc.)**: **loegg** skills (`util/arena.md`, `action/analyze.md`, `action/review.md`) read `~/.agents/loegg/models.md` directly when selecting subagent models.
+- **Other harnesses (OMP, OpenCode, Codex, Pi, etc.)**: **loegg** skills (`util/arena/SKILL.md`, `action/analyze/SKILL.md`, `action/review/SKILL.md`) read `~/.agents/loegg/models.md` directly when selecting subagent models.
 
 > **Repository boundary rule**: When editing inside a repository whose `AGENTS.md` forbids touching files outside the repo root, do not write to `~/.agents/` unless the user explicitly runs `/loegg setup` outside that restriction.
 

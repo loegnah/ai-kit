@@ -20,7 +20,7 @@ Read-only action: do **not** edit files, apply fixes, stage changes, or run comm
 ## Step 3. Choose Review Depth
 
 - **Default**: The main agent reviews directly. Do not spawn subagents or require model setup for an ordinary review.
-- **Deep / multi-angle**: When the user asks for depth ("다각도로", "다양한 관점", "심층", "심화", "빡세게", "깊게", `arena`), or the agent identifies a high-stakes risk requiring independent checks, read `../util/arena.md` and use its read-only Review mode. Select **`review runners`**, not `arena runners`, from `~/.agents/loegg/models.md` (configured via `setup.md`). Give every runner the same scope, requirements, diff, seed context, and review rules above.
+- **Deep / multi-angle**: When the user asks for depth ("다각도로", "다양한 관점", "심층", "심화", "빡세게", "깊게", `arena`), or the agent identifies a high-stakes risk requiring independent checks, read `../../util/arena/SKILL.md` and use its read-only Review mode. Select **`review runners`**, not `arena runners`, from `~/.agents/loegg/models.md` (configured via `../setup/SKILL.md`). Give every runner the same scope, requirements, diff, seed context, and review rules above.
 - Keep arena's Base + Graft process, but the main agent must verify every retained finding against the actual change and affected code, discard false alarms, and deduplicate overlapping findings. Use the output format below for the final review, with arena's brief synthesis note appended. Disclose failed runners or limits on model diversity.
 
 ## Step 4. Deliver Findings

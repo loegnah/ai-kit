@@ -12,7 +12,7 @@ Read-only action: do **not** modify files.
 
 ## Step 2. Fan Out Identical Question
 
-Spawn 2+ read-only subagents concurrently in a single tool call (using `analyze runners` from `~/.agents/loegg/models.md` configured via `action/setup.md`, or `scout1` / `scout2` when the harness manages models per agent role):
+Spawn 2+ read-only subagents concurrently in a single tool call (using `analyze runners` from `~/.agents/loegg/models.md` configured via `action/setup/SKILL.md`, or `scout1` / `scout2` when the harness manages models per agent role):
 
 - Give every subagent the **exact same question and seed context**.
 - For explicit models, pass each complete configured identifier (`provider/model:effort`, or the harness's verified syntax) unchanged, including its provider prefix. Keep `inherit-parent` / `auto` as omitted `model` parameters; also omit `model` when the harness forbids explicit selection. Different providers for the same model do not provide model-family diversity.
@@ -30,7 +30,7 @@ Read every subagent's report end to end. As the lead agent, **never blindly aver
 1. **Verify claims against code**: Check cited `file:line` paths and call flows directly in the codebase. Immediately discard hallucinated symbols, misread control flow, or surface-level guesses lacking a mechanism.
 2. **Cross-compare findings**:
    - **Consensus**: Claims multiple subagents reached independently and code verification confirms are highest confidence.
-   - **Unique sharp catches**: If only one subagent spotted a real edge case or deeper root cause that holds up in the code, adopt and graft it into the core explanation (or follow `../util/arena.md` Base + Graft selection when one report is clearly superior).
+   - **Unique sharp catches**: If only one subagent spotted a real edge case or deeper root cause that holds up in the code, adopt and graft it into the core explanation (or follow `../../util/arena/SKILL.md` Base + Graft selection when one report is clearly superior).
    - **Conflicts**: When subagents contradict each other, inspect the exact code branch yourself to settle who is right and why the other misread it.
 
 ## Step 4. Deliver the Synthesized Answer
