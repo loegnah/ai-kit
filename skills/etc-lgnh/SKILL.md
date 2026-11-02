@@ -20,7 +20,6 @@ Match the user's keyword or intent against the workflows below:
 | Keywords / Intent                                    | Target Workflow     | Catalog File                 |
 | :--------------------------------------------------- | :------------------ | :--------------------------- |
 | `eli5`, `explain-5`, `explain`                       | ELI5 Explainer      | `catalog/eli5.md`            |
-| `show-me`, `show`                                    | Show Me             | `catalog/show-me.md`         |
 | `humanize`, `humanize-korean`, `de-ai`, `im-not-ai`  | Humanize Korean     | `catalog/humanize-korean.md` |
 | `meta-prompt`, `prompt`, `prompt-gen`                | Meta-Prompt         | `catalog/meta-prompt.md`     |
 | `to-eng`, `eng`, `en`, `translate-eng`               | English Translation | `catalog/translate.md`       |

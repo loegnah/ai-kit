@@ -21,6 +21,15 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 - **`help`** (`help.md`): Explain loegg usage and suggest prompts (`/loegg help`).
 - **`grill`** (`grill.md`): Stress-test plans and resolve open design decisions in frontier rounds before building (`/loegg grill`).
 - **`analyze`** (`analyze.md`): Ask multiple read-only subagents the exact same bug-cause or codebase analysis question in parallel, then have the main agent fact-check and synthesize a single answer (`/loegg analyze <question>`).
+- **`how`** (`how/SKILL.md`): Explain how code or a subsystem works (`/loegg how <question>`).
+- **`why`** (`why/SKILL.md`): Investigate historical motivation and design rationale across git, PRs, issues, docs, and MCPs with strict confidence tiers (`/loegg why <question>`).
+- **`teach`** (`teach/SKILL.md`): Explain how and why a subsystem works (`/loegg teach <topic>`).
+- **`show-me`** (`show-me.md`): Visualize logic, call trees, component/file trees, Mermaid flows, or structural diffs with minimal prose (`/loegg show-me [topic]`).
+- **`blast-radius`** (`blast-radius/SKILL.md`): Investigate downstream breakage (`/loegg blast-radius [target]`).
+- **`interrogate`** (`interrogate/SKILL.md`): Adversarial review (`/loegg interrogate [target]`).
+- **`benchmark-checklist`** (`benchmark-checklist/SKILL.md`): Vet performance measurements (`/loegg benchmark-checklist`).
+- **`recall`** (`recall/SKILL.md`): Reconstruct recent working context (`/loegg recall [topic]`).
+- **`reflect`** (`reflect/SKILL.md`): Review session learnings (`/loegg reflect`).
 - **`review`** (`review.md`): Review current staged, unstaged, and non-ignored new files without editing (`/loegg review`). For independent parallel reviews, use `/loegg review 깊게`; arena selects `review runners`, not `arena runners`. An explicit file or comparison range overrides the default scope.
 - **Review models**: Configure `review runners` with `/loegg setup` independently of other roles. Ordinary review stays in the main agent; deep review uses configured models or harness role defaults when unavailable or restricted.
 - **`doc`** (`doc.md`): Distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md` (`/loegg doc [category]`; also accepts `docs`, `design-doc`, `rule`, `guide`, `note`, `tip`, `story`, `glossary`).

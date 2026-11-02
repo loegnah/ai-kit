@@ -6,17 +6,26 @@ disable-model-invocation: true
 
 # Loegg
 
-Execution modes live at `mode/<name>-mode.md`, directly callable actions live at `action/<name>.md` (`setup`, `help`, `grill`, `analyze`, `review`, `doc`, etc.), shared execution utilities live at `util/<name>.md` (`arena`, etc.), and playbooks live at `playbooks/<title>.md`.
+Execution modes live at `mode/<name>-mode.md`, directly callable actions live at `action/<name>.md` (`setup`, `help`, `grill`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`, etc.), shared execution utilities live at `util/<name>.md` (`arena`, etc.), and playbooks live at `playbooks/<title>.md`.
 
 ## Dispatch: One-Shot Actions vs. Full Mode
 
-Only `action/` files can be invoked directly as standalone commands (`mode/` and `util/` are internal helpers applied during a task, never called on their own):
+Only `action/` entries can be invoked directly as standalone commands (`mode/` and `util/` are internal helpers applied during a task, never called on their own):
 
-- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `analyze`, `review`, `doc`)**: When invoked with an action name, read `action/<action>.md` and execute it directly, loading only dependencies that action explicitly requests, not `mode/*.md` or playbooks.
+- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`)**: When invoked with an action name, read its mapped file below and execute it directly, loading only dependencies that action explicitly requests, not `mode/*.md` or playbooks.
   - `setup` -> `action/setup.md` (configure per-entry providers, models, and reasoning budgets in `~/.agents/loegg/models.md`; recommendations list model names only).
   - `help` -> `action/help.md` (explain loegg usage, recommend workflows, or draft prompts).
   - `grill` -> `action/grill.md` (stress-test a plan or resolve ambiguous requirements in frontier rounds).
   - `analyze` -> `action/analyze.md` (send the same bug-hunt or analysis question to multiple read-only subagents in parallel and have the main agent fact-check and synthesize the answer).
+  - `how` -> `action/how/SKILL.md` (explain code structure and runtime flow).
+  - `why` -> `action/why/SKILL.md` (trace historical motivation, design rationale, and tradeoffs across git, PRs, issues, docs, and MCPs with confidence tiers).
+  - `teach` -> `action/teach/SKILL.md` (explain how and why a subsystem or change works).
+  - `show-me` (`show`) -> `action/show-me.md` (visualize code flow, architecture, or diffs immediately using call trees, component/file trees, Mermaid, structural diffs, or SVG/HTML).
+  - `blast-radius` -> `action/blast-radius/SKILL.md` (trace downstream impact).
+  - `interrogate` -> `action/interrogate/SKILL.md` (adversarial review).
+  - `benchmark-checklist` (`benchmark`) -> `action/benchmark-checklist/SKILL.md` (vet performance measurements).
+  - `recall` -> `action/recall/SKILL.md` (reconstruct recent working context).
+  - `reflect` -> `action/reflect/SKILL.md` (derive skill improvements from the session).
   - `review` -> `action/review.md` (read-only review of current changes; use `review runners` through arena for deep review).
   - `doc` (`docs`, `design-doc`, `rule`, `guide`, `note`, `tip`, `story`, `glossary`) -> `action/doc.md` (distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md`).
 - **Full workflow (`/loegg <task>` or `/loegg agent <task>`)**: For general tasks, select an execution mode (`mode/`), apply any triggered utilities (`util/`), and follow the matched playbook below.
@@ -28,11 +37,19 @@ The Principles section below grounds every trigger. In your reply, name each pri
 Remaining triggers during a task:
 
 - Underspecified requirements or high-leverage open design decisions before building -> read `action/grill.md`.
+- Questions about how code works, runtime/control flow, or where code belongs ("이건 어떻게 동작해?", "코드 흐름이 어떻게 돼?", "어디에 넣어야 해?", `how`) -> read `action/how/SKILL.md`.
+- Questions about design rationale, historical intent, or why code/thresholds exist ("이건 왜 이렇게 짰어?", "왜 이 방식을 썼지?", `why`) -> read `action/why/SKILL.md`.
+- Requests to explain a subsystem or change plainly so the user deeply understands both how and why ("이거 쉽게 설명해줘", "가르쳐줘", "이해시켜줘", `teach`) -> read `action/teach/SKILL.md`.
+- Requests to visualize code, flow, structure, or changes ("그림으로 보여줘", "도식/다이어그램/콜트리로 보여줘", "시각화해줘", `show-me`, `show`) -> read `action/show-me.md`.
+- Questions about downstream impact or what a change could break ("이거 바꾸면 어디 깨져?", "파급효과가 어떻게 돼?", `blast-radius`) -> read `action/blast-radius/SKILL.md`.
+- Adversarial stress-testing of a change or design ("적대적으로 검증해봐", "이 설계/코드 깨봐", "허점 찾아봐", `interrogate`) -> read `action/interrogate/SKILL.md`.
+- Running a benchmark or reporting/vetting a performance number (`benchmark`, `benchmark-checklist`) -> read `action/benchmark-checklist/SKILL.md`.
+- Resuming work or asking where things stand ("어디까지 했지?", "최근 작업 맥락 복구해줘", `recall`) -> read `action/recall/SKILL.md`.
+- Reflecting on the session to improve checks, skills, or rules ("이번 세션 회고해봐", "배운 거 스킬/규칙에 반영해봐", `reflect`) -> read `action/reflect/SKILL.md`.
 - Root-cause bug investigation or complex codebase/architecture Q&A requiring multi-subagent parallel analysis (`analyze`) -> read `action/analyze.md`.
 - Review current changes, including deep/multi-angle change review -> read `action/review.md`, which selects `review runners` when arena is needed.
 - Capture or update project documentation from session learnings (`doc`, `design-doc`, `rule`, `guide`, `note`, `tip`, `story`, `glossary`) -> read `action/doc.md`.
 - Other deep/multi-angle work or competing candidates (`arena`), triggered either by an explicit heavy/depth request ("다양한 관점/시각", "다각도로", "심층", "심화", "빡세게", "깊게", `arena`) or by the agent's own judgment that a high-stakes step needs multi-model verification -> read `util/arena.md`.
-- <!-- <condition or trigger> -> `action/<name>.md` or `util/<name>.md`. -->
 
 ## Principles
 
