@@ -18,7 +18,7 @@ Only `action/` files can be invoked directly as standalone commands (`mode/` and
   - `grill` -> `action/grill.md` (stress-test a plan or resolve ambiguous requirements in frontier rounds).
   - `analyze` -> `action/analyze.md` (send the same bug-hunt or analysis question to multiple read-only subagents in parallel and have the main agent fact-check and synthesize the answer).
   - `review` -> `action/review.md` (read-only review of current changes; use `review runners` through arena for deep review).
-  - `doc` (`docs`, `design-doc`, `rule`, `guide`, `note`, `tip`, `glossary`) -> `action/doc.md` (distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, or `docs/GLOSSARY.md`).
+  - `doc` (`docs`, `design-doc`, `rule`, `guide`, `note`, `tip`, `story`, `glossary`) -> `action/doc.md` (distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md`).
 - **Full workflow (`/loegg <task>` or `/loegg agent <task>`)**: For general tasks, select an execution mode (`mode/`), apply any triggered utilities (`util/`), and follow the matched playbook below.
 
 ## Non-negotiables
@@ -30,7 +30,7 @@ Remaining triggers during a task:
 - Underspecified requirements or high-leverage open design decisions before building -> read `action/grill.md`.
 - Root-cause bug investigation or complex codebase/architecture Q&A requiring multi-subagent parallel analysis (`analyze`) -> read `action/analyze.md`.
 - Review current changes, including deep/multi-angle change review -> read `action/review.md`, which selects `review runners` when arena is needed.
-- Capture or update project documentation from session learnings (`doc`, `design-doc`, `rule`, `guide`, `note`, `tip`, `glossary`) -> read `action/doc.md`.
+- Capture or update project documentation from session learnings (`doc`, `design-doc`, `rule`, `guide`, `note`, `tip`, `story`, `glossary`) -> read `action/doc.md`.
 - Other deep/multi-angle work or competing candidates (`arena`), triggered either by an explicit heavy/depth request ("다양한 관점/시각", "다각도로", "심층", "심화", "빡세게", "깊게", `arena`) or by the agent's own judgment that a high-stakes step needs multi-model verification -> read `util/arena.md`.
 - <!-- <condition or trigger> -> `action/<name>.md` or `util/<name>.md`. -->
 

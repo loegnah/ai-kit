@@ -5,7 +5,7 @@ A skill kit for orchestrating and managing AI agent workflows.
 ## Skills
 
 - **loegg**: Agent style and workflow orchestrator (`setup`, `help`, `grill`, `analyze`, `review`, `doc`, `direct-mode`, `agent-mode`, `arena`)
-- **dev-lgnh**: Developer workflows (`implement`, `simplify`, `simplify-fast`, `refactor`, `no-edit`, `doc`, `skill-sync`, `superpowers`, `mattpocock`, `pstack`)
+- **dev-lgnh**: Developer workflows (`implement`, `simplify`, `simplify-fast`, `refactor`, `no-edit`, `skill-sync`, `superpowers`, `mattpocock`, `pstack`)
 - **sdlc-lgnh**: AI-native SDLC artifact workflows (`intent` → `spec` → `plan` → `run`)
 - **git-lgnh**: Git automation and repository maintenance (`commit`, `commit-fast`, `branch`, `branch-name`, `conflict`, `rebase`)
 - **brain-lgnh**: Second brain knowledge capture and retrieval (`capture`, `capture-daily`, `capture-guide`, `query`, `upsert`)
