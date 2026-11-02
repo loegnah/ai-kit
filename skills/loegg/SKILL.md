@@ -79,8 +79,10 @@ Apply the matching principles below as you work; each entry states when it trigg
 
 ## Autonomy
 
-- **Just do it.** <!-- Reversible work that proceeds without asking. -->
-- **Always pause.** <!-- Irreversible or high-risk actions that require confirmation. -->
+- **Just do it.** Proceed without asking on reversible work: reading/editing repo files, running checks/tests/evals, and querying MCP tools.
+- **Always pause.** Require explicit confirmation before irreversible or high-risk actions: force-pushing shared branches, production deploys, destructive data deletion, modifying paths outside repository boundaries, or sending external messages.
+- **Session overrides.** "끝까지 알아서 진행해" / "자율로 돌려" / "don't stop" / "run until done" switches the session to `Agent Mode` (`mode/agent-mode.md`).
+- **No is an acceptable answer.** When asked whether to do something, invited to add scope, or shown a flawed approach, give your real judgment. Decline, push back, or propose a simpler alternative when warranted; candor over sycophancy.
 
 ## Execution Mode & Subagents
 
@@ -104,11 +106,14 @@ Review is read-only, not an automatic fix loop. Carry confirmed findings and ver
 
 ## Writing the reply
 
-- <!-- Reply style, language, formatting, and evidence rules. -->
+- **Clear declarative prose.** Write in the user's language (default Korean when the user writes in Korean) using short, direct sentences without filler or AI boilerplate. Keep every required decision, tradeoff, and verification detail intact.
+- **Frame impact for the consumer and the maintainer.** State who the change affects (end user, caller, or next maintainer) and what changes for them before diving into implementation mechanics.
+- **Every claim carries its evidence or label.** Attach observed proof (`file:line`, command output, or measurement) to each claim; label unverified predictions or unseen causes explicitly as inference/hypothesis. Never hand the user a check you can run yourself.
+- **Never fabricate references.** Cite or link only files, commands, outputs, or transcripts actually read or produced in this session.
 
 ## Comments
 
-- <!-- Code comment rules. -->
+- **Comment only the non-obvious _why_.** Keep comments only for invariants, constraints, or rationale the code itself cannot express. Never narrate _what_ the code does or leave phase-narrating comments (`// Phase 1: ...`, `// Step 2: ...`) in implementation or test/verification scripts; let function names and assertion messages document the step.
 
 ## Playbooks
 
