@@ -1,20 +1,20 @@
 ---
-name: why
-description: "Use for 'why does X work this way', 'why we picked Y', design rationale, regressions, postmortems, or data-backed thresholds. Discovers available MCPs and queries each evidence category (source control, issue tracker, long-form docs, real-time chat, infrastructure observability, error tracking, product analytics warehouse) in parallel, then returns a cited read on decisions and tradeoffs. Use how for runtime behavior."
+name: loegg-why
+description: "Investigate design rationale, historical motivation, regressions, postmortems, or data-backed thresholds across git, PRs, issues, docs, and available MCPs with confidence tiers. Invoked via `/loegg why` or triggered during a loegg workflow. Use `/loegg how` for runtime behavior."
 disable-model-invocation: true
 ---
 
 # Why
 
-Investigate the motivation and intent behind code. The companion `how` skill answers what the code does and how it works. `why` answers what forces led to its shape.
+Investigate the motivation and intent behind code. The companion `../how/SKILL.md` (`how`) action answers what the code does and how it works. `why` answers what forces led to its shape.
 
-Each spawn below names a role line in the pstack settings file (`~/.cursor/rules/pstack-models.mdc` in Cursor, `~/.claude/rules/pstack-models.md` in Claude Code, `~/.agents/pstack-models.md` in other harnesses) and a default. Set `model` to that line's value, or to the default if the file or the line is missing. Leave `model` unset when the value is `auto` or `inherit-parent`. If your subagent tool rejects a slug, use the default and say so. If it rejects the default, use the closest valid slug of the same family from its error message or your harness's model list. Pick each subagent's reasoning level and fast or standard speed for the job, per the Subagents section of the **poteto-mode** skill.
+When spawning parallel investigators (Step 3), use the `analyze runners` role from `~/.agents/loegg/models.md` (configured via `../setup/SKILL.md`). Pass each configured `provider/model:effort` identifier unchanged (cycling or reusing configured entries across evidence categories as needed), or omit `model` when unconfigured, set to `inherit-parent` / `auto`, or restricted by the harness. Follow the subagent rules in `../../SKILL.md` (`Execution Mode & Subagents`).
 
-Every spawn is `generalPurpose` with `readonly: false` (agent mode). **Do not use readonly/Ask mode.** It strips MCP access, which disables the MCP-backed investigators and the synthesizer's citation spot-checks. Investigators still shouldn't write anything.
+Spawn investigators with MCP access enabled (`readonly: false` in harnesses where read-only mode strips MCP tools). **Do not use a mode that strips MCP access**, because it disables the MCP-backed investigators. Investigators must remain strictly read-only in behavior and never write or modify anything.
 
 ## Operating Posture
 
-Operate as a **careful, cautious, and precise investigator**. Be honest about what you know vs what you're inferring. Read `references/epistemics.md` for the full confidence framework and phrasing guide. The synthesizer must follow it.
+Operate as a **careful, cautious, and precise investigator**. Be honest about what you know vs what you're inferring. Read `references/epistemics.md` for the full confidence framework and phrasing guide. Your synthesis must follow it.
 
 ## Step 1. Understand the Target and the Question
 
@@ -24,7 +24,7 @@ If the target is vague ("why do we do it this way?" with no clear referent), mak
 
 ## Step 2. Establish the Code Anchor
 
-Before spawning investigators, build the seed context inline: file paths and line ranges, key symbols (functions, classes, constants), the last few commits touching the target, PR numbers from merge commits (pattern `(#1234)` in the subject line), and any linked ticket IDs. Run `git blame -L <start>,<end> <file>` for last-touch commits, `git log --follow -p -- <file>` for full history with patches through renames, `git log --oneline -20 -- <file>` for recent commits with PR numbers visible, and `git log -1 --format=%B <commit>` to extract PR numbers. Then pull the PR bodies and discussion for any substantive commit: `gh pr view <number> --json title,body,author,createdAt,mergedAt,labels,closingIssuesReferences,comments,reviews`. This anchor goes to every investigator and to the synthesizer.
+Before spawning investigators, build the seed context inline: file paths and line ranges, key symbols (functions, classes, constants), the last few commits touching the target, PR numbers from merge commits (pattern `(#1234)` in the subject line), and any linked ticket IDs. Run `git blame -L <start>,<end> <file>` for last-touch commits, `git log --follow -p -- <file>` for full history with patches through renames, `git log --oneline -20 -- <file>` for recent commits with PR numbers visible, and `git log -1 --format=%B <commit>` to extract PR numbers. Then pull the PR bodies and discussion for any substantive commit: `gh pr view <number> --json title,body,author,createdAt,mergedAt,labels,closingIssuesReferences,comments,reviews`. This anchor goes to every investigator and grounds the final synthesis.
 
 ## Step 3. Spawn Parallel Investigators
 
@@ -46,7 +46,7 @@ Map each available MCP to one evidence category:
 
 Source control is always available through git and `gh`. For the other six, classify using the MCP name, server instructions, tool names, and resource descriptors. If an MCP could fit more than one category, choose the one matching its primary evidence. Record ambiguous cases in the coverage map.
 
-Spawn one investigator per category that has a matching MCP, all in a single message so they run concurrently, each owning exactly one tool or MCP. Don't ask one agent to cover multiple MCPs. `model`: the `why investigators` line, default `grok-4.7-xhigh-fast`.
+Spawn one investigator per category that has a matching MCP, all in a single message so they run concurrently, each owning exactly one tool or MCP. Don't ask one agent to cover multiple MCPs. Select `model` from the `analyze runners` role in `~/.agents/loegg/models.md` (or omit `model` per the harness fallback rule in `../setup/SKILL.md`).
 
 Each investigator's prompt is `references/investigator-prompt.md` filled in, plus:
 
@@ -79,17 +79,17 @@ If your scope assessment suggests a single-commit trivial target where the PR de
 
 ## Step 4. Synthesize
 
-Spawn one synthesizer. `model`: the `why synthesizer` line, default `claude-opus-5-5-xhigh`. It gets:
+Once all investigators return, the main agent synthesizes the findings directly (or via `../../util/arena/SKILL.md` if deep multi-model synthesis was requested), combining:
 
 1. The investigator findings, including any null results and any categories skipped with justification
 2. The code anchor
 3. The user's original question
 4. The epistemics framework from `references/epistemics.md`
-5. The synthesizer prompt template from `references/synthesizer-prompt.md`
+5. The synthesis structure and quality checks from `references/synthesizer-prompt.md`
 
 ## Step 5. Present
 
-Present the synthesizer's output to the user. You may lightly edit for clarity or add context from the conversation, but **do not rewrite the confidence language**.
+Present the synthesized output to the user following `../../SKILL.md` (`## Writing the reply`), while keeping the confidence language from `references/epistemics.md` intact.
 
 ## Output Format
 

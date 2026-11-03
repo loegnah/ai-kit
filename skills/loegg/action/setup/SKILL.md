@@ -6,7 +6,7 @@ Configure which providers, models, and reasoning budgets **loegg** uses when spa
 
 - **Canonical path (Single Source of Truth)**: `~/.agents/loegg/models.md`
 - **Claude Code auto-load (optional symlink)**: If `~/.claude/rules` exists, link `~/.agents/loegg` into it (`ln -sfn ~/.agents/loegg ~/.claude/rules/loegg`) so Claude Code loads `models.md` automatically while keeping a single file to maintain.
-- **Other harnesses (OMP, OpenCode, Codex, Pi, etc.)**: **loegg** skills (`util/arena/SKILL.md`, `action/analyze/SKILL.md`, `action/review/SKILL.md`) read `~/.agents/loegg/models.md` directly when selecting subagent models.
+- **Other harnesses (OMP, OpenCode, Codex, Pi, etc.)**: **loegg** skills (`util/arena/SKILL.md`, `action/analyze/SKILL.md`, `action/how/SKILL.md`, `action/why/SKILL.md`, `action/recall/SKILL.md`, `action/review/SKILL.md`, `action/interrogate/SKILL.md`, `action/reflect/SKILL.md`) read `~/.agents/loegg/models.md` directly when selecting subagent models.
 
 > **Repository boundary rule**: When editing inside a repository whose `AGENTS.md` forbids touching files outside the repo root, do not write to `~/.agents/` unless the user explicitly runs `/loegg setup` outside that restriction.
 
@@ -52,13 +52,13 @@ Recommendations below list model names only, without provider prefixes or effort
 
 Use the table below to recommend model names, then resolve each selected model to a provider-qualified identifier before presenting the working role table. Ask via the structured-question tool whether to accept the resolved table or customize specific entries:
 
-| Role                     | Recommended Models                                     | Why this combination works                                                                                                                                                            |
-| :----------------------- | :----------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `arena runners`          | `opus-5.5, gpt-6.1-sol, gemini-4-argon`                | **3-family panel**: `opus-5.5` (architecture/design Base) + `gpt-6.1-sol` (strict logic/edge-case verification) + `gemini-4-argon` (broad structural/refactoring view).               |
-| `arena cross-judge pool` | `gpt-6.1-sol, gemini-4-argon, opus-5.5`                | **Cross-family judge pool**: Picks one model from a family different from the parent chat model to score the rubric without self-bias.                                                |
-| `analyze runners`        | `gpt-6.1-sol, gemini-4-argon, sonnet-5.5`              | **Root-cause & Q&A investigators**: `gpt-6.1-sol` (debugger/auditor strength) + `gemini-4-argon` (wide repo context) + `sonnet-5.5` (code flow synthesis).                            |
-| `review runners`         | `gpt-6.1-sol, opus-5.5, gemini-4-argon`                | **Independent change reviewers**: strict correctness/security checks + contract/design regressions + cross-file impact. Used by deep review; ordinary review stays in the main agent. |
-| `parallel workers`       | `gpt-6.1-terra, gemini-3.8-flash, deepseek-v4.1-flash` | **Fast implementation workers**: `gpt-6.1-terra` (builder) + `gemini-3.8-flash` / `deepseek-v4.1-flash` for high-speed non-overlapping slice edits.                                   |
+| Role                     | Recommended Models                                     | Why this combination works                                                                                                                                                                     |
+| :----------------------- | :----------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `arena runners`          | `opus-5.5, gpt-6.1-sol, gemini-4-argon`                | **3-family panel**: `opus-5.5` (architecture/design Base) + `gpt-6.1-sol` (strict logic/edge-case verification) + `gemini-4-argon` (broad structural/refactoring view).                        |
+| `arena cross-judge pool` | `gpt-6.1-sol, gemini-4-argon, opus-5.5`                | **Cross-family judge pool**: Picks one model from a family different from the parent chat model to score the rubric without self-bias.                                                         |
+| `analyze runners`        | `gpt-6.1-sol, gemini-4-argon, sonnet-5.5`              | **Root-cause & Q&A investigators (`analyze`, `how`, `why`, `recall`)**: `gpt-6.1-sol` (debugger/auditor strength) + `gemini-4-argon` (wide repo context) + `sonnet-5.5` (code flow synthesis). |
+| `review runners`         | `gpt-6.1-sol, opus-5.5, gemini-4-argon`                | **Independent reviewers (`review`, `interrogate`, `reflect`)**: strict correctness/security checks + contract/design regressions + cross-file impact. Ordinary review stays in the main agent. |
+| `parallel workers`       | `gpt-6.1-terra, gemini-3.8-flash, deepseek-v4.1-flash` | **Fast implementation workers**: `gpt-6.1-terra` (builder) + `gemini-3.8-flash` / `deepseek-v4.1-flash` for high-speed non-overlapping slice edits.                                            |
 
 ### Resolve providers per entry
 

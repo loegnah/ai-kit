@@ -1,6 +1,6 @@
 ---
-name: how
-description: 'Use for "how does X work", code walkthroughs before changing something, and placement / ownership / layering questions ("where should this live", "which package owns this", "is this the right layer"). Explains subsystem architecture, runtime flow, onboarding mental models. Use why for motivation.'
+name: loegg-how
+description: 'Explain subsystem architecture, runtime control flow, and code placement ("how does X work", "where should this live", "which package owns this"). Invoked via `/loegg how` or triggered during a loegg workflow. Use `/loegg why` for historical motivation.'
 disable-model-invocation: true
 ---
 
@@ -8,14 +8,14 @@ disable-model-invocation: true
 
 Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
 
-Every spawn is a Task subagent with `subagent_type: generalPurpose` and `readonly: true`. Explorers use the `how explorer` line in the pstack settings file (`~/.cursor/rules/pstack-models.mdc` in Cursor, `~/.claude/rules/pstack-models.md` in Claude Code, `~/.agents/pstack-models.md` in other harnesses) (default `grok-4.7-xhigh-fast`), and every explainer uses the `how explainer` line (default `claude-opus-5-5-xhigh`). Set `model` to that line's value, or to the default if the file or the line is missing. Leave `model` unset when the value is `auto` or `inherit-parent`. If your subagent tool rejects a slug, use the default and say so. If it rejects the default, use the closest valid slug of the same family from its error message or your harness's model list. Pick each subagent's reasoning level and fast or standard speed for the job, per the Subagents section of the **poteto-mode** skill.
+When spawning parallel explorers (Step 2), use the `analyze runners` role from `~/.agents/loegg/models.md` (configured via `../setup/SKILL.md`). Pass each configured `provider/model:effort` identifier unchanged, or omit `model` when unconfigured, set to `inherit-parent` / `auto`, or restricted by the harness (e.g., use `scout1` / `scout2` in OMP). Keep all explorers read-only (`readonly: true` where supported). Follow the subagent rules in `../../SKILL.md` (`Execution Mode & Subagents`).
 
 ## 1. Assess complexity
 
 If the scope is ambiguous, state your interpretation and explore. The user can redirect.
 
-- **Simple** (a single module, a small utility, a narrow question such as "how does function X work"): no explorers. Spawn one explainer that explores and explains in one pass, built from `references/explainer-prompt.md` without the explorer-findings section. Go to step 4.
-- **Complex** (a subsystem spanning multiple files or services, a cross-cutting feature, a full architectural overview): go to step 2.
+- **Simple** (a single module, a small utility, a narrow question such as "how does function X work"): no subagents. The main agent explores and explains directly in one pass using the structure in `references/explainer-prompt.md` (without the explorer-findings section). Go to step 4.
+- **Complex** (a subsystem spanning multiple files or services, a cross-cutting feature, a full architectural overview, or when the user asks for depth): go to step 2.
 
 When in doubt, take the simple path.
 
@@ -27,11 +27,11 @@ Decompose the question into 2 to 4 angles, each a distinct slice of the subsyste
 
 ## 3. Synthesize (complex only)
 
-Once all explorers have returned, spawn one explainer with `references/explainer-prompt.md` and every explorer's findings filled in.
+Once all explorers have returned, the main agent verifies key claims against the codebase and synthesizes every explorer's findings directly using the instructions and structure in `references/explainer-prompt.md` (reconciling overlaps and resolving any contradictions in the code).
 
 ## 4. Present
 
-Present the explainer's output. Light edits for clarity or context from the conversation are fine. Do not substantially rewrite it.
+Present the synthesized explanation to the user following `../../SKILL.md` (`## Writing the reply`).
 
 ## Output format
 

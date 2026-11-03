@@ -1,6 +1,6 @@
 ---
-name: reflect
-description: Spawn three parallel review subagents over the active transcript, surface learnings, and route each to a concrete edit on an existing skill. Use when the user says reflect.
+name: loegg-reflect
+description: "Spawn three parallel review lenses (Judgment, Tooling, Divergent) over the active session transcript, synthesize durable learnings in the main agent, and route approved improvements into skills or structural checks. Invoked via `/loegg reflect`."
 disable-model-invocation: true
 ---
 
@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Mine the current conversation for durable learnings, then route them into skill edits.
 
-Invoke when the user says "reflect" or "/reflect". Skip when the conversation is trivial, off-topic, or already covered by an existing skill the parent followed correctly. One-offs are not learnings.
+Invoke when the user runs `/loegg reflect` or asks to reflect on the session. Skip when the conversation is trivial, off-topic, or already covered by an existing skill the parent followed correctly. One-offs are not learnings.
 
 ## 1. Locate the active transcript
 
@@ -27,6 +27,7 @@ Where the transcript lives depends on your harness:
 - **Claude Code:** `~/.claude/projects/<slug>/<session-id>.jsonl`, where `<slug>` is the workspace path with every character that isn't a letter or digit turned into "-".
 - **Pi:** `~/.pi/agent/sessions/--<slug>--/*.jsonl`, where `<slug>` is the workspace path with the leading slash dropped and each "/" turned into "-".
 - **Codex:** `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl`. Keep only files whose first line has `payload.cwd` equal to the workspace path.
+- **OMP:** `history://` or `~/.omp/agent/sessions/` for the active workspace.
 - **Other harnesses:** check the harness's session directory for this workspace.
 
 Outside Cursor, take the newest candidates first and confirm one by finding the conversation's opening user prompt in its first user message. If none matches, pass a tight digest of the session instead.
@@ -37,23 +38,23 @@ One message, three `Task` calls, `subagent_type: generalPurpose`, agent mode (`r
 
 **Other harnesses.** The spawns in this skill use Cursor's `Task` tool. In another harness, use its subagent tool: `Agent` in Claude Code (`subagent_type: general-purpose`), `task` in OpenCode (`subagent_type: general`), `spawn_agent` in Codex. Keep the prompt and the model. Drop parameters your tool doesn't have. If your harness has no subagent tool, as in Pi without an extension, run each role yourself, one after another.
 
-Each reviewer and the synthesizer name a role line in the pstack settings file (`~/.cursor/rules/pstack-models.mdc` in Cursor, `~/.claude/rules/pstack-models.md` in Claude Code, `~/.agents/pstack-models.md` in other harnesses) and a default. Set `model` to that line's value, or to the default if the file or the line is missing. Leave `model` unset when the value is `auto` or `inherit-parent`. If your subagent tool rejects a slug, use the default and say so. If it rejects the default, use the closest valid slug of the same family from its error message or your harness's model list. Pick each subagent's reasoning level and fast or standard speed for the job, per the Subagents section of the **poteto-mode** skill.
+Use the `review runners` role from `~/.agents/loegg/models.md` (configured via `../setup/SKILL.md`) for the three review lenses. Pass each configured `provider/model:effort` identifier unchanged, or omit `model` when unconfigured, set to `inherit-parent` / `auto`, or restricted by the harness (following `../../SKILL.md` `Execution Mode & Subagents`).
 
-| Lens      | Role line                                  | Default `model`         | Prompt template                    |
-| --------- | ------------------------------------------ | ----------------------- | ---------------------------------- |
-| Judgment  | `reflect judgment, divergent, synthesizer` | `claude-opus-5-5-xhigh` | `references/judgment-reviewer.md`  |
-| Tooling   | `reflect tooling`                          | `grok-4.7-xhigh-fast`   | `references/tooling-reviewer.md`   |
-| Divergent | `reflect judgment, divergent, synthesizer` | `claude-opus-5-5-xhigh` | `references/divergent-reviewer.md` |
+| Lens      | Role line (`~/.agents/loegg/models.md`) | Prompt template                    |
+| --------- | --------------------------------------- | ---------------------------------- |
+| Judgment  | `review runners`                        | `references/judgment-reviewer.md`  |
+| Tooling   | `review runners`                        | `references/tooling-reviewer.md`   |
+| Divergent | `review runners`                        | `references/divergent-reviewer.md` |
 
-Pass each template verbatim, substituting the transcript path or digest where marked. Reviewers return findings in the `Task` response body.
+Pass each template verbatim, substituting the transcript path or digest where marked. Reviewers return findings in the subagent response body.
 
 ## 3. Synthesize
 
-One `Task` call, `subagent_type: generalPurpose`, `model` from the `reflect judgment, divergent, synthesizer` line (default `claude-opus-5-5-xhigh`), agent mode (`readonly: false`). It spot-verifies citations through MCP, and readonly strips MCPs. Pass `references/synthesizer.md` verbatim, with each reviewer's full output inlined where marked. It returns an Accepted / Rejected / Backlog list.
+Once all three reviewers return, the main agent spot-verifies cited claims (reading code or calling MCP tools as needed without modifying state) and synthesizes the findings directly using the criteria and output table in `references/synthesizer.md`, producing the Accepted / Rejected / Backlog lists.
 
 ## 4. Structural enforcement check
 
-Move any Accepted item that a lint rule, script, metadata flag, or runtime check would enforce more reliably to Backlog. See the **encode-lessons-in-structure** principle skill.
+Move any Accepted item that a lint rule, script, metadata flag, or runtime check would enforce more reliably to Backlog, per the **Encode Lessons in Structure** principle in `../../SKILL.md`.
 
 ## 5. Apply
 
@@ -66,9 +67,9 @@ Never edit a skill under `plugins/cache/`. Before approval, show its destination
 Follow each approved row's Routing exactly:
 
 - Trivial existing-skill edit (a one-line bullet, a tightened sentence, a stale fact corrected): the parent does it directly.
-- Substantive existing-skill edit (a new section, a new pattern table, more than ~10 lines): hand to your harness's skill-authoring skill and run its draft / test / iterate loop. That is `create-skill` in Cursor (built in) or Anthropic's `skill-creator`. If you have neither, follow the Agent Skills format at agentskills.io. "`create-skill`" below means whichever of these you use.
-- `tune description: <skill path>` (the skill exists but didn't trigger when it should have): hand to `create-skill` and run its description-optimization loop.
-- `new skill via create-skill: <kebab-name>`: hand creation to `create-skill`. Do not invent the shape ad hoc.
+- Substantive existing-skill edit (a new section, a new pattern table, more than ~10 lines): edit the target skill file directly following its existing layout and the conventions in `../../SKILL.md`.
+- `tune description: <skill path>` (the skill exists but didn't trigger when it should have): update the skill's `description` frontmatter or trigger line in `../../SKILL.md` so future runs match it.
+- `new skill: <kebab-name>`: create the new action or skill file following the repository's skill structure and register it in its parent `SKILL.md`.
 
 If your environment ships a SKILL.md validator, run it on every touched skill before declaring done.
 

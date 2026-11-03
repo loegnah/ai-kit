@@ -1,6 +1,6 @@
 # Explainer Prompt Template
 
-Build the explainer subagent's prompt from this template. Fill in the placeholders.
+Use this template to synthesize explorer findings into the final explanation (or to write a direct explanation on the simple path). Fill in the placeholders when delegating.
 
 ---
 

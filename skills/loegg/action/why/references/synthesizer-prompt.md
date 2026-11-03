@@ -1,6 +1,6 @@
 # Synthesizer Prompt Template
 
-Fill in the placeholders.
+Use this structure and quality checklist to synthesize the investigator findings into the final answer (or fill in the placeholders if delegating synthesis).
 
 ---
 
