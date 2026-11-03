@@ -28,7 +28,7 @@ Only `action/` entries can be invoked directly as standalone commands (`mode/` a
   - `recall` -> `action/recall/SKILL.md` (reconstruct recent working context).
   - `reflect` -> `action/reflect/SKILL.md` (derive skill improvements from the session).
   - `review` -> `action/review/SKILL.md` (read-only review of current changes; use `review runners` through arena for deep review).
-  - `doc` (`docs`, `design-doc`, `rule`, `guide`, `note`, `tip`, `story`, `glossary`) -> `action/doc/SKILL.md` (distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md`).
+  - `doc` (`docs`) -> `action/doc/SKILL.md` (distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md`).
 - **Full workflow (`/loegg <task>` or `/loegg agent <task>`)**: For general tasks, select an execution mode (`mode/`), apply any triggered utilities (`util/`), and follow the matched playbook below.
 
 ## Non-negotiables
@@ -50,7 +50,7 @@ Remaining triggers during a task:
 - Reflecting on the session to improve checks, skills, or rules ("이번 세션 회고해봐", "배운 거 스킬/규칙에 반영해봐", `reflect`) -> read `action/reflect/SKILL.md`.
 - Root-cause bug investigation or complex codebase/architecture Q&A requiring multi-subagent parallel analysis (`analyze`) -> read `action/analyze/SKILL.md`.
 - Review current changes, including deep/multi-angle change review -> read `action/review/SKILL.md`, which selects `review runners` when arena is needed.
-- Capture or update project documentation from session learnings (`doc`, `design-doc`, `rule`, `guide`, `note`, `tip`, `story`, `glossary`) -> read `action/doc/SKILL.md`.
+- Capture or update project documentation from session learnings (`doc`, `docs`) -> read `action/doc/SKILL.md`.
 - Other deep/multi-angle work or competing candidates (`arena`), triggered either by an explicit heavy/depth request ("다양한 관점/시각", "다각도로", "심층", "심화", "빡세게", "깊게", `arena`) or by the agent's own judgment that a high-stakes step needs multi-model verification -> read `util/arena/SKILL.md`.
 
 ## Principles

@@ -33,7 +33,7 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 - **`reflect`** (`reflect/SKILL.md`): Review session learnings (`/loegg reflect`).
 - **`review`** (`review/SKILL.md`): Review current staged, unstaged, and non-ignored new files without editing (`/loegg review`). For independent parallel reviews, use `/loegg review 깊게`; arena selects `review runners`, not `arena runners`. An explicit file or comparison range overrides the default scope.
 - **Review models**: Configure `review runners` with `/loegg setup` independently of other roles. Ordinary review stays in the main agent; deep review uses configured models or harness role defaults when unavailable or restricted.
-- **`doc`** (`doc/SKILL.md`): Distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md` (`/loegg doc [category]`; also accepts `docs`, `design-doc`, `rule`, `guide`, `note`, `tip`, `story`, `glossary`).
+- **`doc`** (`doc/SKILL.md`): Distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md` (`/loegg doc [category]`; also accepts `docs`).
 
 ## Execution Utilities (`util/`)
 

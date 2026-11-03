@@ -1,4 +1,4 @@
-# Doc (`design` / `rule` / `guide` / `note` / `story` / `glossary`)
+# Doc
 
 Distill reusable knowledge from the current session and save it as a concise Markdown document under the appropriate `docs/` location (`docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md`). Run standalone with `/loegg doc [category]`, or when asked to document takeaways during a workflow.
 
@@ -9,7 +9,7 @@ Write the document in the user's language (default Korean if the conversation is
 ## Arguments
 
 - `category / topic` (optional):
-  - If invoked with a specific category keyword (`design-doc`, `rule`, `guide`, `note`, `tip`, `story`, `glossary`), route directly to that category unless the content clearly belongs elsewhere.
+  - If invoked with a category argument (`/loegg doc <design|rule|guide|note|story|glossary>`), route directly to that category unless the content clearly belongs elsewhere.
   - If invoked generally (`doc`, `docs`) or without a category, classify the session takeaway into one of the six targets below (or split into separate targets if multiple distinct categories apply).
 
 ## Directory Taxonomy & Routing Rules
