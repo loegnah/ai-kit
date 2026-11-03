@@ -9,6 +9,6 @@ Be scientific (**Fix Root Causes** in `../SKILL.md`). Every shipped line traces 
 3. Plan and apply the fix. If the fix crosses module boundaries or reshapes contracts, run `../action/architect/SKILL.md` (`architect`) first. Apply the minimal root-cause fix and remove any temporary debug instrumentation.
 4. Verify on the same surface (**Prove It Works** in `../SKILL.md`). The original repro must now pass alongside static checks (`bun run check` / tests). "Inconclusive" or wrong-surface is not a pass. Unit tests show branch behavior, not full bug absence.
 5. Sequence commits (**Sequence Work into Verifiable Units** in `../SKILL.md`) so the failing regression test lands before or alongside the fix when a cheap local test path exists.
-6. Review final changes via `../action/review/SKILL.md` (`review`). If the user asked to open a PR, run `playbooks/opening-a-pr.md`.
+6. Review final changes via `../action/review/SKILL.md` (`review`).
 
 **Reply** (following `../SKILL.md` `## Writing the reply`): what was broken, root cause (`file:line` and mechanism), the fix, failing-then-passing repro output verbatim, and review findings.

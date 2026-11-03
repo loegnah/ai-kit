@@ -52,4 +52,3 @@ Full task workflows selected automatically during `/loegg <task>` or `/loegg age
 - **`prototype`** (`../../playbooks/prototype.md`): Throwaway sketch to settle a visual or empirical fork before building.
 - **`hillclimb`** (`../../playbooks/hillclimb.md`): Iterative keep-or-revert optimization loop against a frozen metric harness.
 - **`multi-phase-plan`** (`../../playbooks/multi-phase-plan.md`): Decompose large cross-cutting work into verifiable phases.
-- **`opening-a-pr`** (`../../playbooks/opening-a-pr.md`): Organize commits and open a concise pull request.

@@ -14,6 +14,6 @@ Core discipline: **one hypothesis, one change, one measurement, keep or revert**
    - **Accept** only when the metric moves past the noise floor and the regression gate stays green. Otherwise **revert** the change in full. A tweak that "might help" is never kept.
    - Commit each accepted win individually (`git add <changed-files>`) and log the row (`kept` or `reverted`) in `decision.tsv`.
 6. Push past the first plateau. After several consecutive rejects, pivot to a different mantra category, combine near-misses, or re-profile the new limiter before concluding the ceiling is reached. Correctness and simplicity outrank raw numbers: revert any win that breaks behavior, and keep a simplification that holds the metric (**Laziness Protocol** in `../SKILL.md`).
-7. Stop when the predicate is met or remaining ideas are marginal relative to complexity cost. Run `../action/review/SKILL.md` (`review`) on the final diff. If the user asked to open a PR, run `playbooks/opening-a-pr.md`.
+7. Stop when the predicate is met or remaining ideas are marginal relative to complexity cost. Run `../action/review/SKILL.md` (`review`) on the final diff.
 
 **Reply** (following `../SKILL.md` `## Writing the reply`): the metric and target, baseline -> final with percent delta and limiter, iterations run (`kept` vs. `reverted`), one line per accepted change, the `decision.tsv` summary, review findings, and the best next hypothesis if pushed further.

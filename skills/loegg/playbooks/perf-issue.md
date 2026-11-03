@@ -18,6 +18,6 @@ Enforces the **Explain the Number** principle in `../SKILL.md`. For sustained, m
 
 3. Plan and implement the fix from the trace. If it crosses module boundaries, run `../action/architect/SKILL.md` (`architect`) first. Apply one verifiable change at a time (**Sequence Work into Verifiable Units** in `../SKILL.md`) and capture a post-fix trace/measurement under identical tuned conditions.
 4. Compare baseline vs. post-fix artifacts and vet the result with `../action/benchmark-checklist/SKILL.md`. "Inconclusive", within noise, or measured on the wrong surface is not a pass—revert or flag it.
-5. Run static checks (`bun run check` / tests) and `../action/review/SKILL.md` (`review`). If the user asked to open a PR, run `playbooks/opening-a-pr.md` and cite the primary measurement.
+5. Run static checks (`bun run check` / tests) and `../action/review/SKILL.md` (`review`).
 
 **Reply** (following `../SKILL.md` `## Writing the reply`): verdict, baseline number, post-fix number, delta (with run count, range, and limiter per `benchmark-checklist`), verification evidence, and review findings.

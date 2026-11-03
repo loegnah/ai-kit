@@ -145,4 +145,3 @@ Open a todolist whose first items are the matched playbook's steps, copied in ve
 - **Prototype.** A fast, throwaway sketch in an isolated directory to settle a design or empirical fork cheaply (`playbooks/prototype.md`).
 - **Hillclimb.** Sustained, iterative keep-or-revert optimization of one measurable metric against a target (`playbooks/hillclimb.md`).
 - **Multi-phase plan.** A multi-stage or multi-PR plan decomposed into independently verifiable units (`playbooks/multi-phase-plan.md`).
-- **Opening a PR.** Story-ordered commits and a structured pull request briefing (`playbooks/opening-a-pr.md`).
