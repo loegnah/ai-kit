@@ -20,6 +20,7 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 - **`setup`** (`setup/SKILL.md`): Configure each subagent model's provider and reasoning budget in `~/.agents/loegg/models.md` (`/loegg setup`). Recommendations show model names only; saved entries use full identifiers such as `google-antigravity/gemini-4-argon:medium`. Providers can differ per entry.
 - **`help`** (`help/SKILL.md`): Explain loegg usage and suggest prompts (`/loegg help`).
 - **`grill`** (`grill/SKILL.md`): Stress-test plans and resolve open design decisions in frontier rounds before building (`/loegg grill`).
+- **`architect`** (`architect/SKILL.md`): Sketch caller usage, types, signatures, and module boundaries before writing implementation code, comparing candidate shapes via `arena` (`/loegg architect [target]`).
 - **`analyze`** (`analyze/SKILL.md`): Ask multiple read-only subagents the exact same bug-cause or codebase analysis question in parallel, then have the main agent fact-check and synthesize a single answer (`/loegg analyze <question>`).
 - **`how`** (`how/SKILL.md`): Explain how code or a subsystem works (`/loegg how <question>`).
 - **`why`** (`why/SKILL.md`): Investigate historical motivation and design rationale across git, PRs, issues, docs, and MCPs with strict confidence tiers (`/loegg why <question>`).
@@ -39,3 +40,16 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 Internal helper protocols attached to a task (not called standalone without a task):
 
 - **`arena`** (`../../util/arena/SKILL.md`): Run the same prompt across multiple models in parallel (for root-cause debugging, Q&A analysis, pre-work review, design, or implementation), pick the strongest base, and graft the best parts from the rest. Triggered by adding depth/multi-angle keywords ("다각도로", "다양한 관점", "심층", "심화", "빡세게", "깊게", `arena`) to any request.
+
+## Playbooks (`playbooks/`)
+
+Full task workflows selected automatically during `/loegg <task>` or `/loegg agent <task>`:
+
+- **`feature`** (`../../playbooks/feature.md`): New or changed behavior built from a clear domain data shape.
+- **`bug-fix`** (`../../playbooks/bug-fix.md`): Reproduce, trace root cause with runtime evidence, and ship the minimal fix.
+- **`refactoring`** (`../../playbooks/refactoring.md`): Behavior-preserving structural improvement held against a pinned contract.
+- **`perf-issue`** (`../../playbooks/perf-issue.md`): One-off performance bottleneck trace and fix against a vetted baseline.
+- **`prototype`** (`../../playbooks/prototype.md`): Throwaway sketch to settle a visual or empirical fork before building.
+- **`hillclimb`** (`../../playbooks/hillclimb.md`): Iterative keep-or-revert optimization loop against a frozen metric harness.
+- **`multi-phase-plan`** (`../../playbooks/multi-phase-plan.md`): Decompose large cross-cutting work into verifiable phases.
+- **`opening-a-pr`** (`../../playbooks/opening-a-pr.md`): Organize commits and open a concise pull request.

@@ -6,16 +6,17 @@ disable-model-invocation: true
 
 # Loegg
 
-Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions live at `action/<name>/SKILL.md` (`setup`, `help`, `grill`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`, etc.), shared execution utilities live at `util/<name>/SKILL.md` (`arena`, etc.), and playbooks live at `playbooks/<title>.md`.
+Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions live at `action/<name>/SKILL.md` (`setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`, etc.), shared execution utilities live at `util/<name>/SKILL.md` (`arena`, etc.), and playbooks live at `playbooks/<title>.md`.
 
 ## Dispatch: One-Shot Actions vs. Full Mode
 
 Only `action/` entries can be invoked directly as standalone commands (`mode/` and `util/` are internal helpers applied during a task, never called on their own):
 
-- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`)**: When invoked with an action name, read its mapped file below and execute it directly, loading only dependencies that action explicitly requests, not `mode/*/SKILL.md` or playbooks.
+- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`)**: When invoked with an action name, read its mapped file below and execute it directly, loading only dependencies that action explicitly requests, not `mode/*/SKILL.md` or playbooks.
   - `setup` -> `action/setup/SKILL.md` (configure per-entry providers, models, and reasoning budgets in `~/.agents/loegg/models.md`; recommendations list model names only).
   - `help` -> `action/help/SKILL.md` (explain loegg usage, recommend workflows, or draft prompts).
   - `grill` -> `action/grill/SKILL.md` (stress-test a plan or resolve ambiguous requirements in frontier rounds).
+  - `architect` -> `action/architect/SKILL.md` (sketch caller usage, types, signatures, and module boundaries before coding, comparing shapes via `arena`).
   - `analyze` -> `action/analyze/SKILL.md` (send the same bug-hunt or analysis question to multiple read-only subagents in parallel and have the main agent fact-check and synthesize the answer).
   - `how` -> `action/how/SKILL.md` (explain code structure and runtime flow).
   - `why` -> `action/why/SKILL.md` (trace historical motivation, design rationale, and tradeoffs across git, PRs, issues, docs, and MCPs with confidence tiers).
@@ -37,6 +38,7 @@ The Principles section below grounds every trigger. In your reply, name each pri
 Remaining triggers during a task:
 
 - Underspecified requirements or high-leverage open design decisions before building -> read `action/grill/SKILL.md`.
+- Designing or reshaping module boundaries, core types, or public signatures where jumping straight to code risks locking in the wrong shape ("이거 아키텍처/구조 설계해봐", "타입/인터페이스부터 잡아줘", `architect`) -> read `action/architect/SKILL.md`.
 - Questions about how code works, runtime/control flow, or where code belongs ("이건 어떻게 동작해?", "코드 흐름이 어떻게 돼?", "어디에 넣어야 해?", `how`) -> read `action/how/SKILL.md`.
 - Questions about design rationale, historical intent, or why code/thresholds exist ("이건 왜 이렇게 짰어?", "왜 이 방식을 썼지?", `why`) -> read `action/why/SKILL.md`.
 - Requests to explain a subsystem or change plainly so the user deeply understands both how and why ("이거 쉽게 설명해줘", "가르쳐줘", "이해시켜줘", `teach`) -> read `action/teach/SKILL.md`.
@@ -134,6 +136,13 @@ Review is read-only, not an automatic fix loop. Carry confirmed findings and ver
 
 ## Playbooks
 
-Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. Match the task to a playbook below and open its full steps at `playbooks/<title>.md`.
+Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. Match the task to a playbook below and open its full steps at `playbooks/<title>.md`:
 
-- <!-- **<Playbook Name>.** <When to use this playbook.> (`playbooks/<name>.md`) -->
+- **Feature.** New or changed behavior built from a named data shape (`playbooks/feature.md`).
+- **Bug fix.** A reported defect to reproduce, root-cause, and fix with runtime evidence (`playbooks/bug-fix.md`).
+- **Refactoring.** A behavior-preserving structural change held against a pinned contract (`playbooks/refactoring.md`).
+- **Perf issue.** A measured performance bottleneck to trace and improve against a vetted baseline (`playbooks/perf-issue.md`).
+- **Prototype.** A fast, throwaway sketch in an isolated directory to settle a design or empirical fork cheaply (`playbooks/prototype.md`).
+- **Hillclimb.** Sustained, iterative keep-or-revert optimization of one measurable metric against a target (`playbooks/hillclimb.md`).
+- **Multi-phase plan.** A multi-stage or multi-PR plan decomposed into independently verifiable units (`playbooks/multi-phase-plan.md`).
+- **Opening a PR.** Story-ordered commits and a structured pull request briefing (`playbooks/opening-a-pr.md`).

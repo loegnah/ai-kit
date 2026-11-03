@@ -31,9 +31,9 @@ For a quick ballpark the user asked for, one run is enough. Still check question
 - Lead with the verdict: faster, slower, no measurable difference, or inconclusive.
 - Give the number with its unit, the run count, the range, and the limiter. For example, "p50 41 ms → 33 ms, median of 7 runs per side, range 32 to 35 ms after, bound by JSON parsing on one core."
 - Call the verdict inconclusive when you claim a difference but cannot name the limiter, when a side ran untuned, or when you could not check questions 4 and 7. Name the gap.
-- Keep a PR body to one primary number. Put the runs, range, and limiter evidence in a linked artifact or notes file (e.g., via `../doc/SKILL.md`).
+- Keep a PR body to one primary number, per `../../playbooks/opening-a-pr.md`. Put the runs, range, and limiter evidence in a linked artifact or notes file (e.g., via `../doc/SKILL.md`).
 
 ## Other perf material
 
-- Vet any performance baseline before planning from it, and every number after that.
-- Vet any hillclimb or benchmark harness before freezing it. The frozen harness should print error and work counts so each keep-or-revert checks questions 4 and 7 automatically.
+- Vet the baseline in `../../playbooks/perf-issue.md` before planning from it, and every number after that.
+- Vet the measurement harness in `../../playbooks/hillclimb.md` before freezing it. The frozen harness prints error and work counts so each keep-or-revert checks questions 4 and 7 automatically.
