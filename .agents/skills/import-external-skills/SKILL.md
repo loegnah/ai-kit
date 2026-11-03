@@ -40,7 +40,7 @@ description: "외부 저장소나 패키지의 스킬을 설치하거나 최신 
 사용자 요청에서 다음 정보를 파악합니다:
 
 - **소스**: URL (예: `https://github.com/obra/superpowers`) 또는 저장소 식별자 (`obra/superpowers`)
-- **대상 러너**: 예: `etc-lgnh`, `dev-lgnh`, `sdlc-lgnh` 등
+- **대상 러너**: 예: `etc-lgnh`, `dev-lgnh` 등
 - **카탈로그 이름**: 예: `superpowers` (최종 대상: `skills/<runner>/catalog/<name>`)
 - **특정 스킬 필터** (선택): 특정 스킬만 요청한 경우 해당 스킬 이름 목록
 
