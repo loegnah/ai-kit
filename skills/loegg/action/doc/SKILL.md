@@ -4,7 +4,7 @@ Distill reusable knowledge from the current session and save it as a concise Mar
 
 ## Language
 
-Write the document in the user's language (default Korean if the conversation is in Korean). Skill instructions are in English.
+Write the document in the user's language (default Korean if the conversation is in Korean). Skill instructions are in English. For Korean documents, follow [`references/korean-writing.md`](references/korean-writing.md) while writing and run its self-check before saving.
 
 ## Arguments
 
@@ -112,5 +112,5 @@ Use a **hybrid layout**: a fixed summary/index block at the top for instant scan
 
 1. **Extract & Classify**: Identify the reusable takeaway(s) from the current session (or user argument) and classify into `design`, `rule`, `guide`, `note`, `story`, or `glossary`. If nothing is clear to document, ask the user what to capture.
 2. **Resolve Path**: Check project instructions (`AGENTS.md` / `CLAUDE.md`), `README.md`, and existing `docs/` paths first; otherwise fall back to `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md` (creating the directory if it does not exist).
-3. **Write / Update Markdown**: Apply the matching category template and write concise, high-signal Markdown.
+3. **Write / Update Markdown**: Apply the matching category template and write concise, high-signal Markdown. For Korean documents, run the `references/korean-writing.md` self-check before saving.
 4. **Report**: Output the saved file path(s), chosen category, and a 1–2 line summary.
