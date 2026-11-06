@@ -29,6 +29,8 @@ Match the user's keyword or intent against the workflows below:
 | `handoff`                                                   | Session Handoff Document     | `catalog/mattpocock/INDEX.md`    |
 | `refactor`, `ts-refactor`, `refactor-ts`, `style-refactor`  | Style Refactor               | `catalog/refactor/SKILL.md`      |
 | `skill-sync`, `update-skills`, `sync-skills`, `skill-audit` | Project Skill Sync           | `catalog/skill-sync.md`          |
+| `eli5`, `explain-5`, `explain`                              | ELI5 Explainer               | `catalog/eli5.md`                |
+| `meta-prompt`, `prompt`, `prompt-gen`                       | Meta-Prompt                  | `catalog/meta-prompt.md`         |
 
 ## Execution Procedure
 

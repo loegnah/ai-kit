@@ -44,8 +44,8 @@ Arguments:
 Options:
   -u, --update [filter]  Update registered skills from skills-lock.json matching optional filter
   --update-all           Update all registered skills from skills-lock.json
-  -t, --target <path>    Explicit target directory path (e.g. skills/etc-lgnh/catalog/superpowers)
-  -r, --runner <runner>  Target runner name (e.g. etc-lgnh, dev-lgnh)
+  -t, --target <path>    Explicit target directory path (e.g. skills/dev-lgnh/catalog/superpowers)
+  -r, --runner <runner>  Target runner name (e.g. dev-lgnh, lang-lgnh)
   -n, --name <name>      Catalog name under runner (e.g. superpowers)
   -s, --skill <names>    Specific skill name(s) to install/move (comma-separated)
   --move-only            Skip 'npx skills add' and only relocate existing skills from .agents/skills
@@ -54,10 +54,10 @@ Options:
   --reindex              Regenerate INDEX.md for all or specified catalogs
   -h, --help             Show this help message
 Examples:
-  bun run .agents/skills/import-external-skills/scripts/relocate.ts https://github.com/obra/superpowers --runner etc-lgnh --name superpowers
+  bun run .agents/skills/import-external-skills/scripts/relocate.ts https://github.com/obra/superpowers --runner dev-lgnh --name superpowers
   bun run .agents/skills/import-external-skills/scripts/relocate.ts --update-all
   bun run .agents/skills/import-external-skills/scripts/relocate.ts -u superpowers
-  bun run .agents/skills/import-external-skills/scripts/relocate.ts obra/superpowers -t skills/etc-lgnh/catalog/superpowers
+  bun run .agents/skills/import-external-skills/scripts/relocate.ts obra/superpowers -t skills/dev-lgnh/catalog/superpowers
 `);
 }
 

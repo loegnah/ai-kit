@@ -2,7 +2,7 @@
 
 Apply these rules when a document is written in Korean. They remove translation-ese and AI-tell patterns from technical documents. Follow them while drafting, then run the self-check before saving.
 
-Adapted from `etc-lgnh` `humanize-korean` (a rewrite procedure for existing text). Change-rate gates and genre routing do not apply because a new document has no original to compare against.
+Adapted from `lang-lgnh` `humanize-korean` (a rewrite procedure for existing text). Change-rate gates and genre routing do not apply because a new document has no original to compare against.
 
 ## Preserve
 

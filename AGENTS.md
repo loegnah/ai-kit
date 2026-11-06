@@ -17,7 +17,7 @@ Skills are organized into entrypoint runners and orchestrators under `skills/`:
 - `skills/git-lgnh/`: Git automation and repository maintenance (`/git-lgnh <subcommand>`)
 - `skills/brain-lgnh/`: Second brain capture and query workflows (`/brain-lgnh <subcommand>`)
 - `skills/work-lgnh/`: Work log and reporting workflows (`/work-lgnh <subcommand>`)
-- `skills/etc-lgnh/`: General developer, explanation, translation, and language learning workflows (`/etc-lgnh <subcommand>`)
+- `skills/lang-lgnh/`: Translation, Korean text humanizing, and language learning workflows (`/lang-lgnh <subcommand>`)
 
 To add/modify skills:
 

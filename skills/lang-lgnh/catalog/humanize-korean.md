@@ -20,21 +20,21 @@ AI가 쓴 한글 텍스트에서 번역투, 기계적 병렬, 어색한 관용�
 
 상세 패턴 및 처방이 필요할 때 아래 참조 문서를 확인합니다:
 
-- **슬림 룰북**: `skills/etc-lgnh/references/quick-rules.md` (S1, S2 핵심 패턴 및 자체검증 체크리스트)
-- **전체 분류 체계**: `skills/etc-lgnh/references/ai-tell-taxonomy.md` (10개 대분류 70개 패턴 전수)
-- **윤문 처방집**: `skills/etc-lgnh/references/rewriting-playbook.md` (카테고리별 구체적 문장 치환 레시피)
+- **슬림 룰북**: `skills/lang-lgnh/references/quick-rules.md` (S1, S2 핵심 패턴 및 자체검증 체크리스트)
+- **전체 분류 체계**: `skills/lang-lgnh/references/ai-tell-taxonomy.md` (10개 대분류 70개 패턴 전수)
+- **윤문 처방집**: `skills/lang-lgnh/references/rewriting-playbook.md` (카테고리별 구체적 문장 치환 레시피)
 
 ## 실행 도구 및 스크립트
 
 - **입력 전처리 및 사전 점수 측정**:
   ```bash
-  bun run skills/etc-lgnh/scripts/prepare-humanize-input.ts --text "<입력텍스트>" [--run-dir "_workspace/YYYY-MM-DD-001"] [--genre essay|column|report|blog]
+  bun run skills/lang-lgnh/scripts/prepare-humanize-input.ts --text "<입력텍스트>" [--run-dir "_workspace/YYYY-MM-DD-001"] [--genre essay|column|report|blog]
   # 또는 파일 지정
-  bun run skills/etc-lgnh/scripts/prepare-humanize-input.ts --file "<입력파일경로>" [--run-dir "_workspace/YYYY-MM-DD-001"]
+  bun run skills/lang-lgnh/scripts/prepare-humanize-input.ts --file "<입력파일경로>" [--run-dir "_workspace/YYYY-MM-DD-001"]
   ```
 - **사후 변경률 게이트 검증**:
   ```bash
-  bun run skills/etc-lgnh/scripts/verify-change-rate.ts --before <원문파일> --after <윤문본파일> [--ignore-markup]
+  bun run skills/lang-lgnh/scripts/verify-change-rate.ts --before <원문파일> --after <윤문본파일> [--ignore-markup]
   ```
 
 ## 단계별 실행 절차
@@ -43,7 +43,7 @@ AI가 쓴 한글 텍스트에서 번역투, 기계적 병렬, 어색한 관용�
 
 1. 사용자가 제공한 텍스트 또는 파일 경로 확인.
 2. 장르 파악 (칼럼 `column`, 리포트 `report`, 블로그 `blog`, 에세이/일반 `essay`).
-3. `bun run skills/etc-lgnh/scripts/prepare-humanize-input.ts`를 실행하여 텍스트 정제(비가시 문자 제거, 정규화) 및 정량 점수, `route_hint` 확인.
+3. `bun run skills/lang-lgnh/scripts/prepare-humanize-input.ts`를 실행하여 텍스트 정제(비가시 문자 제거, 정규화) 및 정량 점수, `route_hint` 확인.
 
 ### 2단계: 경로별 윤문 수행
 
@@ -70,7 +70,7 @@ AI가 쓴 한글 텍스트에서 번역투, 기계적 병렬, 어색한 관용�
 
 ### 3단계: 변경률 및 게이트 검증
 
-1. 윤문본을 `final.md` 등에 저장 후 `bun run skills/etc-lgnh/scripts/verify-change-rate.ts` 실행.
+1. 윤문본을 `final.md` 등에 저장 후 `bun run skills/lang-lgnh/scripts/verify-change-rate.ts` 실행.
 2. 결과 판정:
    - **0 (OK)**: 변경률 30% 미만 -> 통과
    - **1 (WARN)**: 변경률 30%~50% -> 과윤문 경고, 변경 내역 재검토

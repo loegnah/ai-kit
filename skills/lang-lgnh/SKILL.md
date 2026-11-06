@@ -1,12 +1,12 @@
 ---
-name: etc-lgnh
-description: "General developer, code explanation, translation, and language learning workflow runner."
-disable-model-invocation: false
+name: lang-lgnh
+description: "Translation, Korean text humanizing, and language learning workflow runner."
+disable-model-invocation: true
 ---
 
-# ETC-LGNH Skill Runner
+# LANG-LGNH Skill Runner
 
-Execute custom developer, code explanation, translation, and language learning workflows when invoked with `/etc-lgnh <keyword>` or matching workflow intent.
+Execute translation, Korean text humanizing, and language learning workflows when invoked with `/lang-lgnh <keyword>` or matching workflow intent.
 
 ## Rules
 
@@ -19,9 +19,7 @@ Match the user's keyword or intent against the workflows below:
 
 | Keywords / Intent                                    | Target Workflow     | Catalog File                 |
 | :--------------------------------------------------- | :------------------ | :--------------------------- |
-| `eli5`, `explain-5`, `explain`                       | ELI5 Explainer      | `catalog/eli5.md`            |
 | `humanize`, `humanize-korean`, `de-ai`, `im-not-ai`  | Humanize Korean     | `catalog/humanize-korean.md` |
-| `meta-prompt`, `prompt`, `prompt-gen`                | Meta-Prompt         | `catalog/meta-prompt.md`     |
 | `to-eng`, `eng`, `en`, `translate-eng`               | English Translation | `catalog/translate.md`       |
 | `to-kor`, `kor`, `ko`, `translate-kor`               | Korean Translation  | `catalog/translate.md`       |
 | `to-eng-learn`, `eng-learn`, `en-learn`, `learn-eng` | English Learning    | `catalog/translate.md`       |
@@ -35,7 +33,7 @@ Match the user's keyword or intent against the workflows below:
 
 ## Fallback / No-Keyword Behavior
 
-If invoked without a keyword (`/etc-lgnh` only) or if no workflow matches:
+If invoked without a keyword (`/lang-lgnh` only) or if no workflow matches:
 
 - Print the table above to guide available commands and ask the user to choose.
 - Do not read any catalog files or inspect directories.

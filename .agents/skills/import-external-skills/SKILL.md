@@ -9,9 +9,9 @@ description: "외부 저장소나 패키지의 스킬을 설치하거나 최신 
 
 ## 사용 예시
 
-- "https://github.com/obra/superpowers 스킬을 모두 설치해서 etc-lgnh에 카탈로그로 superpowers 라는 이름으로 넣어줘"
+- "https://github.com/obra/superpowers 스킬을 모두 설치해서 dev-lgnh에 카탈로그로 superpowers 라는 이름으로 넣어줘"
 - "obra/superpowers에서 brainstorming 스킬만 가져와서 dev-lgnh 카탈로그에 넣어줘"
-- "이미 .agents/skills에 설치된 스킬들을 etc-lgnh의 superpowers 카탈로그로 옮겨줘"
+- "이미 .agents/skills에 설치된 스킬들을 dev-lgnh의 superpowers 카탈로그로 옮겨줘"
 - "외부 스킬 모두 업데이트해줘"
 - "superpowers 스킬 최신 버전으로 업데이트해줘"
 
@@ -21,7 +21,7 @@ description: "외부 저장소나 패키지의 스킬을 설치하거나 최신 
    - `npx skills add`로 로컬 `.agents/skills`에 설치된 스킬 파일들을 지정된 `./skills/<runner>/catalog/<name>/` 디렉토리로 이동합니다.
    - 프로젝트 루트 외부의 파일은 절대 건드리지 않습니다.
 2. **Lockfile 동기화**:
-   - `skills-lock.json`의 `skillPath`를 새로 이동된 상대 경로(예: `skills/etc-lgnh/catalog/superpowers/brainstorming/SKILL.md`)로 수정합니다.
+   - `skills-lock.json`의 `skillPath`를 새로 이동된 상대 경로(예: `skills/dev-lgnh/catalog/superpowers/brainstorming/SKILL.md`)로 수정합니다.
 3. **자체 스킬 보존**:
    - `.agents/skills/import-external-skills`는 이 프로젝트 전용 도구이므로 이동하거나 삭제하지 않습니다.
 
@@ -40,7 +40,7 @@ description: "외부 저장소나 패키지의 스킬을 설치하거나 최신 
 사용자 요청에서 다음 정보를 파악합니다:
 
 - **소스**: URL (예: `https://github.com/obra/superpowers`) 또는 저장소 식별자 (`obra/superpowers`)
-- **대상 러너**: 예: `etc-lgnh`, `dev-lgnh` 등
+- **대상 러너**: 예: `dev-lgnh`, `lang-lgnh` 등
 - **카탈로그 이름**: 예: `superpowers` (최종 대상: `skills/<runner>/catalog/<name>`)
 - **특정 스킬 필터** (선택): 특정 스킬만 요청한 경우 해당 스킬 이름 목록
 
