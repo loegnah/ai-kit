@@ -110,6 +110,15 @@ Select and read the execution mode before running a task:
 - **Direct Mode (Default)**: Read `mode/direct-mode/SKILL.md` when working interactively with the user in conversation. Clarify open decisions with the user and pause at requested review checkpoints.
 - **Agent Mode (Autonomous)**: Read `mode/agent-mode/SKILL.md` when the user invokes `/loegg agent` or asks the agent to run autonomously to completion without interactive checkpoints.
 
+### Subagent Rules
+
+Apply these rules to every subagent you spawn. The action or utility that spawns it still selects the role and model.
+
+- **Brief with the principles.** Start every code-writing or design subagent prompt with: "Read `<absolute path of this file>` in full, including its Principles and Comments sections, before any work." A subagent does not inherit your context and cannot resolve relative paths from this file.
+- **Point, do not paste.** Give file paths, line ranges, commands, and the restated user goal. Do not inline large file contents or prior transcripts.
+- **Own the result.** Review every subagent diff and verify its key claims against the code yourself. Write your own summary. Do not pass a subagent report through to the user unchanged.
+- **Fresh subagent by default.** Give a fix round, follow-up, or retry to a new subagent with consolidated scope: the original brief, every later directive, and the prior agent's report. Resume an existing subagent only when the work needs state that lives only in that agent (its checkout, uncommitted changes, or a running process). Chained resumes silently drop earlier directives.
+
 ### Heavy Multi-Agent Escalation (`arena`, etc.)
 
 Routine steps (including plain `"검토해봐"`) run directly in the main agent to avoid unnecessary token spend. Escalate a step to heavy multi-agent execution (`util/arena/SKILL.md`) in two cases:
