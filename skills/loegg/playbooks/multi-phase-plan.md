@@ -8,7 +8,7 @@
    - For open product, scope, or architectural decisions in Direct Mode, clarify upfront with the user via `../action/grill/SKILL.md` (`grill`). In Agent Mode, resolve via prototype or `../util/arena/SKILL.md` (`arena`) (**Never Block on the Human** in `../SKILL.md`).
 3. Map the blast radius and boundaries: run `../action/architect/SKILL.md` (`architect`) or `../action/blast-radius/SKILL.md` (`blast-radius`) when changing core contracts across phases. Follow **Outcome-Oriented Execution** and **Migrate Callers Then Delete Legacy APIs** (`../SKILL.md`)—plan clean phase boundaries rather than permanent compatibility shims.
 4. Decompose into verifiable phases (**Sequence Work into Verifiable Units**, **Separate Before Serializing Shared State** in `../SKILL.md`). Each phase must end in a green check (static checks + tests + real-surface verification) before the next phase begins.
-5. Write (or load) the plan at `docs/story/YYMMDD-<title>/PLAN.md` (`YYMMDD` from `date +%y%m%d`, or reuse an existing `PLAN.md` when resuming) using the structure below (also see `../action/doc/SKILL.md`):
+5. Write (or load) the plan at `docs/story/YYMMDD-<title>/PLAN.md` (`YYMMDD` from `date +%y%m%d`, or reuse an existing `PLAN.md` when resuming) using the structure below (also see `../action/doc/SKILL.md`). Keep every heading, fill every placeholder, and write `None.` in an appendix that has no entries:
 
 ```markdown
 # <Plan Title>
@@ -26,6 +26,19 @@
 - **Verification gate** (must pass before advancing):
   - [ ] Static & unit check: `<command, e.g. bun run check / test command>`
   - [ ] Real-surface check: `<exact runtime command, browser/CLI scenario, or equivalence proof and expected output>`
+- **You see**: <One observable result after this phase, with the exact log line, output, or screen state.>
+
+## Appendix A. Prototype evidence
+
+<Each open question a prototype or grounding run answered, with the scratch path, commit, or output. Each question that stays unproven.>
+
+## Appendix B. Alternatives rejected
+
+<Each approach weighed and why it lost.>
+
+## Appendix C. Risks
+
+<Each risk with the phase it lands in and what to watch.>
 ```
 
 6. Execute or hand off:

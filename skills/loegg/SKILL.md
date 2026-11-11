@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Loegg
 
-Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions live at `action/<name>/SKILL.md` (`setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`, etc.), shared execution utilities live at `util/<name>/SKILL.md` (`arena`, etc.), and playbooks live at `playbooks/<title>.md`.
+Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions live at `action/<name>/SKILL.md` (`setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`, etc.), shared execution utilities live at `util/<name>/SKILL.md` (`arena`, `decision-log`), and playbooks live at `playbooks/<title>.md`.
 
 ## Dispatch: One-Shot Actions vs. Full Mode
 
@@ -25,7 +25,7 @@ Only `action/` entries can be invoked directly as standalone commands (`mode/` a
   - `blast-radius` -> `action/blast-radius/SKILL.md` (trace downstream impact).
   - `interrogate` -> `action/interrogate/SKILL.md` (adversarial review).
   - `benchmark-checklist` (`benchmark`) -> `action/benchmark-checklist/SKILL.md` (vet performance measurements).
-  - `recall` -> `action/recall/SKILL.md` (reconstruct recent working context).
+  - `recall` -> `action/recall/SKILL.md` (reconstruct recent working context, or pick up a specific prior session's in-flight work).
   - `reflect` -> `action/reflect/SKILL.md` (derive skill improvements from the session).
   - `review` -> `action/review/SKILL.md` (read-only review of current changes; use `review runners` through arena for deep review).
   - `doc` (`docs`) -> `action/doc/SKILL.md` (distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md`).
@@ -37,6 +37,10 @@ The Principles section below grounds every trigger. In your reply, name each pri
 
 Remaining triggers during a task:
 
+- Your first message on a task -> state in your own words the user's goal, the problem being solved, and, if the task ships a change, the smallest change you expect to meet it. Do not wait for confirmation. If the evidence rules out the requested change, show it and stop. Restate the goal in every subagent brief and open the final report with it, except after a fully specified one-line edit.
+- About to ask the user "which approach / how should I / what should this do" -> classify the fork first. If the answer is a fact observable by running something (behavior, timing, layout, output, perf), it is not the user's to answer: settle it via `playbooks/prototype.md` or a throwaway check. Ask only for a product or preference call no experiment can settle.
+- A skill, playbook, or check in this repo is broken or contradicts itself mid-task -> fix it as a separate change (or report it in Direct Mode when the fix is out of scope). Do not block on it and do not silently work around it.
+
 - Underspecified requirements or high-leverage open design decisions before building -> read `action/grill/SKILL.md`.
 - Designing or reshaping module boundaries, core types, or public signatures where jumping straight to code risks locking in the wrong shape ("이거 아키텍처/구조 설계해봐", "타입/인터페이스부터 잡아줘", `architect`) -> read `action/architect/SKILL.md`.
 - Questions about how code works, runtime/control flow, or where code belongs ("이건 어떻게 동작해?", "코드 흐름이 어떻게 돼?", "어디에 넣어야 해?", `how`) -> read `action/how/SKILL.md`.
@@ -46,7 +50,9 @@ Remaining triggers during a task:
 - Questions about downstream impact or what a change could break ("이거 바꾸면 어디 깨져?", "파급효과가 어떻게 돼?", `blast-radius`) -> read `action/blast-radius/SKILL.md`.
 - Adversarial stress-testing of a change or design ("적대적으로 검증해봐", "이 설계/코드 깨봐", "허점 찾아봐", `interrogate`) -> read `action/interrogate/SKILL.md`.
 - Running a benchmark or reporting/vetting a performance number (`benchmark`, `benchmark-checklist`) -> read `action/benchmark-checklist/SKILL.md`.
-- Resuming work or asking where things stand ("어디까지 했지?", "최근 작업 맥락 복구해줘", `recall`) -> read `action/recall/SKILL.md`.
+- Resuming work or asking where things stand ("어디까지 했지?", "최근 작업 맥락 복구해줘", "이전 세션 이어서 해줘", `recall`) -> read `action/recall/SKILL.md`.
+- Long, autonomous, multi-phase, or unattended work the user will review later ("끝까지 알아서 해", "자고 올게", Agent Mode) -> keep a decision trail via `util/decision-log/SKILL.md`.
+- Explicit pause, going offline, or imminent context compaction ("여기서 멈춰", "내일 이어서") -> follow `playbooks/pause-safely.md`.
 - Reflecting on the session to improve checks, skills, or rules ("이번 세션 회고해봐", "배운 거 스킬/규칙에 반영해봐", `reflect`) -> read `action/reflect/SKILL.md`.
 - Root-cause bug investigation or complex codebase/architecture Q&A requiring multi-subagent parallel analysis (`analyze`) -> read `action/analyze/SKILL.md`.
 - Review current changes, including deep/multi-angle change review -> read `action/review/SKILL.md`, which selects `review runners` when arena is needed.
@@ -68,7 +74,7 @@ Apply the matching principles below as you work; each entry states when it trigg
 - **Outcome-Oriented Execution.** Planned rewrites and migrations with explicit phase boundaries. Converge directly on the target architecture instead of preserving smooth intermediate states with throwaway compatibility shims; require full static and runtime verification at completion.
 - **Experience First.** Product, UX, API, or feature-scope tradeoffs. Choose delight and clarity for the consumer (end user, caller, or next maintainer) over implementation convenience; ship fewer polished capabilities over more rough ones.
 - **Exhaust the Design Space.** Novel UI interaction or high-stakes architectural decision with no codebase precedent where static reasoning cannot pick a winner. Compare 2–3 lightweight prototypes or run `util/arena/SKILL.md` before committing.
-- **Build the Lever.** Repetitive multi-file edits, migrations, code generation, or checks that cannot be reliably verified by hand. Learn the recipe on one unit, then build a deterministic script or tool to run and verify the rest. Delete one-off levers before commit; keep reusable levers under `scripts/lever/<purpose>/` (`verify`, `codemod`, `codegen`, `analyze`) unless the project defines another convention.
+- **Build the Lever.** Repetitive multi-file edits, migrations, code generation, analyses, or checks that cannot be reliably verified by hand, including one-offs where a script is what makes the work checkable. Learn the recipe on one unit, then build the smallest deterministic script or tool to run and verify the rest; prove it by rerunning it on that unit. A deterministic lever beats fanning out subagents to hand-apply the same edit. Delete one-off levers before commit; keep reusable levers under `scripts/lever/<purpose>/` (`verify`, `codemod`, `codegen`, `analyze`) unless the project defines another convention.
 
 **Architecture**
 
@@ -81,8 +87,8 @@ Apply the matching principles below as you work; each entry states when it trigg
 
 **Verification**
 
-- **Prove It Works.** After completing a task, before declaring done. Verify against the real surface and actual output—never infer correctness from "it compiles", cached state, or proxy checks.
-- **Fix Root Causes.** Debugging a defect. Reproduce first, trace the symptom back to the first place the system created or mishandled the wrong state, and fix it there rather than masking the symptom with guards or swallowed errors.
+- **Prove It Works.** After completing a task, before declaring done. Verify against the real surface and actual output—never infer correctness from "it compiles", cached state, or proxy checks. When verification fails or passes too easily, suspect the observation method before the system. Prefer a rerunnable check script over a one-time eyeball.
+- **Fix Root Causes.** Debugging a defect. Reproduce first, trace the symptom back to the first place the system created or mishandled the wrong state, and fix it there rather than masking the symptom with guards or swallowed errors. A guard is a fix only when the state it handles is legitimate; if the state should never exist, find what produced it. Fix every instance of the same fault, not just the one that surfaced, and when the deciding fact took a deep dig, propose the cheap always-on signal that would have shown it.
 - **Sequence Work into Verifiable Units.** Multi-step work (sweeps, migrations, stacked changes). Break work into small units that each end in a verifiable green check before advancing (e.g., failing test -> fix, subtraction -> reshape).
 - **Test Behavior, Not Implementation.** Writing, updating, or keeping a test. Assert observable caller/user contracts so the test fails when behavior breaks and still passes when internal structure changes.
 - **Explain the Number.** Before measuring, and before trusting, reporting, or acting on a measured number (speedup, regression, throughput, latency, or eval score). State the decision threshold and noise floor before running, identify the actual bottleneck/limiter from profiling or counters, and rule out cached/skipped work with evidence.
@@ -128,7 +134,7 @@ Routine steps (including plain `"검토해봐"`) run directly in the main agent 
 
 ## Final Workflow Step: Review
 
-For every file-changing full workflow, finish with **implement -> verify -> review -> final report** in both execution modes. After the matched playbook's implementation and verification steps, read `action/review/SKILL.md` and review the final changes before delivery. No file changes means no mandatory change review.
+For every file-changing full workflow (Investigation and Pause safely change no reviewable code and are exempt), finish with **implement -> verify -> review -> final report** in both execution modes. After the matched playbook's implementation and verification steps, reread your own diff once and clean it per `## Comments` and `## Writing the reply`: delete narrating or phase comments, dead code, debug leftovers, and AI-slop prose in docs or messages. Then read `action/review/SKILL.md` and review the final changes before delivery. No file changes means no mandatory change review.
 
 Review is read-only, not an automatic fix loop. Carry confirmed findings and verification limits into the final report instead of claiming a clean result. If later edits occur, verify and review the affected changes again before delivery.
 
@@ -145,8 +151,11 @@ Review is read-only, not an automatic fix loop. Carry confirmed findings and ver
 
 ## Playbooks
 
-Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. Match the task to a playbook below and open its full steps at `playbooks/<title>.md`:
+Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. Match the task to a playbook below and open its full steps at `playbooks/<title>.md`.
 
+When no playbook below fits, or the effort is large or cross-cutting (a migration across many call sites, an ambitious multi-part change, work the user steps away from) even if a narrower playbook partly fits, use **Figure it out**. Never run a task with no playbook.
+
+- **Investigation.** A read-only question (how, why, are we sure, what breaks, X or Y) answered with cited evidence and no code change (`playbooks/investigation.md`).
 - **Feature.** New or changed behavior built from a named data shape (`playbooks/feature.md`).
 - **Bug fix.** A reported defect to reproduce, root-cause, and fix with runtime evidence (`playbooks/bug-fix.md`).
 - **Refactoring.** A behavior-preserving structural change held against a pinned contract (`playbooks/refactoring.md`).
@@ -154,3 +163,5 @@ Open a todolist whose first items are the matched playbook's steps, copied in ve
 - **Prototype.** A fast, throwaway sketch in an isolated directory to settle a design or empirical fork cheaply (`playbooks/prototype.md`).
 - **Hillclimb.** Sustained, iterative keep-or-revert optimization of one measurable metric against a target (`playbooks/hillclimb.md`).
 - **Multi-phase plan.** A multi-stage or multi-PR plan decomposed into independently verifiable units (`playbooks/multi-phase-plan.md`).
+- **Figure it out.** No other playbook fits, or a large cross-cutting effort: design a bespoke, auditable workflow, then run it (`playbooks/figure-it-out.md`).
+- **Pause safely.** Suspend in-flight work cleanly with a `wip:` commit and a resume note (`playbooks/pause-safely.md`). Resume through `action/recall/SKILL.md` (Session pickup).

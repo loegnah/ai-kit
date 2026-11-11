@@ -4,6 +4,7 @@ Answer questions about **loegg** and draft prompts the user can copy and send.
 
 - For a help question, do **not** start the actual task. Spawning subagents and running playbooks spends tokens, so explain the workflow and provide a prompt for the user to send.
 - If the user invoked `/loegg help` with a real task request rather than a question, read `../../SKILL.md` (`loegg`) and run the task.
+- When the user asks how to phrase a request or which workflow fits, recommend the matching action or playbook and adapt a prompt from `references/recipes.md` to their task.
 
 ## How loegg works
 
@@ -29,7 +30,7 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 - **`blast-radius`** (`blast-radius/SKILL.md`): Investigate downstream breakage (`/loegg blast-radius [target]`).
 - **`interrogate`** (`interrogate/SKILL.md`): Adversarial review (`/loegg interrogate [target]`).
 - **`benchmark-checklist`** (`benchmark-checklist/SKILL.md`): Vet performance measurements (`/loegg benchmark-checklist`).
-- **`recall`** (`recall/SKILL.md`): Reconstruct recent working context (`/loegg recall [topic]`).
+- **`recall`** (`recall/SKILL.md`): Reconstruct recent working context, or pick up a specific prior session's in-flight work (`/loegg recall [topic]`).
 - **`reflect`** (`reflect/SKILL.md`): Review session learnings (`/loegg reflect`).
 - **`review`** (`review/SKILL.md`): Review current staged, unstaged, and non-ignored new files without editing (`/loegg review`). For independent parallel reviews, use `/loegg review 깊게`; arena selects `review runners`, not `arena runners`. An explicit file or comparison range overrides the default scope.
 - **Review models**: Configure `review runners` with `/loegg setup` independently of other roles. Ordinary review stays in the main agent; deep review uses configured models or harness role defaults when unavailable or restricted.
@@ -40,10 +41,13 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 Internal helper protocols attached to a task (not called standalone without a task):
 
 - **`arena`** (`../../util/arena/SKILL.md`): Run the same prompt across multiple models in parallel (for root-cause debugging, Q&A analysis, pre-work review, design, or implementation), pick the strongest base, and graft the best parts from the rest. Triggered by adding depth/multi-angle keywords ("다각도로", "다양한 관점", "심층", "심화", "빡세게", "깊게", `arena`) to any request.
+- **`decision-log`** (`../../util/decision-log/SKILL.md`): Append-only TSV decision trail for long, autonomous, or multi-phase work, audited against the transcript and reviewed by a different model family before hand-back. Applied automatically in Agent Mode and by playbooks that name it.
 
 ## Playbooks (`playbooks/`)
 
 Full task workflows selected automatically during `/loegg <task>` or `/loegg agent <task>`:
+
+- **`investigation`** (`../../playbooks/investigation.md`): Read-only question answered with cited evidence through `how` / `why` / `analyze`, with no code change.
 
 - **`feature`** (`../../playbooks/feature.md`): New or changed behavior built from a clear domain data shape.
 - **`bug-fix`** (`../../playbooks/bug-fix.md`): Reproduce, trace root cause with runtime evidence, and ship the minimal fix.
@@ -52,3 +56,5 @@ Full task workflows selected automatically during `/loegg <task>` or `/loegg age
 - **`prototype`** (`../../playbooks/prototype.md`): Throwaway sketch to settle a visual or empirical fork before building.
 - **`hillclimb`** (`../../playbooks/hillclimb.md`): Iterative keep-or-revert optimization loop against a frozen metric harness.
 - **`multi-phase-plan`** (`../../playbooks/multi-phase-plan.md`): Decompose large cross-cutting work into verifiable phases.
+- **`figure-it-out`** (`../../playbooks/figure-it-out.md`): Fallback when no playbook fits, or for large cross-cutting work: design a bespoke auditable workflow, then run it.
+- **`pause-safely`** (`../../playbooks/pause-safely.md`): Stop cleanly with a `wip:` commit and a resume note; resume via `recall`.

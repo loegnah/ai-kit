@@ -1,6 +1,6 @@
 ---
 name: loegg-recall
-description: "Reconstruct recent working context from session transcripts, live git/PR state, and the shared record (`why` investigators), then return a tight current-state brief. Invoked via `/loegg recall` or triggered when resuming work."
+description: "Reconstruct recent working context from session transcripts, live git/PR state, and the shared record (`why` investigators), then return a tight current-state brief, or pick up one prior session's in-flight work. Invoked via `/loegg recall` or triggered when resuming work."
 disable-model-invocation: true
 ---
 
@@ -21,7 +21,7 @@ Transcripts live where your harness keeps them. Each file is JSONL. Find the act
 - **OpenCode:** `~/.local/share/opencode/storage/`. Sessions are JSON files under `session/<project-id>/`, with their messages under `message/` and `part/`.
 - **OMP:** `history://` lists registered session transcripts, or check `~/.omp/agent/sessions/` for persisted session JSONL files matching the active workspace.
 
-1. Classify, then route. Recall loads working context across recent chats and the shared record before you act. If the user already gave you a full state capsule (paths, branch, the change), use it and skip the mining.
+1. Classify, then route. Recall loads working context across recent chats and the shared record before you act. If the user already gave you a full state capsule (paths, branch, the change), use it and skip the mining. If the user wants to resume or take over one specific prior session's in-flight work (a transcript, a pushed branch, a `docs/story/*/PLAN.md` or `RESUME.md`), follow **Session pickup** below instead of steps 2–6.
 2. Lock the scope before searching. Pin the window ("recent" is a real range, default the last 7 days), the topic if named, and the workspace (default the active one. Never read another project's transcripts without being asked). State the scope back. Never quietly turn "all" into "recent N".
 3. Fan out across your chat history. Spawn parallel read-only subagents using `analyze runners` from `~/.agents/loegg/models.md` (or harness scout roles per `../setup/SKILL.md` and `../../SKILL.md`), each taking a slice of the corpus. Tell every subagent to order candidates by real modification time (`ls -t`) and never by UUID name, grep the topic first and then read only the matching chats and only their relevant regions, and skip the current chat plus obvious noise (subagent, eval, and test chats). Each returns the same schema, one block per chat: topic, the user's goal, decisions, open threads, struggles and corrections, and artifacts (PRs, tickets, branches), each citing the chat UUID. For one or two chats, skip the fan-out and search directly. The raw transcripts stay in the subagents. The main thread gets only their findings.
 4. Sweep the shared record whenever the topic names a feature, file, subsystem, area, or bug. This is the default, not a judgment call, and "my work on X" does not exempt it. Hand it to `../why/SKILL.md`'s source investigators, but steer their question from "why was this built this way" to "what's the current state, what's been tried and didn't hold, and what are users still reporting". Reuse its per-source playbooks, run the investigators in parallel with the chat-history mining, and inherit its posture: one investigator per source, null results are findings, skip an unavailable MCP and say so. Fold what comes back into the brief. Skip this step only for pure activity recall with no named target ("what did I do this week"), where your own history and live state are the entire answer.
@@ -40,3 +40,15 @@ Lead with the capsule, then the thread status, then the problems, then the next 
 An adjacent feature or ticket stays out unless it blocks this one. When the capsule and thread lines outgrow a screen, cut detail before you cut threads. Write the brief following `../../SKILL.md` (`## Writing the reply`), cite chat findings by UUID and shared-record findings by their source (PR #, ticket ID, chat permalink, error-tracker issue), and sanitize private context before any public output.
 
 **Reply:** the brief, to the contract above.
+
+## Session pickup
+
+**You own the resume point. Read the prior trail; do not redo it.** The complement to `../../playbooks/pause-safely.md`.
+
+1. Locate the prior trail: the transcript in the active workspace's session directory (locations above; never glob other projects), a pushed branch, a resume note, a `PLAN.md`, or a decision log (`../../util/decision-log/SKILL.md`). Read the overview and last messages first, then scan back for decision points. Parse a long transcript in a read-only subagent and keep only the reduced timeline in the main thread (**Guard the Context Window** in `../../SKILL.md`).
+2. Reconstruct operational state: branch and worktree, what already landed (`git log`, `git diff` against the base), open todos, unchecked `PLAN.md` boxes, and decisions made. The prior trail is authoritative input. Resist the urge to re-derive it.
+3. Diff done vs. pending and name the resume point. Do not re-run completed work or the prior repro from scratch.
+4. Verify the inherited claims that the remaining work depends on against the real artifact (**Prove It Works** in `../../SKILL.md`). A passing prior self-report is not proof. If a decision log exists, append a `start` row for this run.
+5. Route the remaining work to the matching playbook in `../../SKILL.md` and pick the verdict: continue execution, ship a finished result, ratify or override a prior conclusion, or postmortem a failed run. The routed playbook owns the rest.
+
+**Pickup reply:** where the prior agent stopped, what you inherited vs. redid (ideally nothing redone), which inherited claims you re-verified, the resume point, and the routed playbook.
