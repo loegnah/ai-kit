@@ -18,7 +18,7 @@ Answer questions about **loegg** and draft prompts the user can copy and send.
 
 Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 
-- **`setup`** (`setup/SKILL.md`): Configure each subagent model's provider and reasoning budget in `~/.agents/loegg/models.md` (`/loegg setup`). Recommendations show model names only; saved entries use full identifiers such as `google-antigravity/gemini-4-argon:medium`. Providers can differ per entry.
+- **`setup`** (`../setup/SKILL.md`): Configure general-purpose specialist subagents for OMP (`@<role>` routing via `~/.omp/agent/config.yml`) and Claude Code (`opus`/`sonnet`/`haiku` + `effort` subagents in `~/.claude/agents/` or plugin `agents/`) (`/loegg setup`).
 - **`help`** (`help/SKILL.md`): Explain loegg usage and suggest prompts (`/loegg help`).
 - **`grill`** (`grill/SKILL.md`): Stress-test plans and resolve open design decisions in frontier rounds before building (`/loegg grill`).
 - **`architect`** (`architect/SKILL.md`): Sketch caller usage, types, signatures, and module boundaries before writing implementation code, comparing candidate shapes via `arena` (`/loegg architect [target]`).

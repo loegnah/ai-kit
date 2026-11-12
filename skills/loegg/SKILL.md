@@ -13,7 +13,7 @@ Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions l
 Only `action/` entries can be invoked directly as standalone commands (`mode/` and `util/` are internal helpers applied during a task, never called on their own):
 
 - **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`)**: When invoked with an action name, read its mapped file below and execute it directly, loading only dependencies that action explicitly requests, not `mode/*/SKILL.md` or playbooks.
-  - `setup` -> `action/setup/SKILL.md` (configure per-entry providers, models, and reasoning budgets in `~/.agents/loegg/models.md`; recommendations list model names only).
+  - `setup` -> `action/setup/SKILL.md` (configure general-purpose subagents: `@<role>` routing in OMP and `opus`/`sonnet`/`haiku` subagents in Claude Code).
   - `help` -> `action/help/SKILL.md` (explain loegg usage, recommend workflows, or draft prompts).
   - `grill` -> `action/grill/SKILL.md` (stress-test a plan or resolve ambiguous requirements in frontier rounds).
   - `architect` -> `action/architect/SKILL.md` (sketch caller usage, types, signatures, and module boundaries before coding, comparing shapes via `arena`).
