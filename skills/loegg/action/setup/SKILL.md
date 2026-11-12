@@ -15,8 +15,8 @@ Configure general-purpose specialist subagents for **OMP** and **Claude Code** s
 - **No `~/.agents/loegg/models.md` or per-call `model` strings**: Neither OMP (with `task.perCallModel: off` by default) nor Claude Code (`Agent` tool accepts aliases only and runs on a single provider) supports passing `provider/model:effort` identifiers at spawn time. If legacy `~/.agents/loegg/models.md` or `~/.claude/rules/loegg` exists, remove it after confirming with the user.
 - **Shared general-purpose specialist roster**: Both harnesses expose the same 10 general-purpose agent names (`architect`, `builder`, `debugger`, `analyst`, `refactorer`, `implementer`, `reviewer`, `security-reviewer`, `supervisor`, `scout`) without `loegg-` prefixes so they work identically in ordinary coding sessions and inside `/loegg`.
 - **Harness-native model binding**:
-  - **OMP**: Agents bind exclusively to **`@<role>`** aliases in `~/.omp/agent/config.yml` (`modelRoles` and `task.agentModelOverrides`), never concrete model names. Multi-model roles in `config.yml` handle pool/random selection at the OMP layer.
-  - **Claude Code**: Agents are pre-defined in repository `agents/*.md` (`../../../agents/*.md` relative to this file) and installed or customized in `~/.claude/agents/*.md` using official frontmatter (`model: opus | sonnet | haiku`, `effort: low | medium | high | xhigh | max`).
+  - **OMP**: Canonical role-based templates live in `agents/omp/*.md` and install into `~/.omp/agent/agents/*.md` (plus bundled overrides under `task.agentModelOverrides` in `~/.omp/agent/config.yml`). Every agent binds exclusively to **`@<role>`** aliases in `config.yml` (`modelRoles`), never concrete model names; multi-model roles in `config.yml` handle pool/random selection at the OMP layer.
+  - **Claude Code**: Canonical subagent templates live in `agents/claude/*.md` and install or customize into `~/.claude/agents/*.md` using official frontmatter (`model: opus | sonnet | haiku`, `effort: low | medium | high | xhigh | max`). Because both template folders live inside `action/setup/agents/`, `npx skills add` ships them together with **loegg**.
 
 ---
 
@@ -32,20 +32,20 @@ Never write concrete `provider/model` identifiers into OMP agent files or **loeg
 
 ### 1. Inspect existing OMP roles and agents
 
-Read `~/.omp/agent/config.yml` (`modelRoles` and `task.agentModelOverrides`) and `~/.omp/agent/agents/*.md`. Check them against the standard role-backed specialist roster:
+Read `~/.omp/agent/config.yml` (`modelRoles` and `task.agentModelOverrides`), `~/.omp/agent/agents/*.md`, and the canonical templates in `agents/omp/*.md`. Check them against the standard role-backed specialist roster:
 
-| Agent               | Source                               | Bound `@<role>` Priority                            | Purpose                                                    |
-| :------------------ | :----------------------------------- | :-------------------------------------------------- | :--------------------------------------------------------- |
-| `architect`         | `~/.omp/agent/agents/architect.md`   | `@architect`, `@debugger`, `@builder`, `@default`   | System architecture, module boundaries, design trade-offs  |
-| `builder`           | `~/.omp/agent/agents/builder.md`     | `@builder`, `@refactorer`, `@worker`, `@default`    | Complex end-to-end feature, API, and UI implementation     |
-| `debugger`          | `~/.omp/agent/agents/debugger.md`    | `@debugger`, `@architect`, `@builder`, `@default`   | Root-cause bug hunting, repros, runtime/infra failures     |
-| `analyst`           | `~/.omp/agent/agents/analyst.md`     | `@analyst`, `@reviewer`, `@architect`, `@default`   | Long-context doc, log, transcript, and code-flow synthesis |
-| `refactorer`        | `~/.omp/agent/agents/refactorer.md`  | `@refactorer`, `@architect`, `@builder`, `@default` | Multi-file structural refactoring and API migration        |
-| `implementer`       | `~/.omp/agent/agents/implementer.md` | `@worker`, `@smol`, `@default`                      | Fast parallel worker for non-overlapping slices            |
-| `supervisor`        | `~/.omp/agent/agents/supervisor.md`  | `@architect`, `@debugger`, `@reviewer`              | Requirement compliance and completion verification         |
-| `scout`             | Bundled (`task.agentModelOverrides`) | `@finder`                                           | Fast read-only codebase search and pattern discovery       |
-| `reviewer`          | Bundled (`task.agentModelOverrides`) | `@reviewer`                                         | Code review for regressions and defects                    |
-| `security-reviewer` | Bundled (`task.agentModelOverrides`) | `@auditor`                                          | Read-only security and strict logic auditing               |
+| Agent               | Template / Source                   | Target in OMP                        | Bound `@<role>` Priority                            | Purpose                                                    |
+| :------------------ | :---------------------------------- | :----------------------------------- | :-------------------------------------------------- | :--------------------------------------------------------- |
+| `architect`         | `agents/omp/architect.md`           | `~/.omp/agent/agents/architect.md`   | `@architect`, `@debugger`, `@builder`, `@default`   | System architecture, module boundaries, design trade-offs  |
+| `builder`           | `agents/omp/builder.md`             | `~/.omp/agent/agents/builder.md`     | `@builder`, `@refactorer`, `@worker`, `@default`    | Complex end-to-end feature, API, and UI implementation     |
+| `debugger`          | `agents/omp/debugger.md`            | `~/.omp/agent/agents/debugger.md`    | `@debugger`, `@architect`, `@builder`, `@default`   | Root-cause bug hunting, repros, runtime/infra failures     |
+| `analyst`           | `agents/omp/analyst.md`             | `~/.omp/agent/agents/analyst.md`     | `@analyst`, `@reviewer`, `@architect`, `@default`   | Long-context doc, log, transcript, and code-flow synthesis |
+| `refactorer`        | `agents/omp/refactorer.md`          | `~/.omp/agent/agents/refactorer.md`  | `@refactorer`, `@architect`, `@builder`, `@default` | Multi-file structural refactoring and API migration        |
+| `implementer`       | `agents/omp/implementer.md`         | `~/.omp/agent/agents/implementer.md` | `@worker`, `@smol`, `@default`                      | Fast parallel worker for non-overlapping slices            |
+| `supervisor`        | `agents/omp/supervisor.md`          | `~/.omp/agent/agents/supervisor.md`  | `@architect`, `@debugger`, `@reviewer`              | Requirement compliance and completion verification         |
+| `scout`             | OMP Bundled (`agentModelOverrides`) | `~/.omp/agent/config.yml`            | `@finder`                                           | Fast read-only codebase search and pattern discovery       |
+| `reviewer`          | OMP Bundled (`agentModelOverrides`) | `~/.omp/agent/config.yml`            | `@reviewer`                                         | Code review for regressions and defects                    |
+| `security-reviewer` | OMP Bundled (`agentModelOverrides`) | `~/.omp/agent/config.yml`            | `@auditor`                                          | Read-only security and strict logic auditing               |
 
 _(Bundled `task` -> `@builder` and `sonic` -> `@lite` remain available for general OMP delegation.)_
 
@@ -55,15 +55,15 @@ _(Bundled `task` -> `@builder` and `sonic` -> `@lite` remain available for gener
 2. Flag any `~/.omp/agent/agents/*.md` file that hardcodes a `provider/model` string instead of `@<role>`, or any missing specialist agent file.
 3. Present the detected `agent -> @role` mapping (alongside the current `modelRoles` pools from `config.yml`) via the structured-question tool and ask whether to:
    - Keep the current role-backed setup as-is (when all agents and `@<role>` mappings are already in place),
-   - Scaffold any missing `~/.omp/agent/agents/<name>.md` file using `@<role>` frontmatter only, or
+   - Install or update `~/.omp/agent/agents/<name>.md` from `agents/omp/<name>.md` (and/or add missing `task.agentModelOverrides` entries in `~/.omp/agent/config.yml`), or
    - Remap which `@<role>` backs specific agents.
-4. When scaffolding or updating `~/.omp/agent/agents/<name>.md`, write YAML frontmatter with `name`, `description`, and `model: ["@<primary-role>", ...]` only—never concrete model IDs.
+4. When installing or updating `~/.omp/agent/agents/<name>.md`, copy the body from `agents/omp/<name>.md` and keep `model:` strictly as `@<role>` entries—never concrete model IDs.
 
 ---
 
 ## Step 2B. Claude Code Setup (`~/.claude/agents/*.md`)
 
-Claude Code subagents are general-purpose Markdown files following the Claude Code subagent specification. Canonical defaults ship in this kit's `agents/*.md` directory (`../../../agents/*.md`), which load automatically when `loegnah-ai-kit` is enabled as a Claude Code plugin and serve as templates for user-level `~/.claude/agents/*.md` installation.
+Claude Code subagents are general-purpose Markdown files following the Claude Code subagent specification. Canonical templates live in `agents/claude/*.md` and install into `~/.claude/agents/*.md`.
 
 ### 1. Subagent frontmatter rules (Claude Code spec)
 
@@ -91,9 +91,9 @@ Claude Code subagents are general-purpose Markdown files following the Claude Co
 
 ### 3. Configure and write `~/.claude/agents/*.md`
 
-1. Inspect existing `~/.claude/agents/*.md` if present, and read the canonical templates from `../../../agents/*.md` (if standalone without `../../../agents/`, generate from the table and rules above).
-2. Ask the user via the structured-question tool whether to install/update `~/.claude/agents/*.md` with the recommended defaults above, adjust global reasoning effort, or customize `model` (`opus` / `sonnet` / `haiku`) and `effort` (`low` / `medium` / `high` / `xhigh` / `max`) for specific agents.
-3. Write the confirmed `~/.claude/agents/<name>.md` files (user-level `~/.claude/agents/` takes precedence over plugin `agents/`, so customizations cleanly override plugin defaults across all projects).
+1. Inspect existing `~/.claude/agents/*.md` if present, and read the canonical templates from `agents/claude/*.md`.
+2. Ask the user via the structured-question tool whether to install/update `~/.claude/agents/*.md` from `agents/claude/*.md` with the defaults above, adjust global reasoning effort, or customize `model` (`opus` / `sonnet` / `haiku`) and `effort` (`low` / `medium` / `high` / `xhigh` / `max`) for specific agents.
+3. Write the confirmed `~/.claude/agents/<name>.md` files, preserving each template's general-purpose `name`, `disallowedTools`, and prompt body while applying the chosen `model` and `effort`.
 4. Remove `~/.claude/rules/loegg` if that legacy symlink exists. Never symlink anything into `~/.claude/rules/`.
 
 ---
