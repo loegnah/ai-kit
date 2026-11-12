@@ -24,6 +24,7 @@ Match the user's keyword or intent against the workflows below:
 | `superpowers`                                               | Superpowers Catalog Workflow | `catalog/superpowers/INDEX.md`   |
 | `mattpocock`, `matt`                                        | Matt Pocock Catalog Workflow | `catalog/mattpocock/INDEX.md`    |
 | `pstack`                                                    | Pstack Catalog Workflow      | `catalog/pstack/INDEX.md`        |
+| `hallmark`                                                  | Hallmark UI Design Workflow  | `catalog/hallmark/SKILL.md`      |
 | `grill`, `grill-me`, `grilling`                             | Relentless Interview         | `catalog/mattpocock/INDEX.md`    |
 | `code-review`, `review-diff`, `review`                      | Two-Axis Code Review         | `catalog/mattpocock/INDEX.md`    |
 | `handoff`                                                   | Session Handoff Document     | `catalog/mattpocock/INDEX.md`    |

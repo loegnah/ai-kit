@@ -711,7 +711,7 @@ export function updateLockedSkills(options: CliOptions, repoRoot: string = proce
     for (const [, entry] of targetEntries) {
       const skillPath = path.resolve(repoRoot, entry.skillPath);
       const catDir = path.dirname(path.dirname(skillPath));
-      if (fs.existsSync(catDir)) {
+      if (fs.existsSync(catDir) && path.basename(catDir) !== "catalog") {
         affectedCatalogDirs.add(catDir);
       }
     }

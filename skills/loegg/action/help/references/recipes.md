@@ -28,6 +28,7 @@ Swap in the real paths, symptoms, and done checks. Informal Korean or English bo
 ## Review
 
 - `/loegg review` (main agent) or `/loegg review 깊게` (`review runners` through arena)
+- `/loegg ui-audit <path or url>` (read-only UI, accessibility, state-completeness, and AI-slop audit)
 - `/loegg interrogate 이 브랜치 전체. 실제 실행으로 증명된 버그만, 아직 수정하지 마.`
 - `/loegg blast-radius <change>. 어디가 깨질 수 있는지, 안전하다는 근거를 실행으로 증명해.`
 

@@ -6,13 +6,13 @@ disable-model-invocation: true
 
 # Loegg
 
-Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions live at `action/<name>/SKILL.md` (`setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`, etc.), shared execution utilities live at `util/<name>/SKILL.md` (`arena`, `decision-log`), and playbooks live at `playbooks/<title>.md`.
+Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions live at `action/<name>/SKILL.md` (`setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `ui-audit`, `doc`, etc.), shared execution utilities live at `util/<name>/SKILL.md` (`arena`, `decision-log`), and playbooks live at `playbooks/<title>.md`.
 
 ## Dispatch: One-Shot Actions vs. Full Mode
 
 Only `action/` entries can be invoked directly as standalone commands (`mode/` and `util/` are internal helpers applied during a task, never called on their own):
 
-- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `doc`)**: When invoked with an action name, read its mapped file below and execute it directly, loading only dependencies that action explicitly requests, not `mode/*/SKILL.md` or playbooks.
+- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `ui-audit`, `doc`)**: When invoked with an action name, read its mapped file below and execute it directly, loading only dependencies that action explicitly requests, not `mode/*/SKILL.md` or playbooks.
   - `setup` -> `action/setup/SKILL.md` (configure general-purpose subagents: `@<role>` routing in OMP and `opus`/`sonnet`/`haiku` subagents in Claude Code).
   - `help` -> `action/help/SKILL.md` (explain loegg usage, recommend workflows, or draft prompts).
   - `grill` -> `action/grill/SKILL.md` (stress-test a plan or resolve ambiguous requirements in frontier rounds).
@@ -28,6 +28,7 @@ Only `action/` entries can be invoked directly as standalone commands (`mode/` a
   - `recall` -> `action/recall/SKILL.md` (reconstruct recent working context, or pick up a specific prior session's in-flight work).
   - `reflect` -> `action/reflect/SKILL.md` (derive skill improvements from the session).
   - `review` -> `action/review/SKILL.md` (read-only review of current changes; use `review runners` through arena for deep review).
+  - `ui-audit` -> `action/ui-audit/SKILL.md` (read-only UI, accessibility, state-completeness, and AI-slop audit of pages, components, or live URLs).
   - `doc` (`docs`) -> `action/doc/SKILL.md` (distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md`).
 - **Full workflow (`/loegg <task>` or `/loegg agent <task>`)**: For general tasks, select an execution mode (`mode/`), apply any triggered utilities (`util/`), and follow the matched playbook below.
 
@@ -56,6 +57,7 @@ Remaining triggers during a task:
 - Reflecting on the session to improve checks, skills, or rules ("이번 세션 회고해봐", "배운 거 스킬/규칙에 반영해봐", `reflect`) -> read `action/reflect/SKILL.md`.
 - Root-cause bug investigation or complex codebase/architecture Q&A requiring multi-subagent parallel analysis (`analyze`) -> read `action/analyze/SKILL.md`.
 - Review current changes, including deep/multi-angle change review -> read `action/review/SKILL.md`, which selects `review runners` when arena is needed.
+- Read-only audit of UI/frontend pages, components, or live URLs for AI-slop, accessibility, responsive layout, or missing UI states ("UI 점검해봐", "디자인/퍼블리싱 검수해봐", `ui-audit`) -> read `action/ui-audit/SKILL.md`.
 - Capture or update project documentation from session learnings (`doc`, `docs`) -> read `action/doc/SKILL.md`.
 - Other deep/multi-angle work or competing candidates (`arena`), triggered either by an explicit heavy/depth request ("다양한 관점/시각", "다각도로", "심층", "심화", "빡세게", "깊게", `arena`) or by the agent's own judgment that a high-stakes step needs multi-model verification -> read `util/arena/SKILL.md`.
 

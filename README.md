@@ -4,8 +4,8 @@ A skill kit for orchestrating and managing AI agent workflows.
 
 ## Skills
 
-- **loegg**: Agent style and workflow orchestrator (`setup`, `help`, `grill`, `analyze`, `review`, `doc`, `direct-mode`, `agent-mode`, `arena`)
-- **dev-lgnh**: Developer workflows (`simplify`, `simplify-fast`, `refactor`, `skill-sync`, `eli5`, `meta-prompt`, `superpowers`, `mattpocock`, `pstack`)
+- **loegg**: Agent style and workflow orchestrator (`setup`, `help`, `grill`, `analyze`, `review`, `ui-audit`, `doc`, `direct-mode`, `agent-mode`, `arena`)
+- **dev-lgnh**: Developer workflows (`simplify`, `simplify-fast`, `refactor`, `skill-sync`, `eli5`, `meta-prompt`, `superpowers`, `mattpocock`, `pstack`, `hallmark`)
 - **git-lgnh**: Git automation and repository maintenance (`commit`, `commit-fast`, `branch`, `branch-name`, `conflict`, `rebase`)
 - **brain-lgnh**: Second brain knowledge capture and retrieval (`capture`, `capture-daily`, `capture-guide`, `query`, `upsert`)
 - **work-lgnh**: Daily and weekly work logging and progress reporting (`daily`, `weekly`)
@@ -27,5 +27,8 @@ This kit integrates and adapts skills from the following open-source projects:
 - **[Im Not AI](https://github.com/epoko77-ai/im-not-ai)** (`@epoko77-ai`)
   - Korean AI text detection, humanization rules, taxonomy, and verification scripts (`humanize-korean`)
   - Integrated into `skills/lang-lgnh/catalog/humanize-korean.md`
+- **[Hallmark](https://github.com/nutlope/hallmark)** (`@nutlope`)
+  - Anti-AI-slop web UI design system, 50 material themes, browser render/static linter (`sloplint`), and redesign/audit workflows
+  - Integrated into `skills/dev-lgnh/catalog/hallmark/`
 
 Upstream mappings and synchronization are tracked in [`skills-lock.json`](./skills-lock.json) via `.agents/skills/import-external-skills`.

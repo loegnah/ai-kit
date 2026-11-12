@@ -16,7 +16,7 @@ Respond in the user's language (default Korean if the conversation is in Korean)
    - Scan ONLY local skill directories inside the current project root: `.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, `.omp/skills/`, and `skills/`.
    - NEVER read, modify, or touch global paths (`~/.claude/`, `~/.agents/`, `~/.omp/`, or anything outside the repository root).
 2. **Skip Vendored / Locked Skills**:
-   - Check `skills-lock.json` or catalog `INDEX.md` files for upstream-vendored catalogs (e.g., `superpowers`, `mattpocock`, `pstack`).
+   - Check `skills-lock.json` or catalog `INDEX.md` files for upstream-vendored catalogs (e.g., `superpowers`, `mattpocock`, `pstack`, `hallmark`).
    - Do NOT edit vendored upstream skills unless the user explicitly targets them; report any drift separately as upstream-managed.
 
 ## 7-Point Drift Checklist

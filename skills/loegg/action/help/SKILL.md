@@ -33,6 +33,7 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 - **`recall`** (`recall/SKILL.md`): Reconstruct recent working context, or pick up a specific prior session's in-flight work (`/loegg recall [topic]`).
 - **`reflect`** (`reflect/SKILL.md`): Review session learnings (`/loegg reflect`).
 - **`review`** (`review/SKILL.md`): Review current staged, unstaged, and non-ignored new files without editing (`/loegg review`). For independent parallel reviews, use `/loegg review 깊게`; arena selects `review runners`, not `arena runners`. An explicit file or comparison range overrides the default scope.
+- **`ui-audit`** (`ui-audit/SKILL.md`): Read-only UI, accessibility, state-completeness, and AI-slop audit of pages, components, or live URLs (`/loegg ui-audit [target]`).
 - **Review models**: Configure `review runners` with `/loegg setup` independently of other roles. Ordinary review stays in the main agent; deep review uses configured models or harness role defaults when unavailable or restricted.
 - **`doc`** (`doc/SKILL.md`): Distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md` (`/loegg doc [category]`; also accepts `docs`).
 
