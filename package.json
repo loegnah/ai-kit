@@ -6,6 +6,7 @@
     "lint:write": "oxlint --fix && oxfmt",
     "typecheck": "tsc --noEmit",
     "check": "oxlint --fix && oxfmt && tsc --noEmit",
+    "deploy": "bun scripts/deploy.ts && bun run command:deploy",
     "command:deploy": "mkdir -p ~/.agents/commands && cp commands/qwe.md ~/.agents/commands/"
   },
   "devDependencies": {
