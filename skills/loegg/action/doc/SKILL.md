@@ -67,6 +67,12 @@ Keep all documents terse, concrete, and free of session trial-and-error chatter.
 - **Steps**: Ordered, copy-pasteable commands and actions.
 - **Verification**: How to confirm the procedure succeeded.
 
+#### Reusable verification procedures
+
+When a verification procedure is needed repeatedly, or an existing recipe no longer matches the app, update the target project's existing verification guide first. If none exists, use `<target-project>/docs/guide/verification.md`, adapting to that project's established docs layout (for example `docs/guides/`). Keep project-specific commands out of loegg; do not create a guide for every task.
+
+Record the launch command and readiness condition, required environment variable names (never secret values), user-facing actions, expected evidence, and cleanup for processes or scratch state the check creates. Reuse existing scripts rather than copying their implementation. Base runnable instructions on an observed run; label any unexecuted branch as unverified. A saved recipe is not a passing result: execute the relevant steps for the current change and update stale instructions from what actually happened.
+
 ### D. `docs/note/` Template
 
 - `# <Title>`

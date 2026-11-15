@@ -58,11 +58,13 @@ Move any Accepted item that a lint rule, script, metadata flag, or runtime check
 
 ## 5. Apply
 
-Present the synthesizer's full Accepted / Rejected / Backlog output and wait for explicit approval before applying any Accepted edit. The user picks the subset and may redirect routings. Skill changes affect every future agent in the org. Do not auto-apply.
+Present the synthesizer's full Accepted / Rejected / Backlog output and wait for explicit approval before applying any Accepted edit. The user picks the subset and may redirect routings. Skill changes affect every future agent in the org. Do not auto-apply. If rows are already approved, continue here with that subset rather than restarting the review or asking for approval again.
 
-File each Backlog item to your team's devex or backlog tracker without waiting. Only the Accepted list waits for approval.
+For an approved edit targeting repeated unwanted agent behavior evidenced in the session, or an explicit request to evaluate skill behavior, use [`references/skill-eval.md`](references/skill-eval.md) before applying the edit. Routine wording, reference, and typo edits do not trigger behavioral trials; do not load the reference for them.
 
-Never edit a skill under `plugins/cache/`. Before approval, show its destination: `.cursor/skills/<skill>/` or `~/.cursor/skills/<skill>/` in Cursor, or your harness's project or user skill folder, such as `.claude/skills/<skill>/` or `~/.agents/skills/<skill>/`. After approval, copy the skill folder there and edit the copy. Never open a PR or push.
+Keep Backlog items in the summary. File to an external devex or backlog tracker only when the user explicitly authorizes that external action.
+
+Before approval, show the canonical repository-local destination from project rules (in this repository, `skills/`). Edit approved source files there in place. Never edit `plugins/cache/`, copy skills to home/global folders, or modify paths outside the repository. Never open a PR or push.
 
 Follow each approved row's Routing exactly:
 
@@ -79,5 +81,5 @@ Short list, no preamble:
 
 - Edits applied: `<skill path>`. What changed, one line each.
 - New skills created: `<skill path>`. One line each (rare).
-- Backlog filed to the devex tracker: `<issue title>` (`<tags>`). One line each.
+- Backlog: proposed items, or externally filed items with links when explicitly authorized.
 - Dropped: one line per rejected finding + reason from the synthesizer.
