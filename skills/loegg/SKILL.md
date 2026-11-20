@@ -6,13 +6,13 @@ disable-model-invocation: true
 
 # Loegg
 
-Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions live at `action/<name>/SKILL.md` (`setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `ui-audit`, `doc`, etc.), shared execution utilities live at `util/<name>/SKILL.md` (`arena`, `decision-log`), and playbooks live at `playbooks/<title>.md`.
+Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions live at `action/<name>/SKILL.md` (`setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `statechart`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `ui-audit`, `doc`, etc.), shared execution utilities live at `util/<name>/SKILL.md` (`arena`, `decision-log`), and playbooks live at `playbooks/<title>.md`.
 
 ## Dispatch: One-Shot Actions vs. Full Mode
 
 Only `action/` entries can be invoked directly as standalone commands (`mode/` and `util/` are internal helpers applied during a task, never called on their own):
 
-- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `ui-audit`, `doc`)**: When invoked with an action name, read its mapped file below and execute it directly, loading only dependencies that action explicitly requests, not `mode/*/SKILL.md` or playbooks.
+- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `statechart`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `ui-audit`, `doc`)**: When invoked with an action name, read its mapped file below and execute it directly, loading only dependencies that action explicitly requests, not `mode/*/SKILL.md` or playbooks.
   - `setup` -> `action/setup/SKILL.md` (configure general-purpose subagents: `@<role>` routing in OMP and `opus`/`sonnet`/`haiku` subagents in Claude Code).
   - `help` -> `action/help/SKILL.md` (explain loegg usage, recommend workflows, or draft prompts).
   - `grill` -> `action/grill/SKILL.md` (stress-test a plan or resolve ambiguous requirements in frontier rounds).
@@ -22,6 +22,7 @@ Only `action/` entries can be invoked directly as standalone commands (`mode/` a
   - `why` -> `action/why/SKILL.md` (trace historical motivation, design rationale, and tradeoffs across git, PRs, issues, docs, and MCPs with confidence tiers).
   - `teach` -> `action/teach/SKILL.md` (explain how and why a subsystem or change works).
   - `show-me` (`show`) -> `action/show-me/SKILL.md` (visualize code flow, architecture, or diffs immediately using call trees, component/file trees, Mermaid, structural diffs, or SVG/HTML).
+  - `statechart` -> `action/statechart/SKILL.md` (explicit only; check a TLA+ model with pstack and show its statechart and rule-violation paths).
   - `blast-radius` -> `action/blast-radius/SKILL.md` (trace downstream impact).
   - `interrogate` -> `action/interrogate/SKILL.md` (adversarial review).
   - `benchmark-checklist` (`benchmark`) -> `action/benchmark-checklist/SKILL.md` (vet performance measurements).

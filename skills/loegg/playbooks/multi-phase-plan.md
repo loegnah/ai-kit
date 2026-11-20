@@ -4,7 +4,7 @@
 
 1. Skip the plan for 1–2 file changes with an obvious approach—state that it is small and execute directly via `playbooks/feature.md`, `playbooks/bug-fix.md`, or `playbooks/refactoring.md`.
 2. Resolve open questions before locking the plan:
-   - For empirical or technical forks, run a quick throwaway check via `playbooks/prototype.md` or inspect the codebase via `../action/how/SKILL.md` (`how`) and `../action/why/SKILL.md` (`why`).
+   - For empirical or technical forks, run a quick throwaway check via `playbooks/prototype.md` or inspect the codebase directly (`../action/how/SKILL.md` (`how`) and `../action/why/SKILL.md` (`why`) stay available for explicit questions).
    - For open product, scope, or architectural decisions in Direct Mode, clarify upfront with the user via `../action/grill/SKILL.md` (`grill`). In Agent Mode, resolve via prototype or `../util/arena/SKILL.md` (`arena`) (**Never Block on the Human** in `../SKILL.md`).
 3. Map the blast radius and boundaries: run `../action/architect/SKILL.md` (`architect`) or `../action/blast-radius/SKILL.md` (`blast-radius`) when changing core contracts across phases. Follow **Outcome-Oriented Execution** and **Migrate Callers Then Delete Legacy APIs** (`../SKILL.md`)—plan clean phase boundaries rather than permanent compatibility shims.
 4. Decompose into verifiable phases (**Sequence Work into Verifiable Units**, **Separate Before Serializing Shared State** in `../SKILL.md`). Each phase must end in a green check (static checks + tests + real-surface verification) before the next phase begins.

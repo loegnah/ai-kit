@@ -102,14 +102,14 @@ Claude Code subagents are general-purpose Markdown files following the Claude Co
 
 Both OMP (`task` with `agent`, omitting `model`) and Claude Code (`Agent` with `subagent_type`, omitting `model`) map **loegg** workflows onto the same general-purpose specialist names:
 
-| Workflow Slot                                     | Used By                                                                    | Default Specialist Agents                                                                                             |
-| :------------------------------------------------ | :------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
-| `arena runners` (Design / Review / Investigation) | `util/arena`, `action/architect`                                           | `architect`, `security-reviewer`, `refactorer` (use `debugger` in place of `refactorer` for bug root-cause arenas)    |
-| `arena runners` (Build)                           | `util/arena` (Build mode)                                                  | `builder`, `refactorer`, `architect`                                                                                  |
-| `arena cross-judge`                               | `util/arena` Phase 3, `util/decision-log`                                  | `security-reviewer` or `supervisor` (in Claude Code, skip cross-family requirement or disclose single-provider scope) |
-| `analyze runners`                                 | `action/analyze`, `action/why`, `action/how`, `action/recall`              | `debugger`, `analyst`, `scout`                                                                                        |
-| `review runners`                                  | `action/review`, `action/ui-audit`, `action/interrogate`, `action/reflect` | `reviewer`, `security-reviewer`, `supervisor`                                                                         |
-| `parallel workers`                                | `playbooks/feature.md`, parallel implementation                            | `implementer` (bounded slices), `builder` (complex slices)                                                            |
+| Workflow Slot                                     | Used By                                                  | Default Specialist Agents                                                                                             |
+| :------------------------------------------------ | :------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
+| `arena runners` (Design / Review / Investigation) | `util/arena`, `action/architect`                         | `architect`, `security-reviewer`, `refactorer` (use `debugger` in place of `refactorer` for bug root-cause arenas)    |
+| `arena runners` (Build)                           | `util/arena` (Build mode)                                | `builder`, `refactorer`, `architect`                                                                                  |
+| `arena cross-judge`                               | `util/arena` Phase 3, `util/decision-log`                | `security-reviewer` or `supervisor` (in Claude Code, skip cross-family requirement or disclose single-provider scope) |
+| `analyze runners`                                 | `action/analyze`, `action/how`, `action/recall`          | `debugger`, `analyst`, `scout`                                                                                        |
+| `review runners`                                  | `action/review`, `action/ui-audit`, `action/interrogate` | `reviewer`, `security-reviewer`, `supervisor`                                                                         |
+| `parallel workers`                                | `playbooks/feature.md`, parallel implementation          | `implementer` (bounded slices), `builder` (complex slices)                                                            |
 
 If the user asks to customize which specialist agent names run specific workflow slots, save **agent names only** (never model identifiers) to `~/.agents/loegg/omp.md` (for OMP) or `~/.agents/loegg/claude.md` (for Claude Code):
 

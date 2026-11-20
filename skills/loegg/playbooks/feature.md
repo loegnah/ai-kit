@@ -2,7 +2,7 @@
 
 **You own the design. Plan, implement (or delegate independent slices), verify, and review.**
 
-1. Ground the subsystem: run `../action/how/SKILL.md` (`how`) over the affected subsystem (and `../action/grill/SKILL.md` in Direct Mode if requirements are underspecified).
+1. Ground the subsystem: trace the affected subsystem directly in the code (and `../action/grill/SKILL.md` in Direct Mode if requirements are underspecified).
 2. Sketch the architecture: when the feature crosses module boundaries or has non-trivial design choices, run `../action/architect/SKILL.md` (`architect`) to lock in the caller usage, data shape, and signatures before writing logic.
 3. Write the throughput checkpoint as four todo items. A dimension that genuinely does not apply (single file, no fan-out) keeps its item with `n/a: <reason>` rather than being dropped:
    - **Blocking first steps.** Gates and shared types/contracts run before fan-out.

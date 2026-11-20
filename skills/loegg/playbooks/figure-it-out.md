@@ -4,7 +4,7 @@
 
 Use this playbook when no other playbook in `../SKILL.md` fits, or for a large or cross-cutting effort (a migration across many call sites, an ambitious multi-part change, work the user steps away from) even when a narrower playbook like `playbooks/feature.md` partly fits. Use `playbooks/multi-phase-plan.md` instead when the user wants a plan document to approve before execution.
 
-1. Frame. Ground first (`../action/how/SKILL.md`, `../action/why/SKILL.md`, or `../action/analyze/SKILL.md`), then state before starting:
+1. Frame. Ground first (trace the code directly, `../action/why/SKILL.md`, or `../action/analyze/SKILL.md`), then state before starting:
    - **Done** as a falsifiable predicate (**Prove It Works** in `../SKILL.md`).
    - **Scope**, quantified: rough units and effort, plus the blockers grounding surfaced.
    - **Rigor level**, biased high. One-way doors and wide blast radius get more gates and artifacts; reversible low-stakes steps get fewer. Rigor is gates and artifacts, not "try harder".

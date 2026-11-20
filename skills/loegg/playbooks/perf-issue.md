@@ -5,7 +5,7 @@
 Enforces the **Explain the Number** principle in `../SKILL.md`. For sustained, multi-iteration optimization against a target metric rather than a one-off fix, use `playbooks/hillclimb.md`.
 
 1. Capture a baseline measurement or trace on the real surface. Vet the baseline—and every later number—with `../action/benchmark-checklist/SKILL.md` (`benchmark-checklist`). State the decision threshold, noise floor, and identified limiter before claiming a bottleneck.
-2. Ground hypotheses with `../action/how/SKILL.md` (`how`). Do not claim a performance ceiling without measuring it. Try the performance mantras in order, cheapest first:
+2. Ground hypotheses by tracing the code directly. Do not claim a performance ceiling without measuring it. Try the performance mantras in order, cheapest first:
    1. **Don't do it.** Stop work whose result nothing uses rather than making it cheaper.
    2. **Do it, but don't do it again.** Cache, memoize, or deduplicate repeated work.
    3. **Do it less.** Batch, coalesce, or narrow the input set.

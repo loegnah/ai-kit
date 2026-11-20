@@ -27,6 +27,7 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 - **`why`** (`why/SKILL.md`): Investigate historical motivation and design rationale across git, PRs, issues, docs, and MCPs with strict confidence tiers (`/loegg why <question>`).
 - **`teach`** (`teach/SKILL.md`): Explain how and why a subsystem works (`/loegg teach <topic>`).
 - **`show-me`** (`show-me/SKILL.md`): Visualize logic, call trees, component/file trees, Mermaid flows, or structural diffs with minimal prose (`/loegg show-me [topic]`).
+- **`statechart`** (`statechart/SKILL.md`): Model-check state transitions and show rule-violation paths with pstack (`/loegg statechart [spec or behavior]`). Reuses shared tools and asks before downloading anything.
 - **`blast-radius`** (`blast-radius/SKILL.md`): Investigate downstream breakage (`/loegg blast-radius [target]`).
 - **`interrogate`** (`interrogate/SKILL.md`): Adversarial review (`/loegg interrogate [target]`).
 - **`benchmark-checklist`** (`benchmark-checklist/SKILL.md`): Vet performance measurements (`/loegg benchmark-checklist`).

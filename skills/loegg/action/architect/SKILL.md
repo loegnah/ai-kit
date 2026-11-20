@@ -20,7 +20,7 @@ Open a todolist with one entry per phase before starting:
 
 ## Phase A: Ground the problem
 
-Build a real mental model of every system the new code touches. Run `../how/SKILL.md` (`how`) over the relevant subsystems. Naming a file isn't grounding—produce the architectural explanation `how` prescribes. If the design redefines ownership or layering, also run `../why/SKILL.md` (`why`) on the existing shape so historical rationale becomes a constraint, not a guess.
+Build a real mental model of every system the new code touches: trace the relevant subsystems directly in the code. Naming a file isn't grounding. If the design redefines ownership or layering, also run `../why/SKILL.md` (`why`) on the existing shape so historical rationale becomes a constraint, not a guess.
 
 Skip Phase A only when the work is genuinely greenfield with no surrounding system to integrate.
 
@@ -68,7 +68,7 @@ Use judgment. A few edge cases don't condemn an architecture. Some problems are 
 
 When you scrap:
 
-1. Re-run `../how/SKILL.md` (`how`) over what's been built.
+1. Re-trace what's been built in the code.
 2. Redesign as if the new constraints had been day-one assumptions, per **Redesign from First Principles**.
 3. Subtract before adding, per **Subtract Before You Add**. The new sketch should be smaller than the old one before it grows.
 4. Return to Phase B and re-run `arena`.
