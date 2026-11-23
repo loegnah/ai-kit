@@ -23,22 +23,28 @@ Write the document in the user's language (default Korean if the conversation is
 
 When no equivalent path exists, route by content nature into these targets under `docs/`:
 
-| Target Path        | Type        | Criterion ("One-Line Rule")                | What Belongs Here                                                                                                                                                                                                                                                      |
-| :----------------- | :---------- | :----------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `docs/design/`     | Directory   | **"How it is structured & why"**           | System/module architecture, data & state flow, schemas, component boundaries, design rationale / ADRs.                                                                                                                                                                 |
-| `docs/rule/`       | Directory   | **"What MUST or NEVER be done"**           | Coding conventions, strict invariants, Do / Don't constraints, naming/pattern enforcement rules.                                                                                                                                                                       |
-| `docs/guide/`      | Directory   | **"How to set up, run, or do it"**         | Step-by-step how-to guides, local/dev setup, deployment/migration procedures, operational workflows.                                                                                                                                                                   |
-| `docs/note/`       | Directory   | **"What we learned & watch outs"**         | Timeless tips, troubleshooting conclusions, gotchas/caveats/pitfalls, investigation findings. Conclusion only; kept current.                                                                                                                                           |
-| `docs/story/`      | Directory   | **"What we planned, tried & how it went"** | One folder per effort (`<title>/`, or `YYMMDD-<title>/` when pinned to a date): `PLAN.md` for multi-phase execution plans updated as phases clear, and `STORY.md` (append-only body) for goal, what was done, result (including failures), takeaway, and related docs. |
-| `docs/GLOSSARY.md` | Single File | **"What domain terms & symbols mean"**     | Ubiquitous language, domain terms, abbreviations, business-term <-> code-symbol mappings, disambiguations.                                                                                                                                                             |
+| Target Path        | Type        | Criterion ("One-Line Rule")                | What Belongs Here                                                                                                                                                                                                                                                                                      |
+| :----------------- | :---------- | :----------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `docs/design/`     | Directory   | **"How it is structured & why"**           | System/module architecture, data & state flow, schemas, component boundaries, design rationale / ADRs.                                                                                                                                                                                                 |
+| `docs/rule/`       | Directory   | **"What MUST or NEVER be done"**           | Coding conventions, strict invariants, Do / Don't constraints, naming/pattern enforcement rules.                                                                                                                                                                                                       |
+| `docs/guide/`      | Directory   | **"How to set up, run, or do it"**         | Step-by-step how-to guides, local/dev setup, deployment/migration procedures, operational workflows.                                                                                                                                                                                                   |
+| `docs/note/`       | Directory   | **"What we learned & watch outs"**         | Timeless tips, troubleshooting conclusions, gotchas/caveats/pitfalls, investigation findings. Conclusion only; kept current.                                                                                                                                                                           |
+| `docs/story/`      | Directory   | **"What we planned, tried & how it went"** | One folder per effort (`<title>/`, or `YYMMDD-<title>/` when pinned to a date): `INTENT.md` for the problem and options weighed while the work is still under discussion, `PLAN.md` for the plan and its progress, and `REVIEW.md` for the result, insights, and watch-outs once the work is finished. |
+| `docs/GLOSSARY.md` | Single File | **"What domain terms & symbols mean"**     | Ubiquitous language, domain terms, abbreviations, business-term <-> code-symbol mappings, disambiguations.                                                                                                                                                                                             |
 
 ### 3. Update vs. Create
 
 - **Directory Targets (`design`, `rule`, `guide`, `note`)**: If an existing file in the target folder already covers the same topic, update/append to that file rather than creating a duplicate; otherwise create `<target-dir>/<kebab-case-slug>.md` (or match the directory's existing filename style).
-- **Story Target (`docs/story/`)**: One folder per effort, not per day. Before creating one, read `docs/story/INDEX.md` (list `docs/story/` when it is absent) and reuse the folder whose goal matches the current work, whatever its date prefix; work toward a different goal gets a new folder that links the earlier story. Name a new folder `<title>/` (short kebab-case, Korean allowed) by default, or `YYMMDD-<title>/` when the work is pinned to one date (an incident, a single experiment run) or the user asks; take `YYMMDD` from the environment (`date +%y%m%d`), never guessed. `<story-dir>` below means either form. For multi-phase work (see `../../playbooks/multi-phase-plan.md`), create `PLAN.md` in that folder and check off `- [ ]` -> `- [x]` in place as each phase passes verification. Record the outcome in `STORY.md` (linking `./PLAN.md` under `Related Docs` when present). The `STORY.md` body below `---` is append-only: continuing on a later day adds a new `## YYYY-MM-DD — <focus>` section. Edit only the top summary block and `Related Docs` in place to reflect the latest state.
+- **Story Target (`docs/story/`)**: One folder per effort, not per day. Before creating one, read `docs/story/INDEX.md` (list `docs/story/` when it is absent) and reuse the folder whose goal matches the current work, whatever its date prefix; work toward a different goal gets a new folder that links the earlier story. Name a new folder `<title>/` (short kebab-case, Korean allowed) by default, or `YYMMDD-<title>/` when the work is pinned to one date (an incident, a single experiment run) or the user asks; take `YYMMDD` from the environment (`date +%y%m%d`), never guessed. `<story-dir>` below means either form. A folder holds one file per stage: `INTENT.md` (options under review), `PLAN.md` (plan and progress), and `REVIEW.md` (closing review with insights). Write one only when the user asks or a playbook calls for it (`../../playbooks/multi-phase-plan.md`, `../../playbooks/pause-safely.md`). When the user asks to save the work to a story, pick the file by the work's state:
+  - **Nothing in the deliverable (code, docs, config) has changed yet**: write or update `INTENT.md` (template in E). Prototype runs during discussion are evidence under `Options weighed`, not progress. Once `PLAN.md` exists, `INTENT.md` is frozen (see `../../playbooks/multi-phase-plan.md` step 5).
+  - **Work is under way**: update `PLAN.md` per `../../playbooks/multi-phase-plan.md` (checkboxes, phase `Notes`, `Paused` section). With no `PLAN.md`, say the work is unfinished and ask whether to write a `PLAN.md` now or wait to write `REVIEW.md`.
+  - **Work is finished**: write `REVIEW.md` (template in E). It is the story's closing write-up, unrelated to the `review` action's report.
+
+  A folder that already has a legacy `STORY.md` keeps using it in place of `REVIEW.md`.
+
 - **Story Index (`docs/story/INDEX.md`)**: Whenever you create a story folder or change a story's `Goal`, `Status`, or `Updated`, upsert its row in the same edit (create the file if absent, backfilling rows for existing folders). Keep one row per folder, sorted by `Updated` descending; see the template in E.
 - **Single-File Target (`docs/GLOSSARY.md`)**: Always upsert into the single glossary file—create `docs/GLOSSARY.md` if absent, or add/update entries in place (sorted logically by domain group or alphabetically) without duplicating existing terms.
-- **`note` vs `story`**: A `note` states a conclusion that stays true and is edited in place; a `story` records what happened over time and only grows by appended sections. If a story yields a reusable lesson, also write or update it in `design`, `rule`, `guide`, `note`, or `GLOSSARY.md` and link it under `Related Docs` in `STORY.md`.
+- **`note` vs `story`**: A `note` states a conclusion that stays true and is edited in place; a `story` records one effort from review to finish. An insight or watch-out in `REVIEW.md` that holds beyond this effort must also be written or updated in `design`, `rule`, `guide`, `note`, or `GLOSSARY.md` and linked from its `REVIEW.md` line, so the next effort finds it without opening old stories.
 
 ## Category-Specific Document Templates
 
@@ -82,40 +88,70 @@ Record the launch command and readiness condition, required environment variable
 - **Gotchas / Caveats** (if applicable): Pitfalls, edge cases, or side effects to watch out for.
 - **References** (optional): Relevant repo paths or commands.
 
-### E. `docs/story/` Template (`docs/story/<story-dir>/STORY.md`)
+### E. `docs/story/` Templates
 
-Use a **hybrid layout**: a fixed summary/index block at the top for instant scanning, followed by a freeform section below `---` adapted to the work.
+`PLAN.md` uses the template in `../../playbooks/multi-phase-plan.md`.
+
+`docs/story/<story-dir>/INTENT.md` (edited in place during discussion; holds only why and what was weighed, never the plan's goal or phases):
 
 ```markdown
 # <Title>
 
-- **Started**: YYYY-MM-DD
-- **Updated**: YYYY-MM-DD
-- **Status**: In Progress | Done | Partial | Failed | Superseded
-- **Goal**: Why this work was started and what was expected (1–2 lines).
-- **Result**: Final outcome and verification summary (1–2 lines).
-- **Takeaway**: Key conclusion or watch-out for next time (1–3 lines).
+- **Problem**: What prompted this work and why it matters now (1–3 lines).
+- **Direction**: Current leaning in 1–2 lines. Replace with `See [PLAN.md](./PLAN.md).` when `PLAN.md` is written.
+
+## Options weighed
+
+- **<Option>** — Chosen | Rejected | Open: why (1–2 lines).
+
+## Open questions
+
+- <Question> — what would settle it.
+```
+
+`docs/story/<story-dir>/REVIEW.md` (written once the work is finished; draws insights and watch-outs, never repeats the phase-by-phase record in `PLAN.md`):
+
+```markdown
+# <Title>
+
+- **Finished**: YYYY-MM-DD
+- **Status**: Done | Partial | Failed | Superseded
+- **Result**: What came out and how it was verified (1–2 lines).
+
+## What went differently than expected
+
+- <Blocker, wrong assumption, or surprise> — what it cost.
+
+## Insights
+
+- <What this work taught> — link the `note` / `design` it was moved to when it holds beyond this work.
+
+## Watch out next time
+
+- <Pitfall to avoid> — link the `rule` / `note` it was moved to when it holds beyond this work.
+
+## Follow-up
+
+- <Remaining work>, or `None.`
 
 ## Related Docs
 
-- [`docs/note/...`](../../note/...) — 1-line description (include all created, updated, or referenced `design`, `rule`, `guide`, `note`, `GLOSSARY.md`, prior `story`, or sibling files in this `<story-dir>/` folder)
-
----
-
-## <Freeform Section(s)>
-
-(When the story spans several days, open each day's entry with `## YYYY-MM-DD — <focus>` and nest its headings under it. Write freely using headings that fit the work—e.g., `## Changes`, `## Attempt & Trial-and-Error`, `## Root Cause`, `## Verification & Benchmarks`, `## Follow-up`. Include exact file paths, commands, code snippets, and failed attempts worth remembering.)
+- [`./PLAN.md`](./PLAN.md) — phase-by-phase record (list every `design`, `rule`, `guide`, `note`, `GLOSSARY.md`, prior story, or sibling file created, updated, or referenced)
 ```
 
-`docs/story/INDEX.md` (one row per story folder, newest `Updated` first; the folder may hold only `PLAN.md` so far):
+When finished work is reopened, append a `## YYYY-MM-DD — <focus>` section at the end and update `Finished` and `Status`; never rewrite earlier sections.
+
+`docs/story/INDEX.md` (one row per story folder, newest `Updated` first):
 
 ```markdown
 # Story Index
 
-| Story                           | Goal        | Status      | Updated    |
-| :------------------------------ | :---------- | :---------- | :--------- |
-| [`<story-dir>`](./<story-dir>/) | 1-line goal | In Progress | YYYY-MM-DD |
+| Story                           | Goal        | Status                                           | Updated    |
+| :------------------------------ | :---------- | :----------------------------------------------- | :--------- |
+| [`<story-dir>`](./<story-dir>/) | 1-line goal | Exploring \| In Progress \| Done \| Partial \| … | YYYY-MM-DD |
 ```
+
+`Exploring` marks a folder with only `INTENT.md`, `In Progress` one with `PLAN.md` and no `REVIEW.md`, and the rest copy `REVIEW.md`'s `Status`.
 
 ### F. `docs/GLOSSARY.md` Template (Single-File Upsert)
 

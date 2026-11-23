@@ -8,7 +8,7 @@
    - For open product, scope, or architectural decisions in Direct Mode, clarify upfront with the user via `../action/grill/SKILL.md` (`grill`). In Agent Mode, resolve via prototype or `../util/arena/SKILL.md` (`arena`) (**Never Block on the Human** in `../SKILL.md`).
 3. Map the blast radius and boundaries: run `../action/architect/SKILL.md` (`architect`) or `../action/blast-radius/SKILL.md` (`blast-radius`) when changing core contracts across phases. Follow **Outcome-Oriented Execution** and **Migrate Callers Then Delete Legacy APIs** (`../SKILL.md`)—plan clean phase boundaries rather than permanent compatibility shims.
 4. Decompose into verifiable phases (**Sequence Work into Verifiable Units**, **Separate Before Serializing Shared State** in `../SKILL.md`). Each phase must end in a green check (static checks + tests + real-surface verification) before the next phase begins.
-5. Write (or load) the plan at `docs/story/<story-dir>/PLAN.md` (reuse an existing `PLAN.md` when resuming) using the structure below (see `../action/doc/SKILL.md` for folder naming and reuse). Derive success criteria and out-of-scope items from the conversation and repository evidence; do not open another interview or approval round just to fill these fields. Every criterion and exclusion must trace to the agreed goal or an observed project constraint; do not invent extra deliverables or verification gates to fill the template. Only unresolved high-leverage decisions go through step 2. Keep every heading, fill every placeholder, and write `None.` in an appendix that has no entries:
+5. Write (or load) the plan at `docs/story/<story-dir>/PLAN.md` (reuse an existing `PLAN.md` when resuming) using the structure below (see `../action/doc/SKILL.md` for folder naming and reuse). Derive success criteria and out-of-scope items from the conversation and repository evidence; do not open another interview or approval round just to fill these fields. Every criterion and exclusion must trace to the agreed goal or an observed project constraint; do not invent extra deliverables or verification gates to fill the template. Only unresolved high-leverage decisions go through step 2. When `INTENT.md` exists in the folder, read it first and write the plan fresh from it without copying its text: replace its `Direction` line with `See [PLAN.md](./PLAN.md).`, stop editing it after that, and start Appendix B with `See [INTENT.md](./INTENT.md).` followed only by alternatives weighed after it. Keep every heading, fill every placeholder, and write `None.` in an appendix that has no entries:
 
 ```markdown
 # <Plan Title>
@@ -29,6 +29,11 @@
   - [ ] Static & unit check: `<command, e.g. bun run check / test command>`
   - [ ] Real-surface check: `<exact runtime command, browser/CLI scenario, or equivalence proof and expected output>`
 - **You see**: <One observable result after this phase, with the exact log line, output, or screen state.>
+- **Notes**: <Filled during execution: each deviation from this plan or failed attempt, with why. None. until something happens.>
+
+## Paused
+
+<Only while work is paused; see `pause-safely.md`. Remove when work resumes.>
 
 ## Appendix A. Prototype evidence
 
@@ -45,7 +50,7 @@
 
 6. Execute or hand off:
    - If the user asked for a plan only, save `docs/story/<story-dir>/PLAN.md`, present it, and stop before implementation. Do not ask for permission to write the requested plan. If the user prohibited file writes, present it inline instead.
-   - When executing or resuming from `docs/story/<story-dir>/PLAN.md`, copy the remaining unchecked (`- [ ]`) phases into the todolist and execute phase by phase. After each phase passes its verification gate, immediately update its checkboxes (`- [ ]` -> `- [x]`) in `PLAN.md` before starting the next phase.
-   - When all phases are complete, run `../action/review/SKILL.md` (`review`) and summarize the final outcome in `docs/story/<story-dir>/STORY.md` via `../action/doc/SKILL.md`.
+   - When executing or resuming from `docs/story/<story-dir>/PLAN.md`, read its `## Paused` section first (if present) and remove that section once work resumes, then copy the remaining unchecked (`- [ ]`) phases into the todolist and execute phase by phase. After each phase passes its verification gate, immediately update its checkboxes (`- [ ]` -> `- [x]`) in `PLAN.md` before starting the next phase. When a phase deviates from the plan or an attempt fails, record it in that phase's `Notes` right away. `PLAN.md` is the only progress record.
+   - When all phases are complete, run `../action/review/SKILL.md` (`review`), then write `docs/story/<story-dir>/REVIEW.md` via `../action/doc/SKILL.md` from `PLAN.md` and its `Notes`.
 
 **Reply** (following `../SKILL.md` `## Writing the reply`): the phase breakdown and dependency order, key architectural choices and rejected alternatives, what prototypes/grounding proved, and the verification gate for each phase.
