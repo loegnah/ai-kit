@@ -21,7 +21,8 @@ Only `action/` entries can be invoked directly as standalone commands (`mode/` a
   - `how` -> `action/how/SKILL.md` (explain code structure and runtime flow).
   - `why` -> `action/why/SKILL.md` (trace historical motivation, design rationale, and tradeoffs across git, PRs, issues, docs, and MCPs with confidence tiers).
   - `teach` -> `action/teach/SKILL.md` (explain how and why a subsystem or change works).
-  - `show-me` (`show`) -> `action/show-me/SKILL.md` (visualize code flow, architecture, or diffs immediately using call trees, component/file trees, Mermaid, structural diffs, or SVG/HTML).
+  - `show-me` (`show`) -> `action/show-me/SKILL.md` (visualize code, flows, or changes; choose between inline views and Archify).
+  - `archify` -> `action/archify/SKILL.md` (create a source-grounded, verified diagram artifact with the installed Archify skill).
   - `statechart` -> `action/statechart/SKILL.md` (explicit only; check a TLA+ model with pstack and show its statechart and rule-violation paths).
   - `blast-radius` -> `action/blast-radius/SKILL.md` (trace downstream impact).
   - `interrogate` -> `action/interrogate/SKILL.md` (adversarial review).
@@ -49,6 +50,7 @@ Remaining triggers during a task:
 - Questions about design rationale, historical intent, or why code/thresholds exist ("이건 왜 이렇게 짰어?", "왜 이 방식을 썼지?", `why`) -> read `action/why/SKILL.md`.
 - Requests to explain a subsystem or change plainly so the user deeply understands both how and why ("이거 쉽게 설명해줘", "가르쳐줘", "이해시켜줘", `teach`) -> read `action/teach/SKILL.md`.
 - Requests to visualize code, flow, structure, or changes ("그림으로 보여줘", "도식/다이어그램/콜트리로 보여줘", "시각화해줘", `show-me`, `show`) -> read `action/show-me/SKILL.md`.
+- When a workflow in either mode needs a diagram for a design decision, review, or handoff, apply `action/show-me/SKILL.md`'s representation choice. Generate artifacts only within the task's scope and before any read-only review; do not add a diagram step to every run.
 - Questions about downstream impact or what a change could break ("이거 바꾸면 어디 깨져?", "파급효과가 어떻게 돼?", `blast-radius`) -> read `action/blast-radius/SKILL.md`.
 - Adversarial stress-testing of a change or design ("적대적으로 검증해봐", "이 설계/코드 깨봐", "허점 찾아봐", `interrogate`) -> read `action/interrogate/SKILL.md`.
 - Running a benchmark or reporting/vetting a performance number (`benchmark`, `benchmark-checklist`) -> read `action/benchmark-checklist/SKILL.md`.

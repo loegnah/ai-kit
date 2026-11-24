@@ -100,5 +100,5 @@ Pick the **1–2 smallest views** that make the key point immediately clear:
 ## Execution Steps
 
 1. **Clarify Target**: Ground the target from the user's argument, recent conversation, or active diff (`file:line`).
-2. **Select Representation**: Pick the 1–2 visual patterns above that best match the structure (control flow -> call tree/Mermaid; refactor -> file/call diff; UI -> component tree/SVG).
-3. **Render Cleanly**: Include only the calls, files, props, states, and boundaries needed to answer the question. Place each visual directly beside the 1–2 sentence explanation it supports.
+2. **Select Representation**: For architecture, workflows, sequences, data flow, or lifecycles, use [`../archify/SKILL.md`](../archify/SKILL.md) when the user asks for a standalone diagram for sharing, presentation, or review, or when 1–2 inline views would obscure important boundaries, branches, or failure paths. Repository size and "make it look nice" alone do not qualify.
+3. **Deliver One Representation**: If Archify succeeds, deliver its artifact without redrawing it inline. If blocked, state why and fall back to an inline view. Otherwise, pick the smallest fitting views from the patterns above; keep only the calls, files, states, and boundaries that answer the question.
