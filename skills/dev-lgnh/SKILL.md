@@ -1,12 +1,12 @@
 ---
 name: dev-lgnh
-description: "Developer workflow runner (code implementation, simplification, refactoring, code review)."
+description: "Developer workflow runner (code implementation, refactoring, code review)."
 disable-model-invocation: true
 ---
 
 # DEV-LGNH Skill Runner
 
-Execute developer workflows (implementation, refactoring, code review, simplification) when invoked with `/dev-lgnh <keyword>` or matching workflow intent.
+Execute developer workflows (implementation, refactoring, code review) when invoked with `/dev-lgnh <keyword>` or matching workflow intent.
 
 ## Rules
 
@@ -17,21 +17,19 @@ Execute developer workflows (implementation, refactoring, code review, simplific
 
 Match the user's keyword or intent against the workflows below:
 
-| Keywords / Intent                                           | Target Workflow              | Catalog File                     |
-| :---------------------------------------------------------- | :--------------------------- | :------------------------------- |
-| `simplify`                                                  | Simplify Code                | `catalog/simplify/SKILL.md`      |
-| `simplify-fast`, `fast-simplify`                            | Fast Code Simplify           | `catalog/simplify/SKILL-fast.md` |
-| `superpowers`                                               | Superpowers Catalog Workflow | `catalog/superpowers/INDEX.md`   |
-| `mattpocock`, `matt`                                        | Matt Pocock Catalog Workflow | `catalog/mattpocock/INDEX.md`    |
-| `pstack`                                                    | Pstack Catalog Workflow      | `catalog/pstack/INDEX.md`        |
-| `hallmark`                                                  | Hallmark UI Design Workflow  | `catalog/hallmark/SKILL.md`      |
-| `grill`, `grill-me`, `grilling`                             | Relentless Interview         | `catalog/mattpocock/INDEX.md`    |
-| `code-review`, `review-diff`, `review`                      | Two-Axis Code Review         | `catalog/mattpocock/INDEX.md`    |
-| `handoff`                                                   | Session Handoff Document     | `catalog/mattpocock/INDEX.md`    |
-| `refactor`, `ts-refactor`, `refactor-ts`, `style-refactor`  | Style Refactor               | `catalog/refactor/SKILL.md`      |
-| `skill-sync`, `update-skills`, `sync-skills`, `skill-audit` | Project Skill Sync           | `catalog/skill-sync.md`          |
-| `eli5`, `explain-5`, `explain`                              | ELI5 Explainer               | `catalog/eli5.md`                |
-| `meta-prompt`, `prompt`, `prompt-gen`                       | Meta-Prompt                  | `catalog/meta-prompt.md`         |
+| Keywords / Intent                                           | Target Workflow              | Catalog File                   |
+| :---------------------------------------------------------- | :--------------------------- | :----------------------------- |
+| `superpowers`                                               | Superpowers Catalog Workflow | `catalog/superpowers/INDEX.md` |
+| `mattpocock`, `matt`                                        | Matt Pocock Catalog Workflow | `catalog/mattpocock/INDEX.md`  |
+| `pstack`                                                    | Pstack Catalog Workflow      | `catalog/pstack/INDEX.md`      |
+| `hallmark`                                                  | Hallmark UI Design Workflow  | `catalog/hallmark/SKILL.md`    |
+| `grill`, `grill-me`, `grilling`                             | Relentless Interview         | `catalog/mattpocock/INDEX.md`  |
+| `code-review`, `review-diff`, `review`                      | Two-Axis Code Review         | `catalog/mattpocock/INDEX.md`  |
+| `handoff`                                                   | Session Handoff Document     | `catalog/mattpocock/INDEX.md`  |
+| `refactor`, `ts-refactor`, `refactor-ts`, `style-refactor`  | Style Refactor               | `catalog/refactor/SKILL.md`    |
+| `skill-sync`, `update-skills`, `sync-skills`, `skill-audit` | Project Skill Sync           | `catalog/skill-sync.md`        |
+| `eli5`, `explain-5`, `explain`                              | ELI5 Explainer               | `catalog/eli5.md`              |
+| `meta-prompt`, `prompt`, `prompt-gen`                       | Meta-Prompt                  | `catalog/meta-prompt.md`       |
 
 ## Execution Procedure
 

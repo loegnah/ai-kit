@@ -4,7 +4,7 @@ Answer questions about **loegg** and draft prompts the user can copy and send.
 
 - For a help question, do **not** start the actual task. Spawning subagents and running playbooks spends tokens, so explain the workflow and provide a prompt for the user to send.
 - If the user invoked `/loegg help` with a real task request rather than a question, read `../../SKILL.md` (`loegg`) and run the task.
-- When the user asks how to phrase a request or which workflow fits, recommend the matching action or playbook and adapt a prompt from `references/recipes.md` to their task.
+- When the user asks how to phrase a request or which workflow fits, recommend the matching action or playbook and adapt a prompt from `references/recipes.md` to their task. When the task needs a deep result, point to `/loegg sharpen <prompt>`.
 
 ## How loegg works
 
@@ -20,6 +20,7 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 
 - **`setup`** (`../setup/SKILL.md`): Configure general-purpose specialist subagents from `setup/agents/{omp,claude}/*.md`—`@<role>` routing in OMP (`~/.omp/agent/`) and `opus`/`sonnet`/`haiku` + `effort` subagents in Claude Code (`~/.claude/agents/`) (`/loegg setup`).
 - **`help`** (`help/SKILL.md`): Explain loegg usage and suggest prompts (`/loegg help`).
+- **`sharpen`** (`sharpen/SKILL.md`): Rewrite a prompt deeper, not bigger (professional's extras, raw material, methods, outside check) and return it without doing the task (`/loegg sharpen <prompt>`).
 - **`grill`** (`grill/SKILL.md`): Stress-test plans and resolve open design decisions in frontier rounds before building (`/loegg grill`).
 - **`architect`** (`architect/SKILL.md`): Sketch caller usage, types, signatures, and module boundaries before writing implementation code, comparing candidate shapes via `arena` (`/loegg architect [target]`).
 - **`analyze`** (`analyze/SKILL.md`): Ask multiple read-only subagents the exact same bug-cause or codebase analysis question in parallel, then have the main agent fact-check and synthesize a single answer (`/loegg analyze <question>`).
@@ -34,7 +35,9 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 - **`benchmark-checklist`** (`benchmark-checklist/SKILL.md`): Vet performance measurements (`/loegg benchmark-checklist`).
 - **`recall`** (`recall/SKILL.md`): Reconstruct recent working context, or pick up a specific prior session's in-flight work (`/loegg recall [topic]`).
 - **`reflect`** (`reflect/SKILL.md`): Review session learnings (`/loegg reflect`).
+- **`correct`** (`correct/SKILL.md`): Find mistakes agents keep repeating in this repo and make each one impossible through architecture, types, lint, or tests (`/loegg correct`).
 - **`review`** (`review/SKILL.md`): Review current staged, unstaged, and non-ignored new files without editing (`/loegg review`). For independent parallel reviews, use `/loegg review 깊게`; arena selects `review runners`, not `arena runners`. An explicit file or comparison range overrides the default scope.
+- **`simplify`** (`simplify/SKILL.md`): Simplify recently changed code without behavior change; `refactorer` subagent by default, main agent with `fast` (`/loegg simplify [fast] [scope]`).
 - **`ui-audit`** (`ui-audit/SKILL.md`): Read-only UI, accessibility, state-completeness, and AI-slop audit of pages, components, or live URLs (`/loegg ui-audit [target]`).
 - **Review models**: Configure `review runners` with `/loegg setup` independently of other roles. Ordinary review stays in the main agent; deep review uses configured models or harness role defaults when unavailable or restricted.
 - **`doc`** (`doc/SKILL.md`): Distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md` (`/loegg doc [category]`; also accepts `docs`).

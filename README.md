@@ -5,7 +5,7 @@ A skill kit for orchestrating and managing AI agent workflows.
 ## Skills
 
 - **loegg**: Agent style and workflow orchestrator (`setup`, `help`, `grill`, `analyze`, `review`, `ui-audit`, `doc`, `direct-mode`, `agent-mode`, `arena`)
-- **dev-lgnh**: Developer workflows (`simplify`, `simplify-fast`, `refactor`, `skill-sync`, `eli5`, `meta-prompt`, `superpowers`, `mattpocock`, `pstack`, `hallmark`)
+- **dev-lgnh**: Developer workflows (`refactor`, `skill-sync`, `eli5`, `meta-prompt`, `superpowers`, `mattpocock`, `pstack`, `hallmark`)
 - **git-lgnh**: Git automation and repository maintenance (`commit`, `commit-fast`, `branch`, `branch-name`, `conflict`, `rebase`)
 - **brain-lgnh**: Second brain knowledge capture and retrieval (`capture`, `capture-daily`, `capture-guide`, `query`, `upsert`)
 - **lang-lgnh**: Translation, Korean text humanizing, and language learning workflows (`humanize`, `to-eng`, `to-kor`, `to-eng-learn`, `to-kor-learn`). Translation modes share `skills/lang-lgnh/catalog/translate.md`: ordinary modes output only the translation; learning modes add 1–3 key points. Files are modified only when saving or applying the translation is explicitly requested.

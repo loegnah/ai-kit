@@ -6,15 +6,16 @@ disable-model-invocation: true
 
 # Loegg
 
-Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions live at `action/<name>/SKILL.md` (`setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `statechart`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `ui-audit`, `doc`, etc.), shared execution utilities live at `util/<name>/SKILL.md` (`arena`, `decision-log`), and playbooks live at `playbooks/<title>.md`.
+Execution modes live at `mode/<name>-mode/SKILL.md`, directly callable actions live at `action/<name>/SKILL.md` (`setup`, `help`, `sharpen`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `statechart`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `correct`, `review`, `simplify`, `ui-audit`, `doc`, etc.), shared execution utilities live at `util/<name>/SKILL.md` (`arena`, `decision-log`), and playbooks live at `playbooks/<title>.md`.
 
 ## Dispatch: One-Shot Actions vs. Full Mode
 
 Only `action/` entries can be invoked directly as standalone commands (`mode/` and `util/` are internal helpers applied during a task, never called on their own):
 
-- **One-shot action (`/loegg <action>` — `setup`, `help`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `statechart`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `review`, `ui-audit`, `doc`)**: When invoked with an action name, read its mapped file below and execute it directly, loading only dependencies that action explicitly requests, not `mode/*/SKILL.md` or playbooks.
+- **One-shot action (`/loegg <action>` — `setup`, `help`, `sharpen`, `grill`, `architect`, `analyze`, `how`, `why`, `teach`, `show-me`, `statechart`, `blast-radius`, `interrogate`, `benchmark-checklist`, `recall`, `reflect`, `correct`, `review`, `simplify`, `ui-audit`, `doc`)**: When invoked with an action name, read its mapped file below and execute it directly, loading only dependencies that action explicitly requests, not `mode/*/SKILL.md` or playbooks.
   - `setup` -> `action/setup/SKILL.md` (configure general-purpose subagents: `@<role>` routing in OMP and `opus`/`sonnet`/`haiku` subagents in Claude Code).
   - `help` -> `action/help/SKILL.md` (explain loegg usage, recommend workflows, or draft prompts).
+  - `sharpen` -> `action/sharpen/SKILL.md` (rewrite a prompt deeper, not bigger, and return it without doing the task).
   - `grill` -> `action/grill/SKILL.md` (stress-test a plan or resolve ambiguous requirements in frontier rounds).
   - `architect` -> `action/architect/SKILL.md` (sketch caller usage, types, signatures, and module boundaries before coding, comparing shapes via `arena`).
   - `analyze` -> `action/analyze/SKILL.md` (send the same bug-hunt or analysis question to multiple read-only subagents in parallel and have the main agent fact-check and synthesize the answer).
@@ -29,7 +30,9 @@ Only `action/` entries can be invoked directly as standalone commands (`mode/` a
   - `benchmark-checklist` (`benchmark`) -> `action/benchmark-checklist/SKILL.md` (vet performance measurements).
   - `recall` -> `action/recall/SKILL.md` (reconstruct recent working context, or pick up a specific prior session's in-flight work).
   - `reflect` -> `action/reflect/SKILL.md` (derive skill improvements from the session).
+  - `correct` -> `action/correct/SKILL.md` (find mistakes agents keep repeating in the target repo and make each one impossible through architecture, types, lint, or tests).
   - `review` -> `action/review/SKILL.md` (read-only review of current changes; use `review runners` through arena for deep review).
+  - `simplify` -> `action/simplify/SKILL.md` (simplify recently changed code without behavior change; `refactorer` subagent by default, main agent with `fast`).
   - `ui-audit` -> `action/ui-audit/SKILL.md` (read-only UI, accessibility, state-completeness, and AI-slop audit of pages, components, or live URLs).
   - `doc` (`docs`) -> `action/doc/SKILL.md` (distill reusable session knowledge into `docs/design/`, `docs/rule/`, `docs/guide/`, `docs/note/`, `docs/story/`, or `docs/GLOSSARY.md`).
 - **Full workflow (`/loegg <task>` or `/loegg agent <task>`)**: For general tasks, select an execution mode (`mode/`), apply any triggered utilities (`util/`), and follow the matched playbook below.
@@ -44,6 +47,7 @@ Remaining triggers during a task:
 - About to ask the user "which approach / how should I / what should this do" -> classify the fork first. If the answer is a fact observable by running something (behavior, timing, layout, output, perf), it is not the user's to answer: settle it via `playbooks/prototype.md` or a throwaway check. Ask only for a product or preference call no experiment can settle.
 - A skill, playbook, or check in this repo is broken or contradicts itself mid-task -> fix it as a separate change (or report it in Direct Mode when the fix is out of scope). Do not block on it and do not silently work around it.
 
+- The user asks to sharpen or deepen a prompt before sending it ("프롬프트 다듬어줘", "이 요청 더 깊게 만들어줘", `sharpen`) -> read `action/sharpen/SKILL.md`. In Direct Mode, a vague request that needs a deep result (research, comparison, performance, debugging) gets one line in your first message naming what `/loegg sharpen` would add; do not run it. In Agent Mode, never run or suggest `sharpen` on your own judgment.
 - Underspecified requirements or high-leverage open design decisions before building -> read `action/grill/SKILL.md`.
 - Designing or reshaping module boundaries, core types, or public signatures where jumping straight to code risks locking in the wrong shape ("이거 아키텍처/구조 설계해봐", "타입/인터페이스부터 잡아줘", `architect`) -> read `action/architect/SKILL.md`.
 - Questions about how code works, runtime/control flow, or where code belongs ("이건 어떻게 동작해?", "코드 흐름이 어떻게 돼?", "어디에 넣어야 해?", `how`) -> read `action/how/SKILL.md`.
@@ -58,8 +62,10 @@ Remaining triggers during a task:
 - Long, autonomous, multi-phase, or unattended work the user will review later ("끝까지 알아서 해", "자고 올게", Agent Mode) -> keep a decision trail via `util/decision-log/SKILL.md`.
 - Explicit pause, going offline, or imminent context compaction ("여기서 멈춰", "내일 이어서") -> follow `playbooks/pause-safely.md`.
 - Reflecting on the session to improve checks, skills, or rules ("이번 세션 회고해봐", "배운 거 스킬/규칙에 반영해봐", `reflect`) -> read `action/reflect/SKILL.md`.
+- The user corrects a mistake agents already made before in this repo, or asks to stop a recurring mistake ("또 같은 실수야", "이 실수 다시 못 하게 해줘", `correct`) -> read `action/correct/SKILL.md`.
 - Root-cause bug investigation or complex codebase/architecture Q&A requiring multi-subagent parallel analysis (`analyze`) -> read `action/analyze/SKILL.md`.
 - Review current changes, including deep/multi-angle change review -> read `action/review/SKILL.md`, which selects `review runners` when arena is needed.
+- Simplify recently changed code without changing behavior ("코드 단순화해줘", "방금 바꾼 코드 정리해줘", `simplify`) -> read `action/simplify/SKILL.md`.
 - Review feedback received -> verify each claim against the actual code, requirements, and verification evidence before applying requested fixes. Reject incorrect or scope-expanding suggestions with reasons; receiving feedback alone does not authorize edits or change the read-only `review` action.
 - Read-only audit of UI/frontend pages, components, or live URLs for AI-slop, accessibility, responsive layout, or missing UI states ("UI 점검해봐", "디자인/퍼블리싱 검수해봐", `ui-audit`) -> read `action/ui-audit/SKILL.md`.
 - Capture or update project documentation from session learnings (`doc`, `docs`) -> read `action/doc/SKILL.md`.
@@ -107,7 +113,7 @@ Apply the matching principles below as you work; each entry states when it trigg
 
 **Meta**
 
-- **Encode Lessons in Structure.** Writing the same instruction twice or noticing a recurring mistake. Encode the rule as a lint check, type constraint, metadata flag, runtime check, or script rather than adding more prose.
+- **Encode Lessons in Structure.** Writing the same instruction twice or noticing a recurring mistake. Encode the rule as a lint check, type constraint, metadata flag, runtime check, or script rather than adding more prose. For a repo-wide pass, run `action/correct/SKILL.md`.
 
 ## Autonomy
 
