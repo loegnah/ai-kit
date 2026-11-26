@@ -22,7 +22,7 @@ Only `action/` entries can be invoked directly as standalone commands (`mode/` a
   - `why` -> `action/why/SKILL.md` (trace historical motivation, design rationale, and tradeoffs across git, PRs, issues, docs, and MCPs with confidence tiers).
   - `teach` -> `action/teach/SKILL.md` (explain how and why a subsystem or change works).
   - `show-me` (`show`) -> `action/show-me/SKILL.md` (visualize code, flows, or changes; choose between inline views and Archify).
-  - `archify` -> `action/archify/SKILL.md` (create a source-grounded, verified diagram artifact with the installed Archify skill).
+  - `archify` -> `action/archify/SKILL.md` (create a source-grounded, verified diagram artifact with the Archify bundled in `action/archify/vendor/`).
   - `statechart` -> `action/statechart/SKILL.md` (explicit only; check a TLA+ model with pstack and show its statechart and rule-violation paths).
   - `blast-radius` -> `action/blast-radius/SKILL.md` (trace downstream impact).
   - `interrogate` -> `action/interrogate/SKILL.md` (adversarial review).

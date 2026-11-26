@@ -1,4 +1,8 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "ignorePatterns": ["skills/**/superpowers/**", "skills/**/hallmark/**"]
+  "ignorePatterns": [
+    "skills/**/superpowers/**",
+    "skills/**/hallmark/**",
+    "skills/**/archify/vendor/**"
+  ]
 }

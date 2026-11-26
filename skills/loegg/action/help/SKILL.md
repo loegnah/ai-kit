@@ -27,7 +27,7 @@ Can be invoked one-shot via `/loegg <action>` or triggered during a workflow:
 - **`why`** (`why/SKILL.md`): Investigate historical motivation and design rationale across git, PRs, issues, docs, and MCPs with strict confidence tiers (`/loegg why <question>`).
 - **`teach`** (`teach/SKILL.md`): Explain how and why a subsystem works (`/loegg teach <topic>`).
 - **`show-me`** (`show-me/SKILL.md`): Use inline views for quick explanations, or Archify when a detailed diagram needs to preserve important relationships or be shared (`/loegg show-me [topic]`).
-- **`archify`** (`archify/SKILL.md`): Go straight to a reproducible, verified diagram artifact using the installed Archify skill (`/loegg archify [topic]`).
+- **`archify`** (`archify/SKILL.md`): Go straight to a reproducible, verified diagram artifact using the bundled Archify (`/loegg archify [topic]`).
 - **`statechart`** (`statechart/SKILL.md`): Model-check state transitions and show rule-violation paths with pstack (`/loegg statechart [spec or behavior]`). Reuses shared tools and asks before downloading anything.
 - **`blast-radius`** (`blast-radius/SKILL.md`): Investigate downstream breakage (`/loegg blast-radius [target]`).
 - **`interrogate`** (`interrogate/SKILL.md`): Adversarial review (`/loegg interrogate [target]`).

@@ -1,6 +1,13 @@
 {
   "version": 2,
   "skills": {
+    "archify": {
+      "source": "archify.si",
+      "sourceType": "well-known",
+      "skillPath": "skills/loegg/action/archify/vendor/SKILL.md",
+      "computedHash": "1d42254f9bb871cf7d231e7a621c62eb255d2fc10e39518443924f273a570e5b",
+      "installMode": "copy"
+    },
     "architect": {
       "source": "backnotprop/pstack",
       "sourceType": "github",
